@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src*"],
+      "@services/*": ["src/services/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@store/*": ["src/store/*"],
+      "@assets/*": ["src/assets/*"],
+      "@constants/*": ["src/constants/*"],
+      "@model/*": ["src/model/*"],
+      "@components/*": ["src/components/*"],
+      "@customTypes/*": ["src/types/*"],
+      "@utils/*": ["src/utils/*"],
+      "@app/*": ["src/app/*"],
+      "@pages/*": ["src/pages/*"],
+    },
+
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "lib": ["DOM", "ESNext"],
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true ,
+    "resolveJsonModule": true,
+    "allowJs": true ,
+    "checkJs": true ,
+    "outDir": "dist",
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationDir": "types",
+    "sourceMap": true,
+
+  },
+
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+
+  "exclude": ["node_modules", "dist", "build", ".vscode","src/**/*.test.tsx","src/**/*.stories.tsx"],
+
+  "include": ["typings/*.d.ts", "**/*.ts", "**/*.tsx"]
+}
