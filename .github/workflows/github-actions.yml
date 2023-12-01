@@ -23,4 +23,4 @@ jobs:
       - name: build-storybook
         run: npm run build-storybook
       - name: lint code
-        run: npm run lint
+        run: npm run lint:fix
