@@ -9,7 +9,6 @@ import babel from '@rollup/plugin-babel';
 import eslint from '@rollup/plugin-eslint';
 import alias from '@rollup/plugin-alias';
 import styles from "rollup-plugin-styles";
-import path from 'path';
 const packageJson = require('./package.json');
 
 export default [
@@ -31,8 +30,8 @@ export default [
         plugins: [
             alias({
               entries: [
-                { find: '@', replacement: path.resolve('./src')},
-                { find: '@components', replacement: path.resolve('./src/components')},
+                { find: /^@\/(.*)/, replacement: 'src/$1' },
+                { find: /^@components\/(.*)/, replacement: 'src/components/$1' },
               ]
             }),
             external(),
