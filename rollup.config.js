@@ -41,6 +41,8 @@ export default [
             commonjs(),
             typescript({ 
               tsconfig: './tsconfig.json',
+              declaration: true,
+              declarationDir: 'dist',
               exclude: [
                 'node_modules',
                 /\.test.((js|jsx|ts|tsx))$/,
@@ -56,7 +58,7 @@ export default [
         external: ["react", "react-dom", "styled-components"],
     },
     {
-        input: 'dist/esm/types/index.d.ts',
+        input: 'dist/esm/index.d.ts',
         output: [{ file: 'dist/index.d.ts', format: "esm" }],
         external: [/\.css$/],
         plugins: [dts.default()],

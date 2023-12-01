@@ -38,6 +38,7 @@
     "declaration": true,
     "declarationDir": "types",
     "sourceMap": true,
+    "rootDir": "src"
 
   },
 
