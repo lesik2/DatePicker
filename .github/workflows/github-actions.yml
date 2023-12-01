@@ -20,7 +20,5 @@ jobs:
         run: npm install --force
       - name: build project
         run: npm run build
-      - name: build-storybook
-        run: npm run build-storybook
       - name: lint code
         run: npm run lint:fix
