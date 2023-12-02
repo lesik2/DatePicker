@@ -32,6 +32,9 @@ export default [
               entries: [
                 { find: /^@\/(.*)/, replacement: 'src/$1' },
                 { find: /^@components\/(.*)/, replacement: 'src/components/$1' },
+                { find: /^@customTypes\/(.*)/, replacement: 'src/types/$1' },
+                { find: /^@constants\/(.*)/, replacement: 'src/constants/$1' },
+                { find: /^@assets\/(.*)/, replacement: 'src/assets/$1' },
               ]
             }),
             external(),

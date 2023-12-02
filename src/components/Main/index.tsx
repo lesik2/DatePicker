@@ -1,9 +1,9 @@
 import {JSX} from 'react'
 
-export function index(): JSX.Element {
+export function Main(): JSX.Element {
   return (
     <div>
-      Hello world
+      hi
     </div>
   )
 }
