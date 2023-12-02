@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import {IDate} from '@customTypes/index';
 
-export const DateCell = styled.button<{$type: IDate['type'] }>`
+export const DateWrapper = styled.button<{$type: IDate['type'] }>`
   ${({theme, $type}) => css`
   background-color: ${() => {
     if ($type === 'selected') {
@@ -27,9 +27,11 @@ export const DateCell = styled.button<{$type: IDate['type'] }>`
     padding: 10px;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s;
+    transition: background-color 0.2s, border-radius 0.2s;
+    cursor: ${$type === 'disabled'? '':'pointer'};
     &:hover{
-      background-color: ${$type === 'default'?theme.colors.hover: ''}
+      background-color: ${$type === 'default'?theme.colors.hover: ''};
+      border-radius: 8px;
     }
   `}
 `

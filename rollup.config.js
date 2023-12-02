@@ -9,6 +9,7 @@ import babel from '@rollup/plugin-babel';
 import eslint from '@rollup/plugin-eslint';
 import alias from '@rollup/plugin-alias';
 import styles from "rollup-plugin-styles";
+import image from '@rollup/plugin-image';
 const packageJson = require('./package.json');
 
 export default [
@@ -57,6 +58,7 @@ export default [
             babel({ babelHelpers: 'bundled' }),
             eslint(),
             styles(),
+            image(),  
         ],
         external: ["react", "react-dom", "styled-components"],
     },

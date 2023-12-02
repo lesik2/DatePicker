@@ -1,4 +1,6 @@
+export type TypeOfDate = 'default'| 'disabled'|'start'|'selected'|'between';
+
 export interface IDate{
-  type: 'default'| 'disabled'|'start'|'selected'|'between';
+  type: TypeOfDate;
   dateNumber: number;
 }

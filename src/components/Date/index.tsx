@@ -1,15 +1,15 @@
 import {JSX} from 'react'
 import { IDate } from '@customTypes/index';
 
-import { DateCell, NumberOfDate } from './styled';
+import { DateWrapper, NumberOfDate } from './styled';
 
-export function Date({type,dateNumber }: IDate): JSX.Element{
+export function DateCell({type,dateNumber }: IDate): JSX.Element{
   return (
-    <DateCell $type={type} disabled={type==='disabled'}>
+    <DateWrapper $type={type} disabled={type==='disabled'}>
       <NumberOfDate $type={type}>
         {dateNumber}
       </NumberOfDate>
-    </DateCell>
+    </DateWrapper>
 
   )
 }

@@ -1,9 +1,14 @@
-import {JSX} from 'react'
+import {JSX, ReactElement} from 'react'
 
-export function Main(): JSX.Element {
+import { Wrapper } from './styled'
+
+export interface IMain{
+  children: ReactElement[]
+}
+export function Main({children}: IMain): JSX.Element {
   return (
-    <div>
-      hi
-    </div>
+    <Wrapper>
+      {children}
+    </Wrapper>
   )
 }

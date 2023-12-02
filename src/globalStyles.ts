@@ -6,6 +6,9 @@ const GlobalStyle = createGlobalStyle`
     *, *::before,*::after {
       box-sizing: border-box;
     }
+    body{
+      font-family: 'Open Sans';
+    }
     ol, ul {
       list-style: none;
     }

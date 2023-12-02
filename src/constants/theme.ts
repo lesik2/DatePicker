@@ -11,7 +11,7 @@ export const theme = {
 
   },
   fontFamily: {
-    font: ["Open Sans",'Times', 'Times New Roman', 'Georgia'],
+    font: ["Open Sans"],
   },
   fontWeight: {
     medium: '600',
