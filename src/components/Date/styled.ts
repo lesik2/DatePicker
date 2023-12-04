@@ -27,11 +27,11 @@ export const DateWrapper = styled.button<{$type: IDate['type'] }>`
     padding: 10px;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.2s, border-radius 0.2s;
+    border-radius: 8px;
+    transition: background-color 0.2s;
     cursor: ${$type === 'disabled'? '':'pointer'};
     &:hover{
       background-color: ${$type === 'default'?theme.colors.hover: ''};
-      border-radius: 8px;
     }
   `}
 `

@@ -9,7 +9,7 @@ import { Wrapper } from './styled'
 import { ICreateCalendar } from '../../types/index'
 
 export function Calendar({
-  dates, date, startWeekFrom, isShowHolidays 
+  dates, date, startWeekFrom, isShowHolidays
 }: ICreateCalendar): JSX.Element {
   const year = date?date.getFullYear(): 1;
   const month = date? date.toLocaleString('default', { month: 'long' }): '';

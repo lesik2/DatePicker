@@ -3,6 +3,7 @@ import {Component} from 'react';
 
 
 import { changeVisibilityOfWeekend } from './changeVisibilityOfWeekend';
+import {changeTypeOfCalendar} from './changeTypeOfCalendar'
 
 import { Calendar } from '../components/Calendar';
 import { ICalendarService, ICalendarServiceState, ICreateCalendar } from '../types';
@@ -24,8 +25,8 @@ export class CalendarService extends Component<ICreateCalendar,ICalendarServiceS
   render(): JSX.Element{
     const {currentDate} = this.state;
     const {type='month',isShowHolidays=true,startWeekFrom='Mo'} = this.props;
-    const dates = getCalendarDates(currentDate.getFullYear(),currentDate.getMonth(), startWeekFrom);
-    const DecoratedCalendar = changeVisibilityOfWeekend(Calendar)
+    const dates = getCalendarDates(currentDate, startWeekFrom);
+    const DecoratedCalendar = changeTypeOfCalendar(changeVisibilityOfWeekend(Calendar))
 
     return (
         <DecoratedCalendar  
