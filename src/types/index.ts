@@ -20,3 +20,4 @@ export interface ICreateCalendar{
   readonly dates?: IDate[];
   readonly date?: Date;
 }
+export type ICalendar = Required<ICreateCalendar>

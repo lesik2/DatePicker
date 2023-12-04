@@ -1,60 +1,85 @@
 import { IDate, TypeStartWeekFrom } from "../types/index";
 
 
+export const indexesOfWeekends = {
+  'Sa':6,
+  'Su': 0,
+  'lastIndexOfWeek': 6,
+}
 
+export const getDaysForCurrentMonth = (
+  totalDaysInMonth: number, 
+  startOfMonth: Date,
+  calendarDates: IDate[]
+  ): void => {
+  for (let i = 1; i <= totalDaysInMonth; i += 1) {
+    const currentDate = startOfMonth.getDay();
+    calendarDates.push({
+      dateNumber: i,
+      type: 'default',
+      weekend: currentDate === indexesOfWeekends.Sa || currentDate === indexesOfWeekends.Su,
+    });
+    startOfMonth.setDate(i+1);
+  }
+}
 
-// eslint-disable-next-line max-len
-export function getCalendarDates(year: number, month: number, startWeekFrom: TypeStartWeekFrom): IDate[] {
-  const calendarDates: IDate[] = [];
-  const startDate: Date = new Date(year, month, 1);
-  const endDate: Date = new Date(year, month + 1, 0);
-
-  let startDayOfWeek: number = startDate.getDay();
+export const getDaysForPrevMonth = (
+  startOfMonth: Date, 
+  prevMonthDays: number, 
+  calendarDates: IDate[],
+  startWeekFrom: TypeStartWeekFrom ): void => {
+  let startDayOfWeek: number = startOfMonth.getDay();
   if (startWeekFrom === 'Mo') {
-    startDayOfWeek = (startDayOfWeek + 6) % 7;
+    startDayOfWeek = (startDayOfWeek + indexesOfWeekends.lastIndexOfWeek) % 7;
   }
 
-  const prevMonthEndDate: Date = new Date(year, month, 0);
-  const prevMonthDays: number = prevMonthEndDate.getDate();
-
   let dateNumber: number = prevMonthDays - startDayOfWeek + 1;
-
   for (let i = 0; i < startDayOfWeek; i += 1) {
     calendarDates.push({
       dateNumber,
       type: 'disabled',
-      weekend: i===5,
+      weekend: i=== indexesOfWeekends.Sa-1,
     });
     dateNumber += 1;
   }
+}
 
-  const totalDaysInMonth: number = endDate.getDate();
-  for (let i = 1; i <= totalDaysInMonth; i += 1) {
-    const currentDate = startDate.getDay();
-    calendarDates.push({
-      dateNumber: i,
-      type: 'default',
-      weekend: currentDate===0 || currentDate === 6,
-    });
-    startDate.setDate(i+1);
-  }
-
-  let endDayOfWeek: number = endDate.getDay();
+export const getDaysForNextMonth = (
+  startWeekFrom: TypeStartWeekFrom, 
+  endOfMonth: Date,
+  calendarDates: IDate[]
+  ): void => {
+  let endDayOfWeek: number = endOfMonth.getDay();
   if (startWeekFrom === 'Mo' && endDayOfWeek === 0) {
-    endDayOfWeek = 6;
+    endDayOfWeek = indexesOfWeekends.lastIndexOfWeek;
   }
 
-  const remainingDays: number = startWeekFrom === 'Mo' ? 6 - endDayOfWeek : 6 - endDayOfWeek;
+  const remainingDays: number =  indexesOfWeekends.lastIndexOfWeek - endDayOfWeek;
   for (let i = 1; i <= remainingDays; i += 1) {
     calendarDates.push({
       dateNumber: i,
       type: 'disabled',
-      weekend: i===5 || i===6,
+      weekend: i===indexesOfWeekends.Sa-1 || i===indexesOfWeekends.lastIndexOfWeek,
     });
   }
+}
+
+export function getCalendarDates(
+  year: number, month: number, startWeekFrom: TypeStartWeekFrom
+  ): IDate[] {
+  const calendarDates: IDate[] = [];
+
+  const startOfMonth: Date = new Date(year, month, 1);
+  const endOfMonth: Date = new Date(year, month + 1, 0);
+  const prevMonthEndDate: Date = new Date(year, month, 0);
+
+  getDaysForPrevMonth(startOfMonth,prevMonthEndDate.getDate(),calendarDates, startWeekFrom);
+  getDaysForCurrentMonth(endOfMonth.getDate(), startOfMonth, calendarDates);
+  getDaysForNextMonth(startWeekFrom,endOfMonth, calendarDates);
 
   return calendarDates;
 }
+
 
 export function removeWeekdayDates(dates: IDate[]): IDate[]{
   return dates.filter((date)=>!date.weekend)

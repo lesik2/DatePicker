@@ -6,7 +6,7 @@ import {Weekday} from '@components/Weekday/index'
 
 import { Wrapper } from './styled'
 
-import { ICreateCalendar} from '../../types/index'
+import { ICreateCalendar } from '../../types/index'
 
 export function Calendar({
   dates, date, startWeekFrom, isShowHolidays 
