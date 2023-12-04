@@ -4,14 +4,18 @@ import prev from '@assets/icons/prev.svg';
 
 import { Icon, NavButton, Wrapper, Title } from './styled'
 
-export function Navigation(): JSX.Element {
+export interface INavigation{
+  month: string;
+  year: number;
+}
+export function Navigation({year, month }: INavigation): JSX.Element {
   return (
     <Wrapper>
       <NavButton>
         <Icon  alt='previous month button' src={prev}/>
       </NavButton>
       <Title>
-        November 2022
+        {month} {year}
       </Title>
       <NavButton>
         <Icon  alt='next month button' src={next}/>

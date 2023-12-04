@@ -6,23 +6,29 @@ import {Weekday} from '@components/Weekday/index'
 
 import { Wrapper } from './styled'
 
-import { getCalendarDates } from '../../utils/index';
+import { ICreateCalendar} from '../../types/index'
 
-export function Calendar(): JSX.Element {
-  const currentDate: Date = new Date();
-  const year = currentDate.getFullYear();
-  const month  = currentDate.getMonth();
+export function Calendar({
+  dates, date, startWeekFrom, isShowHolidays 
+}: ICreateCalendar): JSX.Element {
+  const year = date?date.getFullYear(): 1;
+  const month = date? date.toLocaleString('default', { month: 'long' }): '';
+  const startWeek  = startWeekFrom?? 'Mo'
+  const showHolidays = isShowHolidays?? true;
 
   return (
     <Wrapper>
-      <Navigation />
-      <Weekday />
-      <Main>
-        {getCalendarDates(year, month).map((date, index)=>(
-          // eslint-disable-next-line react/no-array-index-key
-          <DateCell key={index} {...date}/>
-        ))}
-      </Main>
+      <Navigation year={year} month={month}/>
+      <Weekday startWeekFrom={startWeek} showHolidays={showHolidays}/>
+      {
+        dates && 
+        <Main showHolidays={showHolidays}>
+          {dates.map((dateItem, index)=>(
+            // eslint-disable-next-line react/no-array-index-key
+            <DateCell key={index} {...dateItem}/>
+          ))}
+        </Main>
+      }
     </Wrapper>
   )
 }

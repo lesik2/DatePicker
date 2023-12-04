@@ -1,45 +1,61 @@
-import { IDate } from "../types/index";
+import { IDate, TypeStartWeekFrom } from "../types/index";
 
-export function getCalendarDates(year: number, month: number): IDate[] {
+
+
+
+// eslint-disable-next-line max-len
+export function getCalendarDates(year: number, month: number, startWeekFrom: TypeStartWeekFrom): IDate[] {
   const calendarDates: IDate[] = [];
-  const startOfMonth: Date = new Date(year, month, 1);
-  const endOfMonth: Date = new Date(year, month + 1, 0);
+  const startDate: Date = new Date(year, month, 1);
+  const endDate: Date = new Date(year, month + 1, 0);
 
-  let startDayOfWeek: number = startOfMonth.getDay();
-  if(startDayOfWeek!== 1){
-    startDayOfWeek = startDayOfWeek === 0?7:startDayOfWeek;
-    const endOfPrevMonth: Date = new Date(year,month,0);
-    for(let i=0;i<startDayOfWeek-1;i+=1){
-      const dateNumber: number = endOfPrevMonth.getDate() - startDayOfWeek + 2 + i;
-      calendarDates.push({ dateNumber, type: 'disabled' });
-    }
+  let startDayOfWeek: number = startDate.getDay();
+  if (startWeekFrom === 'Mo') {
+    startDayOfWeek = (startDayOfWeek + 6) % 7;
   }
 
-  while (startOfMonth <= endOfMonth) {
-    const dateNumber: number = startOfMonth.getDate();
-    calendarDates.push({ dateNumber, type: 'default' });
-    startOfMonth.setDate(startOfMonth.getDate() + 1);
+  const prevMonthEndDate: Date = new Date(year, month, 0);
+  const prevMonthDays: number = prevMonthEndDate.getDate();
+
+  let dateNumber: number = prevMonthDays - startDayOfWeek + 1;
+
+  for (let i = 0; i < startDayOfWeek; i += 1) {
+    calendarDates.push({
+      dateNumber,
+      type: 'disabled',
+      weekend: i===5,
+    });
+    dateNumber += 1;
   }
-  
-  const endDayOfWeek: number = endOfMonth.getDay();
-  if(endDayOfWeek !==0){
-    for (let i = 0; i < 7 - endDayOfWeek; i += 1) {
-      const dateNumber: number = i + 1;
-      calendarDates.push({ dateNumber, type: 'disabled' });
-    }
+
+  const totalDaysInMonth: number = endDate.getDate();
+  for (let i = 1; i <= totalDaysInMonth; i += 1) {
+    const currentDate = startDate.getDay();
+    calendarDates.push({
+      dateNumber: i,
+      type: 'default',
+      weekend: currentDate===0 || currentDate === 6,
+    });
+    startDate.setDate(i+1);
+  }
+
+  let endDayOfWeek: number = endDate.getDay();
+  if (startWeekFrom === 'Mo' && endDayOfWeek === 0) {
+    endDayOfWeek = 6;
+  }
+
+  const remainingDays: number = startWeekFrom === 'Mo' ? 6 - endDayOfWeek : 6 - endDayOfWeek;
+  for (let i = 1; i <= remainingDays; i += 1) {
+    calendarDates.push({
+      dateNumber: i,
+      type: 'disabled',
+      weekend: i===5 || i===6,
+    });
   }
 
   return calendarDates;
 }
 
-export function getDatesStartWithSunday(dates: IDate[]): IDate[] {
-  const adjustedDates = [...dates];
-
-  for (let i= 0; i < adjustedDates.length / 7; i+=1) {
-    const sundayIndex = i * 7 + 6;
-    const sunday = adjustedDates.splice(sundayIndex, 1)[0];
-    adjustedDates.unshift(sunday);
-  }
-
-  return adjustedDates;
+export function removeWeekdayDates(dates: IDate[]): IDate[]{
+  return dates.filter((date)=>!date.weekend)
 }

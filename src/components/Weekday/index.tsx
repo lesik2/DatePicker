@@ -1,13 +1,23 @@
 import {JSX} from 'react'
-import { WEEKDAY_FROM_MO } from '@constants/index';
 
 import { WeekDayCell, WeekDayText, Wrapper } from './styled'
 
-export function Weekday(): JSX.Element {
+import { TypeStartWeekFrom } from '../../types/index'
+import {WEEKDAY_FROM_MO, WEEKDAY_FROM_SU} from '../../constants/index'
+
+export interface IWeekday{
+  startWeekFrom: TypeStartWeekFrom;
+  showHolidays: boolean;
+}
+export function Weekday({startWeekFrom, showHolidays}: IWeekday): JSX.Element {
+  let weekday = startWeekFrom === 'Mo'?WEEKDAY_FROM_MO:WEEKDAY_FROM_SU;
+
+  weekday = showHolidays?weekday: weekday.filter((day)=>day!=='Sa' && day !=='Su');
+
   return (
     <Wrapper>
-      {WEEKDAY_FROM_MO.map((day)=>(
-        <WeekDayCell key={day}>
+      {weekday.map((day)=>(
+        <WeekDayCell $showHolidays = {showHolidays} key={day}>
           <WeekDayText>
             {day}
           </WeekDayText>

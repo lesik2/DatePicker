@@ -5,13 +5,15 @@ export const Wrapper = styled.div`
     width: 230px;
 
 `
-export const WeekDayCell = styled.div`
-    display: flex;
-    height: 32px;
-    width: 32px;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
+export const WeekDayCell = styled.div<{$showHolidays?: boolean}>`
+    ${({$showHolidays}) => css`
+      display: flex;
+      height: 32px;
+      width: ${$showHolidays? '32px': '46px'};
+      padding: 10px;
+      justify-content: center;
+      align-items: center;
+  `}
 `
 export const WeekDayText = styled.p`
   ${({theme}) => css`

@@ -1,13 +1,14 @@
-import {JSX, ReactElement} from 'react'
+import {JSX} from 'react'
 
 import { Wrapper } from './styled'
 
 export interface IMain{
-  children: ReactElement[]
+  children: JSX.Element|JSX.Element[];
+  showHolidays: boolean;
 }
-export function Main({children}: IMain): JSX.Element {
+export function Main({children, showHolidays}: IMain): JSX.Element {
   return (
-    <Wrapper>
+    <Wrapper $showHolidays = {showHolidays}>
       {children}
     </Wrapper>
   )
