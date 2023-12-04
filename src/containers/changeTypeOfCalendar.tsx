@@ -5,10 +5,10 @@ import { ICreateCalendar } from '../types';
 
 export const changeTypeOfCalendar = (Component: ComponentType<ICreateCalendar>) =>
   (props: ICreateCalendar): JSX.Element => {
-    const { type, dates } = props;
+    const { type, dates,date, startWeekFrom  } = props;
 
-    if (type==='week' && dates) {
-      const datesWithoutWeekend = changeTypeOfCalendarToWeek(dates);
+    if (type==='week' && dates && date && startWeekFrom) {
+      const datesWithoutWeekend = changeTypeOfCalendarToWeek(dates, date, startWeekFrom );
 
       return (
         <Component 

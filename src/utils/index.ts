@@ -4,7 +4,7 @@ import { IDate, TypeStartWeekFrom } from "../types/index";
 export const indexesOfWeekends = {
   'Sa':6,
   'Su': 0,
-  'lastIndexOfWeek': 6,
+  'lastIndexOfWeek': 7,
 }
 
 export const getDaysForCurrentMonth = (
@@ -12,12 +12,13 @@ export const getDaysForCurrentMonth = (
   startOfMonth: Date,
   calendarDates: IDate[],
   currentDay: number,
+  select: boolean,
   ): void => {
   for (let i = 1; i <= totalDaysInMonth; i += 1) {
     const currentDate = startOfMonth.getDay();
     calendarDates.push({
       dateNumber: i,
-      type: currentDay === i? 'selected':'default',
+      type: currentDay === i && select? 'selected':'default',
       weekend: currentDate === indexesOfWeekends.Sa || currentDate === indexesOfWeekends.Su,
     });
     startOfMonth.setDate(i+1);
@@ -31,7 +32,7 @@ export const getDaysForPrevMonth = (
   startWeekFrom: TypeStartWeekFrom ): void => {
   let startDayOfWeek: number = startOfMonth.getDay();
   if (startWeekFrom === 'Mo') {
-    startDayOfWeek = (startDayOfWeek + indexesOfWeekends.lastIndexOfWeek) % 7;
+    startDayOfWeek = (startDayOfWeek + indexesOfWeekends.lastIndexOfWeek-1) % 7;
   }
 
   let dateNumber: number = prevMonthDays - startDayOfWeek + 1;
@@ -55,29 +56,40 @@ export const getDaysForNextMonth = (
     endDayOfWeek = indexesOfWeekends.lastIndexOfWeek;
   }
 
-  const remainingDays: number =  indexesOfWeekends.lastIndexOfWeek - endDayOfWeek;
+  const remainingDays: number =  startWeekFrom === 'Mo'?
+  indexesOfWeekends.lastIndexOfWeek - endDayOfWeek: 
+  indexesOfWeekends.lastIndexOfWeek-1 - endDayOfWeek
+
   for (let i = 1; i <= remainingDays; i += 1) {
+    // eslint-disable-next-line max-len
+    const isWeekend: boolean = (endDayOfWeek + i) % 7 === indexesOfWeekends.Sa || (endDayOfWeek + i) % 7 === indexesOfWeekends.Su;
     calendarDates.push({
       dateNumber: i,
       type: 'disabled',
-      weekend: i===indexesOfWeekends.Sa-1 || i===indexesOfWeekends.lastIndexOfWeek,
+      weekend: isWeekend,
     });
   }
 }
 
 export function getCalendarDates(
-  currentDate: Date, startWeekFrom: TypeStartWeekFrom
+  changeDate: Date, startWeekFrom: TypeStartWeekFrom, currentDate: Date
   ): IDate[] {
   const calendarDates: IDate[] = [];
 
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
+  const year = changeDate.getFullYear();
+  const month = changeDate.getMonth();
   const startOfMonth: Date = new Date(year, month, 1);
   const endOfMonth: Date = new Date(year, month + 1, 0);
   const prevMonthEndDate: Date = new Date(year, month, 0);
 
   getDaysForPrevMonth(startOfMonth,prevMonthEndDate.getDate(),calendarDates, startWeekFrom);
-  getDaysForCurrentMonth(endOfMonth.getDate(), startOfMonth, calendarDates, currentDate.getDate());
+  getDaysForCurrentMonth(
+    endOfMonth.getDate(), 
+    startOfMonth, calendarDates, 
+    currentDate.getDate(), 
+    currentDate.getMonth() === changeDate.getMonth() 
+    && currentDate.getFullYear() === changeDate.getFullYear()
+    );
   getDaysForNextMonth(startWeekFrom,endOfMonth, calendarDates);
 
   return calendarDates;
@@ -88,15 +100,26 @@ export function removeWeekdayDates(dates: IDate[]): IDate[]{
   return dates.filter((date)=>!date.weekend)
 }
 
-export const changeTypeOfCalendarToWeek = (dates: IDate[], ): IDate[]=>{
-  const week: IDate[] =[];
-  for(let i=0;i<dates.length;i+=7){
-    const arr = dates.slice(i,i+7);
-    if(arr.some((date)=>date.type === 'selected')){
-      week.push(...arr);
-      break;
-    }
+export const changeTypeOfCalendarToWeek = (
+   dates: IDate[],
+   date: Date, 
+   startWeekFrom: 
+   TypeStartWeekFrom
+   ): IDate[] => {
+  const numberOfDate = date.getDate();
+  const dayOfWeek = date.getDay();
+  const week: IDate[] = [];
+
+  const firstDayOfWeek = new Date(date.getFullYear(), date.getMonth(), numberOfDate - dayOfWeek);
+  if (startWeekFrom === 'Su') {
+    firstDayOfWeek.setDate(firstDayOfWeek.getDate()-1)
+  } 
+  
+  const matchingDateIndex = dates.findIndex((item) =>item.dateNumber === firstDayOfWeek.getDate());
+
+  if (matchingDateIndex !== -1) {
+    week.push(...dates.slice(matchingDateIndex, matchingDateIndex + 7));
   }
 
-  return week.length>0?week: dates.slice(0,7);
-}
+  return week;
+};

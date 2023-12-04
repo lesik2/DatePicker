@@ -13,9 +13,13 @@ export const NavButton = styled.button`
   outline: none;
   background-color: ${theme.colors.secondary};
   cursor: pointer;
+  padding: 0px;
   height: 16px;
   width: 16px;
-  padding: 0px;
+  transition: transform 0.3s;
+  &:hover{
+    transform: scale(1.2);
+  }
 `};
 `
 export const Icon  = styled.img`
