@@ -31,3 +31,4 @@ node_modules
 # Ignore configuration files
 *.eslintrc.js
 rollup.config.js
+storybook-static
