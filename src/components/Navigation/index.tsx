@@ -1,4 +1,4 @@
-import {JSX} from 'react'
+import {JSX, memo} from 'react'
 import next from '@assets/icons/next.svg';
 import prev from '@assets/icons/prev.svg';
 
@@ -10,9 +10,9 @@ export interface INavigation{
   handleNextDate?: () => void;
   handlePrevDate?: () => void;
 }
-export function Navigation({
+export const Navigation  = memo(({
   year, month, handleNextDate, handlePrevDate 
-}: INavigation): JSX.Element {
+}: INavigation): JSX.Element => {
   const handleClickPrev = ()=>{
     if(handlePrevDate){
       handlePrevDate();
@@ -40,4 +40,4 @@ export function Navigation({
     </Wrapper>
     
   )
-}
+})

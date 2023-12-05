@@ -1,4 +1,4 @@
-import {JSX} from 'react'
+import {JSX, memo} from 'react'
 
 import { WeekDayCell, WeekDayText, Wrapper } from './styled'
 
@@ -9,7 +9,7 @@ export interface IWeekday{
   startWeekFrom: TypeStartWeekFrom;
   showHolidays: boolean;
 }
-export function Weekday({startWeekFrom, showHolidays}: IWeekday): JSX.Element {
+export const Weekday =  memo(({startWeekFrom, showHolidays}: IWeekday): JSX.Element => {
   let weekday = startWeekFrom === 'Mo'?WEEKDAY_FROM_MO:WEEKDAY_FROM_SU;
 
   weekday = showHolidays?weekday: weekday.filter((day)=>day!=='Sa' && day !=='Su');
@@ -25,4 +25,4 @@ export function Weekday({startWeekFrom, showHolidays}: IWeekday): JSX.Element {
       ))}
     </Wrapper>
   )
-}
+})
