@@ -3,7 +3,6 @@ export type TypeOfDate = 'default'| 'disabled'|'start'|'selected'|'between';
 export interface IDate{
   type: TypeOfDate;
   dateNumber: number;
-  weekend: boolean;
 }
 export type TypeOfCalendar = 'month'|'week';
 export type TypeStartWeekFrom = 'Mo'|'Su';

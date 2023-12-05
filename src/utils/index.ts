@@ -15,11 +15,9 @@ export const getDaysForCurrentMonth = (
   select: boolean,
   ): void => {
   for (let i = 1; i <= totalDaysInMonth; i += 1) {
-    const currentDate = startOfMonth.getDay();
     calendarDates.push({
       dateNumber: i,
       type: currentDay === i && select? 'selected':'default',
-      weekend: currentDate === indexesOfWeekends.Sa || currentDate === indexesOfWeekends.Su,
     });
     startOfMonth.setDate(i+1);
   }
@@ -40,7 +38,6 @@ export const getDaysForPrevMonth = (
     calendarDates.push({
       dateNumber,
       type: 'disabled',
-      weekend: i=== indexesOfWeekends.Sa-1,
     });
     dateNumber += 1;
   }
@@ -61,12 +58,9 @@ export const getDaysForNextMonth = (
   indexesOfWeekends.lastIndexOfWeek-1 - endDayOfWeek
 
   for (let i = 1; i <= remainingDays; i += 1) {
-    // eslint-disable-next-line max-len
-    const isWeekend: boolean = (endDayOfWeek + i) % 7 === indexesOfWeekends.Sa || (endDayOfWeek + i) % 7 === indexesOfWeekends.Su;
     calendarDates.push({
       dateNumber: i,
       type: 'disabled',
-      weekend: isWeekend,
     });
   }
 }
@@ -96,8 +90,15 @@ export function getCalendarDates(
 }
 
 
-export function removeWeekdayDates(dates: IDate[]): IDate[]{
-  return dates.filter((date)=>!date.weekend)
+export function removeWeekdayDates(dates: IDate[],startWeekFrom: TypeStartWeekFrom ): IDate[]{
+  const datesWithoutWeekend: IDate[] = [];
+  for(let i=0;i<dates.length;i+=7){
+    let week = dates.slice(i, i+7);
+    week = startWeekFrom === 'Mo'?week.slice(0,5): week.slice(1,6);
+    datesWithoutWeekend.push(...week);
+  }
+
+  return datesWithoutWeekend;
 }
 
 export const changeTypeOfCalendarToWeek = (
