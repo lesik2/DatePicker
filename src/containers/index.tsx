@@ -40,7 +40,11 @@ export class CalendarService extends Component<ICreateCalendar,ICalendarServiceS
   
     let newDate: Date | null = null;
     if (type === 'month') {
-      newDate = new Date(changeDate.getFullYear(), changeDate.getMonth() + monthDiff, 1);
+      newDate = new Date(
+        changeDate.getFullYear(),
+        changeDate.getMonth() + monthDiff,
+        changeDate.getDate()
+        );
     } else if (type === 'week') {
       newDate = new Date(
         changeDate.getFullYear(), 
