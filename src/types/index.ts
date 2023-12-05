@@ -22,4 +22,5 @@ export interface ICreateCalendar{
   readonly handlePrevDate?: () => void,
   readonly handleNextDate?: () => void,
 }
+export type IServiceCalendar = Pick<ICreateCalendar, 'type'|'isShowHolidays'|'startWeekFrom'>
 export type ICalendar = Required<ICreateCalendar>

@@ -6,13 +6,13 @@ import { changeVisibilityOfWeekend } from './changeVisibilityOfWeekend';
 import {changeTypeOfCalendar} from './changeTypeOfCalendar'
 
 import { Calendar } from '../components/Calendar';
-import { ICalendarServiceState, ICreateCalendar } from '../types';
+import { ICalendarServiceState, ICreateCalendar, IServiceCalendar } from '../types';
 import {getCalendarDates} from '../utils/index';
 
 
 
 
-export class CalendarService extends Component<ICreateCalendar,ICalendarServiceState>{
+export class CalendarService extends Component<IServiceCalendar,ICalendarServiceState>{
 
   constructor(props: ICreateCalendar){
     super(props);
