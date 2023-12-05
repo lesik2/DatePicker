@@ -11,5 +11,8 @@ type Story = StoryObj<typeof CalendarService>;
 
 export const FirstStory: Story = {
   args:{
+    type: 'month',
+    isShowHolidays: true,
+    startWeekFrom: 'Mo',
   }
 }

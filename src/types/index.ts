@@ -14,13 +14,13 @@ export interface ICalendarService{
 
 }
 export interface ICreateCalendar{
-  type?: TypeOfCalendar;
-  isShowHolidays?: boolean;
-  startWeekFrom?: TypeStartWeekFrom;
-  readonly dates?: IDate[];
-  readonly date?: Date;
-  readonly handlePrevDate?: () => void,
-  readonly handleNextDate?: () => void,
+  type: TypeOfCalendar;
+  isShowHolidays: boolean;
+  startWeekFrom: TypeStartWeekFrom;
+  dates: IDate[];
+  date: Date;
+  handlePrevDate: () => void,
+  handleNextDate: () => void,
 }
-export type IServiceCalendar = Pick<ICreateCalendar, 'type'|'isShowHolidays'|'startWeekFrom'>
+export type IServiceCalendar = Pick<Partial<ICreateCalendar>, 'type'|'isShowHolidays'|'startWeekFrom'>
 export type ICalendar = Required<ICreateCalendar>

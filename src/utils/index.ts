@@ -65,6 +65,11 @@ export const getDaysForNextMonth = (
   }
 }
 
+export function isCurrentDate(currentDate: Date, changeDate: Date): boolean{
+  return currentDate.getMonth() === changeDate.getMonth() && 
+  currentDate.getFullYear() === changeDate.getFullYear()
+}
+
 export function getCalendarDates(
   changeDate: Date, startWeekFrom: TypeStartWeekFrom, currentDate: Date
   ): IDate[] {
@@ -79,15 +84,16 @@ export function getCalendarDates(
   getDaysForPrevMonth(startOfMonth,prevMonthEndDate.getDate(),calendarDates, startWeekFrom);
   getDaysForCurrentMonth(
     endOfMonth.getDate(), 
-    startOfMonth, calendarDates, 
+    startOfMonth, 
+    calendarDates, 
     currentDate.getDate(), 
-    currentDate.getMonth() === changeDate.getMonth() 
-    && currentDate.getFullYear() === changeDate.getFullYear()
+    isCurrentDate(currentDate, changeDate)
     );
   getDaysForNextMonth(startWeekFrom,endOfMonth, calendarDates);
 
   return calendarDates;
 }
+
 
 
 export function removeWeekdayDates(dates: IDate[],startWeekFrom: TypeStartWeekFrom ): IDate[]{

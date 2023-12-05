@@ -6,7 +6,7 @@ import { changeVisibilityOfWeekend } from './changeVisibilityOfWeekend';
 import {changeTypeOfCalendar} from './changeTypeOfCalendar'
 
 import { Calendar } from '../components/Calendar';
-import { ICalendarServiceState, ICreateCalendar, IServiceCalendar } from '../types';
+import { ICalendarServiceState, IServiceCalendar } from '../types';
 import {getCalendarDates} from '../utils/index';
 
 
@@ -14,7 +14,7 @@ import {getCalendarDates} from '../utils/index';
 
 export class CalendarService extends Component<IServiceCalendar,ICalendarServiceState>{
 
-  constructor(props: ICreateCalendar){
+  constructor(props: IServiceCalendar){
     super(props);
     this.state = {
       currentDate: new Date(),
@@ -61,7 +61,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
 
   render(): JSX.Element{
     const {currentDate, changeDate} = this.state;
-    const {type='month',isShowHolidays=true,startWeekFrom='Mo'} = this.props;
+    const {type='month', isShowHolidays=true, startWeekFrom='Mo'} = this.props;
     const dates = getCalendarDates(changeDate, startWeekFrom, currentDate);
     const DecoratedCalendar = changeTypeOfCalendar(changeVisibilityOfWeekend(Calendar))
 

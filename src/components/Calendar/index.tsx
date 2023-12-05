@@ -11,10 +11,8 @@ import { ICreateCalendar } from '../../types/index'
 export function Calendar({
   dates, date, startWeekFrom, isShowHolidays, handleNextDate, handlePrevDate
 }: ICreateCalendar): JSX.Element {
-  const year = date?date.getFullYear(): 1;
-  const month = date? date.toLocaleString('default', { month: 'long' }): '';
-  const startWeek  = startWeekFrom?? 'Mo'
-  const showHolidays = isShowHolidays?? true;
+  const year = date.getFullYear();
+  const month = date.toLocaleString('default', { month: 'long' });
 
   return (
     <Wrapper>
@@ -24,10 +22,10 @@ export function Calendar({
         handleNextDate={handleNextDate} 
         handlePrevDate={handlePrevDate}
       />
-      <Weekday startWeekFrom={startWeek} showHolidays={showHolidays}/>
+      <Weekday startWeekFrom={startWeekFrom} showHolidays={isShowHolidays}/>
       {
         dates && 
-        <Main showHolidays={showHolidays}>
+        <Main showHolidays={isShowHolidays}>
           {dates.map((dateItem, index)=>(
             // eslint-disable-next-line react/no-array-index-key
             <DateCell key={index} {...dateItem}/>

@@ -7,7 +7,7 @@ export const changeTypeOfCalendar = (Component: ComponentType<ICreateCalendar>) 
   (props: ICreateCalendar): JSX.Element => {
     const { type, dates,date, startWeekFrom  } = props;
 
-    if (type==='week' && dates && date && startWeekFrom) {
+    if (type==='week') {
       const datesWithoutWeekend = changeTypeOfCalendarToWeek(dates, date, startWeekFrom );
 
       return (
