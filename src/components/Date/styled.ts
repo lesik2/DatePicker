@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import {IDate} from '@customTypes/index';
 
+
 export const DateWrapper = styled.button<{$type: IDate['type'] }>`
   ${({theme, $type}) => css`
   background-color: ${() => {
@@ -27,11 +28,11 @@ export const DateWrapper = styled.button<{$type: IDate['type'] }>`
     padding: 10px;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.2s, border-radius 0.2s;
+    border-radius: 8px;
+    transition: background-color 0.2s;
     cursor: ${$type === 'disabled'? '':'pointer'};
     &:hover{
-      background-color: ${$type === 'default'?theme.colors.hover: ''};
-      border-radius: 8px;
+      background-color: ${$type === 'default'|| $type === 'holiday'?theme.colors.hover: ''};
     }
   `}
 `
@@ -48,6 +49,10 @@ export const NumberOfDate = styled.p<{$type: IDate['type'] }>`
 
     if($type === 'disabled' ){
       return theme.colors.disabled;
+    }
+
+    if($type === 'holiday'){
+      return theme.colors.holiday;
     }
 
       return theme.colors.primary;
