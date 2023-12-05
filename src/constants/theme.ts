@@ -8,6 +8,7 @@ export const theme = {
     disabled: '#AAA',
     hover: '#F1F1F1',
     primary: '#333',
+    holiday: '#ff0000',
 
   },
   fontFamily: {

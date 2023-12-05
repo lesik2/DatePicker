@@ -1,4 +1,4 @@
-import { IDate, TypeStartWeekFrom } from "../types/index";
+import { IDate, IHolidays, TypeStartWeekFrom } from "../types/index";
 
 
 export const indexesOfWeekends = {
@@ -130,3 +130,24 @@ export const changeTypeOfCalendarToWeek = (
 
   return week;
 };
+
+export const colorHolidays = (holidays: IHolidays[], dates: IDate[], date: Date): IDate[] => {
+  const holidayDates = [...dates];
+  const currentHolidays = holidays.filter((holiday)=>{
+    const holidayDate = new Date(holiday.date);
+
+    return holidayDate.getMonth() === date.getMonth()
+  })
+
+ currentHolidays.forEach((holiday)=>{
+  const holidayDate = new Date(holiday.date);
+
+  const dateIndex = holidayDates.findIndex((item)=>item.dateNumber === holidayDate.getDate());
+
+  if(dateIndex !== -1){
+    holidayDates[dateIndex].type = 'holiday';
+  }
+ })
+
+ return holidayDates;
+}
