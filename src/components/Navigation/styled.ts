@@ -18,7 +18,7 @@ export const NavButton = styled.button<{$isDisabled?: boolean}>`
   width: 16px;
   transition: transform 0.3s;
   &:hover{
-    transform: ${$isDisabled?'1':'1.2'};
+    transform: ${$isDisabled?'scale(1)':'scale(1.2)'};
   }
 `};
 `
