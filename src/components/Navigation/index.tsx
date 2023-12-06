@@ -9,9 +9,11 @@ export interface INavigation{
   year: number;
   handleNextDate?: () => void;
   handlePrevDate?: () => void;
+  isDisablePrev: boolean;
+  isDisableNext: boolean;
 }
 export const Navigation  = memo(({
-  year, month, handleNextDate, handlePrevDate 
+  year, month, handleNextDate, handlePrevDate,isDisablePrev, isDisableNext
 }: INavigation): JSX.Element => {
   const handleClickPrev = ()=>{
     if(handlePrevDate){
@@ -28,14 +30,14 @@ export const Navigation  = memo(({
 
   return (
     <Wrapper>
-      <NavButton onClick={handleClickPrev}>
-        <Icon  alt='previous month button' src={prev}/>
+      <NavButton disabled={isDisablePrev} $isDisabled={isDisablePrev} onClick={handleClickPrev}>
+        <Icon $isDisabled={isDisablePrev}  alt='previous month button' src={prev}/>
       </NavButton>
       <Title>
         {month} {year}
       </Title>
-      <NavButton onClick={handleClickNext}>
-        <Icon  alt='next month button' src={next}/>
+      <NavButton disabled={isDisableNext} $isDisabled={isDisableNext} onClick={handleClickNext}>
+        <Icon $isDisabled={isDisableNext}  alt='next month button' src={next}/>
       </NavButton>
     </Wrapper>
     

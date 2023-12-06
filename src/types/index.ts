@@ -9,6 +9,10 @@ export type TypeStartWeekFrom = 'Mo'|'Su';
 export interface ICalendarServiceState{
   currentDate: Date;
   changeDate: Date;
+  min: Date|null;
+  max: Date|null;
+  isDisablePrev: boolean;
+  isDisableNext: boolean;
 }
 export interface ICreateCalendar{
   type: TypeOfCalendar;
@@ -19,8 +23,14 @@ export interface ICreateCalendar{
   date: Date;
   handlePrevDate: () => void,
   handleNextDate: () => void,
+  isDisablePrev: boolean;
+  isDisableNext: boolean;
 }
-export type IServiceCalendar = Pick<Partial<ICreateCalendar>, 'type'|'isShowHolidays'|'startWeekFrom'|'isColorHolidays'>
+export interface ILimitDate{
+  min?: string;
+  max?: string;
+}
+export type IServiceCalendar = Pick<Partial<ICreateCalendar>, 'type'|'isShowHolidays'|'startWeekFrom'|'isColorHolidays'> & ILimitDate;
 export type ICalendar = Required<ICreateCalendar>
 export interface IHolidays{
   date: string;

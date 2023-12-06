@@ -8,7 +8,6 @@ import clear from '../../assets/icons/clear.svg';
 export const DateInput = memo((): JSX.Element => {
   const [dateInput, setDateInput] = useState('');
   const handleClick = ()=>{
-
   }
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {

@@ -10,7 +10,8 @@ import { Wrapper,CalendarWrapper } from './styled'
 import { ICreateCalendar } from '../../types/index'
 
 export function Calendar({
-  dates, date, startWeekFrom, isShowHolidays, handleNextDate, handlePrevDate
+  dates, date, startWeekFrom, isShowHolidays, handleNextDate, 
+  handlePrevDate, isDisableNext, isDisablePrev
 }: ICreateCalendar): JSX.Element {
   const year = date.getFullYear();
   const month = date.toLocaleString('en-US', { month: 'long' });
@@ -24,6 +25,9 @@ export function Calendar({
             month={month} 
             handleNextDate={handleNextDate} 
             handlePrevDate={handlePrevDate}
+            isDisableNext={isDisableNext}
+            isDisablePrev={isDisablePrev}
+            
           />
           <Weekday startWeekFrom={startWeekFrom} showHolidays={isShowHolidays}/>
           {

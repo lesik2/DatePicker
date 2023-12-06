@@ -139,15 +139,15 @@ export const colorHolidays = (holidays: IHolidays[], dates: IDate[], date: Date)
     return holidayDate.getMonth() === date.getMonth()
   })
 
- currentHolidays.forEach((holiday)=>{
-  const holidayDate = new Date(holiday.date);
+  currentHolidays.forEach((holiday)=>{
+    const holidayDate = new Date(holiday.date);
 
-  const dateIndex = holidayDates.findIndex((item)=>item.dateNumber === holidayDate.getDate());
+    const dateIndex = holidayDates.findIndex((item)=>item.dateNumber === holidayDate.getDate());
 
-  if(dateIndex !== -1){
-    holidayDates[dateIndex].type = 'holiday';
-  }
- })
+    if(dateIndex !== -1){
+      holidayDates[dateIndex].type = 'holiday';
+    }
+  })
 
- return holidayDates;
+  return holidayDates;
 }
