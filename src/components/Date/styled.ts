@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import {IDate} from '@customTypes/index';
 
 
-export const DateWrapper = styled.button<{$type: IDate['type'] }>`
+export const DateWrapper = styled.button<{$type?: IDate['type'] }>`
   ${({theme, $type}) => css`
   background-color: ${() => {
     if ($type === 'selected') {
@@ -36,8 +36,8 @@ export const DateWrapper = styled.button<{$type: IDate['type'] }>`
     }
   `}
 `
-export const NumberOfDate = styled.p<{$type: IDate['type'] }>`
-  ${({theme, $type}) => css`
+export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean }>`
+  ${({theme, $type, $task}) => css`
   color: ${() => {
     if ($type === 'selected' || $type === 'start') {
       return theme.colors.secondary;
@@ -58,10 +58,21 @@ export const NumberOfDate = styled.p<{$type: IDate['type'] }>`
       return theme.colors.primary;
     
   }};
+    position:relative;
     font-size: 13px;
     font-style: normal;
     font-weight: ${theme.fontWeight.medium}
     line-height: normal;
+    &::before{
+      content: '';
+      position: absolute;
+      display: ${$task?'block':'none'};
+      width: 5px;
+      height: 5px;
+      top: -6px;
+      right: -9px;
+      border-radius: 50%;
+      background-color: ${$type==='default'|| $type ==='holiday'?theme.colors.third: theme.colors.secondary}
+    }
   `}
-
 `

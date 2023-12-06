@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
     justify-content: center;
     font-family: ${theme.fontFamily.font};
     gap: 8px;
-    
+
 `};
 `
 export const CalendarWrapper = styled.div`
@@ -23,6 +23,7 @@ export const CalendarWrapper = styled.div`
     border-radius: 8px;
     border: 1px solid ${theme.colors.border};
     background: ${theme.colors.secondary};
+    position: relative;
     
 `};
 `

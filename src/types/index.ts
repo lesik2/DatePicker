@@ -38,3 +38,7 @@ export interface IHolidays{
   name: string;
   countryCode: string;
 }
+export interface INote{
+  text: string;
+  id: number
+}

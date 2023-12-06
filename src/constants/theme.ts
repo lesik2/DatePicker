@@ -21,6 +21,7 @@ export const theme = {
     bold: '700',
   },
   zIndex: {
+    modal: 1000,
   },
   breakPoints: {
   },
