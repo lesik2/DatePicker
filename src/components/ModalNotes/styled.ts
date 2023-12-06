@@ -27,12 +27,33 @@ export const Title = styled.h3`
 
 `};
 `
+export const EmptyMessage = styled.p`
+  ${({ theme }) => css`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: ${theme.colors.default};
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`};
+`
 export const ListNotes = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: center;
-  height: 180px;
+  height: 140px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
 `
 export const NoteWrapper = styled.div`
   display: flex;

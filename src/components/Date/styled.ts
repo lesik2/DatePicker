@@ -61,7 +61,7 @@ export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean }>`
     position:relative;
     font-size: 13px;
     font-style: normal;
-    font-weight: ${theme.fontWeight.medium}
+    font-weight: ${theme.fontWeight.medium};
     line-height: normal;
     &::before{
       content: '';

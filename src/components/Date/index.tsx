@@ -9,18 +9,13 @@ import { Modal } from '../Modal';
 
 export function DateCell({type,dateNumber }: IDate): JSX.Element{
   const [isOpen, setIsOpen] = useState(false);
-  const [notes, setNotes] = useState<INote[]>([
-    {text: 'Implement max and min limit', id: 1},{text: 'Prepare for interview', id:2}
-  ])
-
-  // eslint-disable-next-line no-console
-  console.log(setNotes);
+  const [notes, setNotes] = useState<INote[]>([])
   const handleClose = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(false);
   };
 
   const handleDoubleClick = () =>{
-    setIsOpen(!isOpen);
+    setIsOpen(true);
   }
 
   return (
@@ -30,7 +25,7 @@ export function DateCell({type,dateNumber }: IDate): JSX.Element{
       </NumberOfDate>
       {isOpen && 
         <Modal onClose={handleClose}>
-          <ModalNotes notes={notes} />
+          <ModalNotes notes={notes} setNotes={setNotes} />
         </Modal>
       }
     </DateWrapper>

@@ -7,6 +7,8 @@ import {
   Wrapper,
 } from './styled';
 
+import { Portal } from '../Portal';
+
 
 export interface IModal {
   onClose: () => void;
@@ -14,6 +16,7 @@ export interface IModal {
 }
 export function Modal({ onClose, children }: IModal): JSX.Element {
   return (
+    <Portal>
       <Wrapper>
         <Content>
           {children}
@@ -22,5 +25,6 @@ export function Modal({ onClose, children }: IModal): JSX.Element {
           </Close>
         </Content>
       </Wrapper>
+    </Portal>
   );
 }
