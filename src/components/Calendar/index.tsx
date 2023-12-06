@@ -35,7 +35,7 @@ export function Calendar({
             <Main showHolidays={isShowHolidays}>
               {dates.map((dateItem, index)=>(
                 // eslint-disable-next-line react/no-array-index-key
-                <DateCell key={index} {...dateItem}/>
+                <DateCell key={index} {...dateItem} date={date}/>
               ))}
             </Main>
           }

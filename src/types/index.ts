@@ -4,6 +4,7 @@ export interface IDate{
   type: TypeOfDate;
   dateNumber: number;
 }
+export type IDateComponent = IDate & {date: Date};
 export type TypeOfCalendar = 'month'|'week';
 export type TypeStartWeekFrom = 'Mo'|'Su';
 export interface ICalendarServiceState{
