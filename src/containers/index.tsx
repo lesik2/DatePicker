@@ -31,52 +31,27 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
   }
 
   componentDidUpdate(_prevProps: Readonly<IServiceCalendar>,
-     prevState: Readonly<ICalendarServiceState>): void {
+    prevState: Readonly<ICalendarServiceState>): void {
     const { changeDate, min, max } = this.state;
     const {type} = this.props;
-    if (changeDate.getTime() !== prevState.changeDate.getTime() && min&& max) {
+    if (changeDate.getTime() !== prevState.changeDate.getTime() && min && max) {
       const prevMonth = new Date(min.getFullYear(), min.getMonth()+1,0);
-      const dif = (type ==='week'?7:prevMonth.getDate()-min.getDate())* 86400000;
-      const res = min.getTime()< changeDate.getTime()-dif;
+      const difMin = (type ==='week'?7:prevMonth.getDate()-min.getDate())* 86400000;
+      const resMin = min.getTime()< changeDate.getTime()-difMin;
 
-      const dif2 = (type ==='week'?7:max.getDate())* 86400000;
-      const res2 = max.getTime()>changeDate.getTime()+dif2;
-      this.setState({isDisablePrev: !res, isDisableNext: !res2})
+      const difMax = (type ==='week'?7:max.getDate())* 86400000;
+      const resMax = max.getTime()>changeDate.getTime()+difMax;
+      this.setState({isDisablePrev: !resMin, isDisableNext: !resMax})
     }
   }
 
   handlePrevDate(): void {
-    const {min, changeDate} = this.state;
-    const { type } = this.props;
-    if(min&& type){
-      const prevMonth = new Date(min.getFullYear(), min.getMonth()+1,0);
-      const dif = (type ==='week'?7:prevMonth.getDate()-min.getDate())* 86400000;
-      const res = min.getTime()< changeDate.getTime()-dif;
-      if(res){
-        this.updateDate(-1);
-      }
-
-      this.setState({isDisablePrev: !res, isDisableNext: false})
-    }else{
-      this.updateDate(-1);
-    }
+    this.updateDate(-1);
   }
 
 
   handleNextDate(): void {
-    const {changeDate, max} = this.state;
-    const { type } = this.props;
-    if(max && type){
-      const dif = (type ==='week'?7:max.getDate())* 86400000;
-      const res = max.getTime()>changeDate.getTime()+dif;
-      if(res){
-        this.updateDate(1);
-      }
-
-      this.setState({isDisableNext: !res, isDisablePrev: false})
-    }else{
-      this.updateDate(1);
-    }
+    this.updateDate(1);
   }
 
   // eslint-disable-next-line class-methods-use-this
