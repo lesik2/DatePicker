@@ -2,10 +2,7 @@ import {useEffect, useState} from 'react';
 
 import { IHolidays } from '../types';
 
-
-
 export const CountryCode = 'BY';
-
 
 export function useHolidays(year: number): IHolidays[]{
   const [holidays, setHolidays] = useState<IHolidays[]>([]);

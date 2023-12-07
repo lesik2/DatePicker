@@ -1,4 +1,4 @@
-import {JSX} from 'react'
+import {JSX, memo} from 'react'
 import next from '@assets/icons/next.svg';
 import prev from '@assets/icons/prev.svg';
 
@@ -9,10 +9,12 @@ export interface INavigation{
   year: number;
   handleNextDate?: () => void;
   handlePrevDate?: () => void;
+  isDisablePrev: boolean;
+  isDisableNext: boolean;
 }
-export function Navigation({
-  year, month, handleNextDate, handlePrevDate 
-}: INavigation): JSX.Element {
+export const Navigation  = memo(({
+  year, month, handleNextDate, handlePrevDate,isDisablePrev, isDisableNext
+}: INavigation): JSX.Element => {
   const handleClickPrev = ()=>{
     if(handlePrevDate){
       handlePrevDate();
@@ -28,16 +30,16 @@ export function Navigation({
 
   return (
     <Wrapper>
-      <NavButton onClick={handleClickPrev}>
-        <Icon  alt='previous month button' src={prev}/>
+      <NavButton disabled={isDisablePrev} $isDisabled={isDisablePrev} onClick={handleClickPrev}>
+        <Icon $isDisabled={isDisablePrev}  alt='previous month button' src={prev}/>
       </NavButton>
       <Title>
         {month} {year}
       </Title>
-      <NavButton onClick={handleClickNext}>
-        <Icon  alt='next month button' src={next}/>
+      <NavButton disabled={isDisableNext} $isDisabled={isDisableNext} onClick={handleClickNext}>
+        <Icon $isDisabled={isDisableNext}  alt='next month button' src={next}/>
       </NavButton>
     </Wrapper>
     
   )
-}
+})

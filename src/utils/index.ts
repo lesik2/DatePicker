@@ -139,15 +139,45 @@ export const colorHolidays = (holidays: IHolidays[], dates: IDate[], date: Date)
     return holidayDate.getMonth() === date.getMonth()
   })
 
- currentHolidays.forEach((holiday)=>{
-  const holidayDate = new Date(holiday.date);
+  currentHolidays.forEach((holiday)=>{
+    const holidayDate = new Date(holiday.date);
 
-  const dateIndex = holidayDates.findIndex((item)=>item.dateNumber === holidayDate.getDate());
+    const dateIndex = holidayDates.findIndex((item)=>item.dateNumber === holidayDate.getDate());
 
-  if(dateIndex !== -1){
-    holidayDates[dateIndex].type = 'holiday';
+    if(dateIndex !== -1){
+      holidayDates[dateIndex].type = 'holiday';
+    }
+  })
+
+  return holidayDates;
+}
+
+export const disableMinDates = (dates: IDate[], minDate: Date|null): IDate[]=>{
+  let  newDates = [...dates];
+  if(minDate){
+    newDates = newDates.map((date)=>{
+      if(date.dateNumber<minDate.getDate()){
+        return {...date, type:'disabled'}
+      }
+
+      return date;
+    })
   }
- })
 
- return holidayDates;
+  return newDates;
+}
+
+export const disableMaxDates = (dates: IDate[], maxDate: Date|null): IDate[]=>{
+  let newDates = [...dates];
+  if(maxDate){
+    newDates = newDates.map((date)=>{
+      if(date.dateNumber>maxDate.getDate()){
+        return {...date, type:'disabled'}
+      }
+
+      return date;
+    })
+  }
+
+  return newDates;
 }

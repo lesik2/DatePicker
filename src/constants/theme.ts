@@ -9,6 +9,8 @@ export const theme = {
     hover: '#F1F1F1',
     primary: '#333',
     holiday: '#ff0000',
+    border: '#E1E1E1',
+    placeholder: '#BBB',
 
   },
   fontFamily: {
@@ -19,6 +21,7 @@ export const theme = {
     bold: '700',
   },
   zIndex: {
+    modal: 1000,
   },
   breakPoints: {
   },
