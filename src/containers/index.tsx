@@ -4,6 +4,7 @@ import {Component} from 'react';
 import { changeVisibilityOfWeekend } from './changeVisibilityOfWeekend';
 import {changeTypeOfCalendar} from './changeTypeOfCalendar'
 import {colorHolidaysDays} from './colorHolidaysDays'
+import {disableLimit} from './disableLimit'
 
 import { Calendar } from '../components/Calendar';
 import { ICalendarServiceState, IServiceCalendar } from '../types';
@@ -26,10 +27,8 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
     }
     this.handlePrevDate = this.handlePrevDate.bind(this);
     this.handleNextDate = this.handleNextDate.bind(this);
-
-    
   }
-
+  
   componentDidUpdate(_prevProps: Readonly<IServiceCalendar>,
     prevState: Readonly<ICalendarServiceState>): void {
     const { changeDate, min, max } = this.state;
@@ -45,6 +44,8 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
     }
   }
 
+
+
   handlePrevDate(): void {
     this.updateDate(-1);
   }
@@ -52,6 +53,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
   handleNextDate(): void {
     this.updateDate(1);
   }
+
 
   // eslint-disable-next-line class-methods-use-this
   defineLimitationsForDate(inputOfLimit: string|undefined): null| Date{
@@ -92,18 +94,21 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
   }
 
   render(): JSX.Element{
-    const {currentDate, changeDate, isDisableNext, isDisablePrev, min, max} = this.state;
+    const { currentDate, changeDate, isDisableNext, isDisablePrev, min, max } = this.state;
+
     const {type='month', isShowHolidays=true, startWeekFrom='Mo', isColorHolidays = true} = this.props;
 
     const dates = getCalendarDates(changeDate, startWeekFrom, currentDate);
     
     const DecoratedCalendar = colorHolidaysDays(
-      changeTypeOfCalendar(
+        disableLimit(
+        changeTypeOfCalendar(
         changeVisibilityOfWeekend(
           Calendar
           )
         )
       )
+    )
 
     return (
         <DecoratedCalendar  

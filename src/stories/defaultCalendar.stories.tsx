@@ -16,5 +16,6 @@ export const FirstStory: Story = {
     startWeekFrom: 'Mo',
     min: '15/11/2023',
     max: '08/07/2024',
+    isColorHolidays: true,
   }
 }

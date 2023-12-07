@@ -164,6 +164,7 @@ export const disableMinDates = (dates: IDate[], minDate: Date|null): IDate[]=>{
     })
   }
 
+
   return newDates;
 }
 
@@ -178,6 +179,27 @@ export const disableMaxDates = (dates: IDate[], maxDate: Date|null): IDate[]=>{
       return date;
     })
   }
+
+  return newDates;
+}
+
+export const rangeDates = (dates: IDate[], start: number, end: number): IDate[]=>{
+  let newDates = [...dates];
+  newDates = newDates.map((date)=>{
+    if(date.type === 'disabled'){
+      return date;
+    }
+
+    if(date.dateNumber>start && date.dateNumber < end){
+      return {...date, type:'between'}
+    }
+
+    if(date.dateNumber === end){
+      return {...date, type:'end'}
+    }
+
+    return date;
+  })
 
   return newDates;
 }

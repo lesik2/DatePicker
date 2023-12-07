@@ -8,10 +8,9 @@ import { Modal } from '../Modal/index';
 import { getNotesForDate } from '../../utils/notes';
 
 
-export function DateCell({type,dateNumber, date }: IDateComponent): JSX.Element{
+export function DateCell({type,dateNumber, date, incrementOfClicks }: IDateComponent): JSX.Element{
   const dateLocal = new Date(date.getFullYear(), date.getMonth(),dateNumber);
   const [isOpen, setIsOpen] = useState(false);
-
   const [notes, setNotes] = useState<INote[]>([])
   const handleClose = () => {
     setIsOpen(false);
@@ -19,6 +18,10 @@ export function DateCell({type,dateNumber, date }: IDateComponent): JSX.Element{
 
   const handleDoubleClick = () =>{
     setIsOpen(true);
+  }
+
+  const handleClick = () => {
+    incrementOfClicks(dateNumber);
   }
 
   useEffect(()=>{
@@ -31,7 +34,7 @@ export function DateCell({type,dateNumber, date }: IDateComponent): JSX.Element{
   
   return (
     <>
-    <DateWrapper onDoubleClick={handleDoubleClick} $type={type} disabled={type==='disabled'}>
+    <DateWrapper onClick={handleClick} onDoubleClick={handleDoubleClick} $type={type} disabled={type==='disabled'}>
       <NumberOfDate $type={type} $task={notes.length>0}>
         {dateNumber}
       </NumberOfDate>
