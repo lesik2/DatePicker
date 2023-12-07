@@ -1,8 +1,9 @@
-export type TypeOfDate = 'default'| 'disabled'|'start'|'selected'|'between'|'holiday'|'end';
+export type TypeOfDate = 'default'| 'disabled'|'start'|'selected'|'between'|'end';
 
 export interface IDate{
   type: TypeOfDate;
   dateNumber: number;
+  holiday?: boolean;
 }
 export type IDateComponent = IDate & {date: Date,incrementOfClicks: (numberOfDate: number) => void};
 export type TypeOfCalendar = 'month'|'week';

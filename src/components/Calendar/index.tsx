@@ -37,6 +37,10 @@ export function Calendar({
     }
     else if(start >0){
       const startDates: IDate[] = datesOfCalendar.map((item)=>{
+        if(item.type === 'disabled' || item.type === 'selected'){
+          return item;
+        }
+
         if(item.dateNumber === start){
           return {...item, type: 'start'};
         }
@@ -51,7 +55,7 @@ export function Calendar({
   return (
     <Wrapper>
       <DateInput />
-      <CalendarWrapper>
+      <CalendarWrapper $clear={start>0}>
           <Navigation
             year={year} 
             month={month} 
@@ -76,7 +80,7 @@ export function Calendar({
             </Main>
           }
       </CalendarWrapper>
-      <ClearButton />
+      {start > 0 && <ClearButton />}
     </Wrapper>
     
   )

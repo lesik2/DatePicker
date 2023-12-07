@@ -145,7 +145,7 @@ export const colorHolidays = (holidays: IHolidays[], dates: IDate[], date: Date)
     const dateIndex = holidayDates.findIndex((item)=>item.dateNumber === holidayDate.getDate());
 
     if(dateIndex !== -1){
-      holidayDates[dateIndex].type = 'holiday';
+      holidayDates[dateIndex].holiday = true;
     }
   })
 
@@ -186,7 +186,7 @@ export const disableMaxDates = (dates: IDate[], maxDate: Date|null): IDate[]=>{
 export const rangeDates = (dates: IDate[], start: number, end: number): IDate[]=>{
   let newDates = [...dates];
   newDates = newDates.map((date)=>{
-    if(date.type === 'disabled'){
+    if(date.type === 'disabled' || date.type === 'selected'){
       return date;
     }
 

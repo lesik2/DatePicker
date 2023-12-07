@@ -10,8 +10,8 @@ export const Wrapper = styled.div`
 
 `};
 `
-export const CalendarWrapper = styled.div`
- ${({ theme }) => css`
+export const CalendarWrapper = styled.div<{$clear?: boolean}>`
+ ${({ theme, $clear }) => css`
     display: flex;
     padding: 10px;
     flex-direction: column;
@@ -19,7 +19,7 @@ export const CalendarWrapper = styled.div`
     justify-content: center;
     font-family: ${theme.fontFamily.font};
     width: 250px;
-    border-radius: 8px 8px 0px 0px;
+    border-radius: ${$clear?'8px 8px 0px 0px':'8px'};
     border: 1px solid ${theme.colors.border};
     background: ${theme.colors.secondary};
     position: relative;

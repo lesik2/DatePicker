@@ -47,32 +47,32 @@ export const DateWrapper = styled.button<{$type?: IDate['type'] }>`
     transition: background-color 0.2s;
     cursor: ${$type === 'disabled'? '':'pointer'};
     &:hover{
-      background-color: ${$type === 'default'|| $type === 'holiday'?theme.colors.hover: ''};
+      background-color: ${$type === 'default'?theme.colors.hover: ''};
     }
   `}
 `
-export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean }>`
-  ${({theme, $type, $task}) => css`
-  color: ${() => {
-    if ($type === 'selected' || $type === 'start'||$type ==='end') {
-      return theme.colors.secondary;
-    }
+export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean, $holiday?: boolean }>`
+  ${({theme, $type, $task, $holiday}) => css`
+    color: ${() => {
+      if($holiday){
+        return theme.colors.holiday;
+      }
 
-    if ($type === 'between') {
-      return theme.colors.third;
-    }
+      if ($type === 'selected' || $type === 'start'||$type ==='end') {
+        return theme.colors.secondary;
+      }
 
-    if($type === 'disabled' ){
-      return theme.colors.disabled;
-    }
+      if ($type === 'between') {
+        return theme.colors.third;
+      }
 
-    if($type === 'holiday'){
-      return theme.colors.holiday;
-    }
-
-      return theme.colors.primary;
-    
-  }};
+      if($type === 'disabled' ){
+        return theme.colors.disabled;
+      }
+      
+        return theme.colors.primary;
+      
+    }};
     position:relative;
     font-size: 13px;
     font-style: normal;
