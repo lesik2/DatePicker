@@ -26,6 +26,8 @@ export interface ICreateCalendar{
   handleNextDate: () => void,
   isDisablePrev: boolean;
   isDisableNext: boolean;
+  min: Date|null;
+  max: Date|null;
 }
 export interface ILimitDate{
   min?: string;

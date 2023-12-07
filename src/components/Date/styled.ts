@@ -72,7 +72,7 @@ export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean }>`
       top: -6px;
       right: -9px;
       border-radius: 50%;
-      background-color: ${$type==='default'|| $type ==='holiday'?theme.colors.third: theme.colors.secondary}
+      background-color: ${$type==='default'|| $type ==='holiday'||$type==='disabled'?theme.colors.third: theme.colors.secondary}
     }
   `}
 `

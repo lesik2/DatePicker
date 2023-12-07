@@ -49,7 +49,6 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
     this.updateDate(-1);
   }
 
-
   handleNextDate(): void {
     this.updateDate(1);
   }
@@ -93,7 +92,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
   }
 
   render(): JSX.Element{
-    const {currentDate, changeDate, isDisableNext, isDisablePrev} = this.state;
+    const {currentDate, changeDate, isDisableNext, isDisablePrev, min, max} = this.state;
     const {type='month', isShowHolidays=true, startWeekFrom='Mo', isColorHolidays = true} = this.props;
 
     const dates = getCalendarDates(changeDate, startWeekFrom, currentDate);
@@ -118,6 +117,8 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
           handleNextDate = {this.handleNextDate} 
           isDisableNext={isDisableNext}
           isDisablePrev={isDisablePrev}
+          min={min}
+          max={max}
         />
     )
   }

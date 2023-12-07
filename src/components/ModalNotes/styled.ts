@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components';
 
 export const Wrapper = styled.div`
  ${({ theme }) => css`
-  height: 245px;
+  height: 275px;
   width: 250px;
   display: flex;
   flex-direction: column;
@@ -47,7 +47,7 @@ export const ListNotes = styled.div`
   flex-direction: column;
   gap: 10px;
   align-items: center;
-  height: 140px;
+  height: 160px;
   overflow-y: scroll;
   scrollbar-width: none;
   &::-webkit-scrollbar {
