@@ -10,7 +10,8 @@ export const Wrapper = styled.div`
     gap: 8px;
     border-radius: 8px;
     border: 1px solid ${theme.colors.border};
-    background: ${theme.colors.secondary}
+    background: ${theme.colors.secondary};
+    margin-bottom: 8px;
 `};
 `
 export const IconCalendar = styled.img`

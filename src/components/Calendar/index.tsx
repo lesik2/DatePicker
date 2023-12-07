@@ -7,6 +7,7 @@ import { DateInput } from '@components/DateInput/index'
 
 import { Wrapper,CalendarWrapper } from './styled'
 
+import { ClearButton } from '../ClearButton'
 import { ICreateCalendar } from '../../types/index'
 
 export function Calendar({
@@ -40,6 +41,7 @@ export function Calendar({
             </Main>
           }
       </CalendarWrapper>
+      <ClearButton />
     </Wrapper>
     
   )

@@ -11,6 +11,7 @@ import { getNotesForDate } from '../../utils/notes';
 export function DateCell({type,dateNumber, date }: IDateComponent): JSX.Element{
   const dateLocal = new Date(date.getFullYear(), date.getMonth(),dateNumber);
   const [isOpen, setIsOpen] = useState(false);
+
   const [notes, setNotes] = useState<INote[]>([])
   const handleClose = () => {
     setIsOpen(false);
