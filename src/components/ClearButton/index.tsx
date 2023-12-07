@@ -2,9 +2,12 @@ import {JSX} from 'react'
 
 import { ClearBtn } from './styled'
 
-export function ClearButton(): JSX.Element {
+export interface IClearButton{
+  handleClear: () => void;
+}
+export function ClearButton({handleClear}: IClearButton): JSX.Element {
   const handleClick = () => {
-
+    handleClear();
   }
 
   return (

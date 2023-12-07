@@ -17,10 +17,13 @@ export function Calendar({
 }: ICreateCalendar): JSX.Element {
   const year = date.getFullYear();
   const month = date.toLocaleString('en-US', { month: 'long' });
+
   const [datesOfCalendar, setDatesOfCalendar] = useState<IDate[]>(dates);
   const [amountOfClicks, setAmountOfClicks] = useState(0);
   const [start, setStart]  = useState(-1);
   const [end, setEnd] = useState(-1);
+
+
   const incrementOfClicks = (numberOfDate: number) => {
     if(amountOfClicks+1 === 1){
       setStart(numberOfDate)
@@ -29,6 +32,21 @@ export function Calendar({
       setEnd(numberOfDate);
       setAmountOfClicks((prev)=>prev+1)
     }
+  }
+
+  const handleClear = () => {
+    setStart(-1);
+    setEnd(-1);
+    setAmountOfClicks(0);
+    const clearDates: IDate[] = datesOfCalendar.map((item)=>{
+      if(item.type === 'start' || item.type ==='end' || item.type === 'between'){
+        return {...item, type: 'default'}
+      }
+
+      return item
+    })
+
+    setDatesOfCalendar(clearDates)
   }
 
   useEffect(()=>{
@@ -50,7 +68,8 @@ export function Calendar({
 
       setDatesOfCalendar(startDates);
     }
-  }, [start, end, datesOfCalendar])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [start, end])
   
   return (
     <Wrapper>
@@ -80,7 +99,7 @@ export function Calendar({
             </Main>
           }
       </CalendarWrapper>
-      {start > 0 && <ClearButton />}
+      {start > 0 && <ClearButton handleClear={handleClear}/>}
     </Wrapper>
     
   )
