@@ -29,16 +29,18 @@ export function DateCell({type,dateNumber, date }: IDateComponent): JSX.Element{
   },[])
   
   return (
+    <>
     <DateWrapper onDoubleClick={handleDoubleClick} $type={type} disabled={type==='disabled'}>
       <NumberOfDate $type={type} $task={notes.length>0}>
         {dateNumber}
       </NumberOfDate>
+    </DateWrapper>
       {isOpen && 
         <Modal onClose={handleClose}>
           <ModalNotes notes={notes} setNotes={setNotes} date={dateLocal} />
         </Modal>
       }
-    </DateWrapper>
+    </>
 
   )
 }
