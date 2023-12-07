@@ -18,7 +18,3 @@ export function getNotesForDate(date: string): INote[] | null {
 export function saveNotesForDate(date: string, notes: INote[]): void {
   localStorage.setItem(date, JSON.stringify(notes));
 }
-
-export function deleteNotesForDate(date: string): void {
-  localStorage.removeItem(date);
-}

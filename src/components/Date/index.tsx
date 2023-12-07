@@ -5,10 +5,11 @@ import { DateWrapper, NumberOfDate } from './styled';
 
 import { ModalNotes } from '../ModalNotes/index';
 import { Modal } from '../Modal/index';
-import { getNotesForDate, saveNotesForDate } from '../../utils/notes';
+import { getNotesForDate } from '../../utils/notes';
 
 
 export function DateCell({type,dateNumber, date }: IDateComponent): JSX.Element{
+  const dateLocal = new Date(date.getFullYear(), date.getMonth(),dateNumber);
   const [isOpen, setIsOpen] = useState(false);
   const [notes, setNotes] = useState<INote[]>([])
   const handleClose = () => {
@@ -20,22 +21,13 @@ export function DateCell({type,dateNumber, date }: IDateComponent): JSX.Element{
   }
 
   useEffect(()=>{
-    const dateLocal = new Date(date.getFullYear(), date.getMonth(),dateNumber);
-    const dateStr = dateLocal.toLocaleDateString();
-    const notesFromStorage = getNotesForDate(dateStr)
+    const notesFromStorage = getNotesForDate(dateLocal.toLocaleDateString());
     if(notesFromStorage){
       setNotes(notesFromStorage)
     }
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
-  useEffect(() => () => {
-    if(notes.length>0){
-      const dateLocal = new Date(date.getFullYear(), date.getMonth(),dateNumber);
-      saveNotesForDate(dateLocal.toLocaleDateString(), notes);
-    }
-  }, [notes, dateNumber, date]);
-
+  
   return (
     <DateWrapper onDoubleClick={handleDoubleClick} $type={type} disabled={type==='disabled'}>
       <NumberOfDate $type={type} $task={notes.length>0}>
@@ -43,7 +35,7 @@ export function DateCell({type,dateNumber, date }: IDateComponent): JSX.Element{
       </NumberOfDate>
       {isOpen && 
         <Modal onClose={handleClose}>
-          <ModalNotes notes={notes} setNotes={setNotes} />
+          <ModalNotes notes={notes} setNotes={setNotes} date={dateLocal} />
         </Modal>
       }
     </DateWrapper>
