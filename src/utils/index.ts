@@ -203,3 +203,22 @@ export const rangeDates = (dates: IDate[], start: number, end: number): IDate[]=
 
   return newDates;
 }
+
+export const isSearchValid = (
+  changeDate: Date, searchDate: Date, minDate: Date| null,maxDate: Date| null
+  ): boolean => {
+  if(changeDate.getMonth() === searchDate.getMonth() && 
+  changeDate.getFullYear()===searchDate.getFullYear()){
+      return false;
+  }
+
+  if(minDate && searchDate.getTime() < minDate.getTime()){
+    return false;
+  }
+
+  if(maxDate && searchDate.getTime() > maxDate.getTime()){
+    return false;
+  }
+
+  return true;
+}

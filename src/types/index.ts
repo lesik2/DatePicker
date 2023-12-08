@@ -29,6 +29,7 @@ export interface ICreateCalendar{
   isDisableNext: boolean;
   min: Date|null;
   max: Date|null;
+  handleSearchCalendar: (searchDate: Date) => void;
 }
 export interface ILimitDate{
   min?: string;

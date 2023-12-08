@@ -8,7 +8,7 @@ import {disableLimit} from './disableLimit'
 
 import { Calendar } from '../components/Calendar';
 import { ICalendarServiceState, IServiceCalendar } from '../types';
-import {getCalendarDates} from '../utils/index';
+import {getCalendarDates, isSearchValid} from '../utils/index';
 import {REGULAR_EXPRESSIONS} from '../constants/index'
 
 
@@ -27,6 +27,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
     }
     this.handlePrevDate = this.handlePrevDate.bind(this);
     this.handleNextDate = this.handleNextDate.bind(this);
+    this.handleSearchCalendar = this.handleSearchCalendar.bind(this);
   }
   
   componentDidUpdate(_prevProps: Readonly<IServiceCalendar>,
@@ -54,6 +55,13 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
     this.updateDate(1);
   }
 
+  handleSearchCalendar(searchDate: Date): void {
+    const {changeDate, min, max} = this.state;
+    if(isSearchValid(changeDate, searchDate, min, max)){
+      this.setState({ changeDate: searchDate });
+    }
+
+  }
 
   // eslint-disable-next-line class-methods-use-this
   defineLimitationsForDate(inputOfLimit: string|undefined): null| Date{
@@ -124,6 +132,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
           isDisablePrev={isDisablePrev}
           min={min}
           max={max}
+          handleSearchCalendar={this.handleSearchCalendar}
         />
     )
   }

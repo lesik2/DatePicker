@@ -13,7 +13,7 @@ import { ICreateCalendar, IDate } from '../../types/index'
 
 export function Calendar({
   dates, date, startWeekFrom, isShowHolidays, handleNextDate, 
-  handlePrevDate, isDisableNext, isDisablePrev
+  handlePrevDate, isDisableNext, isDisablePrev, handleSearchCalendar
 }: ICreateCalendar): JSX.Element {
   const year = date.getFullYear();
   const month = date.toLocaleString('en-US', { month: 'long' });
@@ -73,7 +73,7 @@ export function Calendar({
   
   return (
     <Wrapper>
-      <DateInput />
+      <DateInput  handleSearchCalendar={handleSearchCalendar}/>
       <CalendarWrapper $clear={start>0}>
           <Navigation
             year={year} 
