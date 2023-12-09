@@ -12,7 +12,7 @@ import { ClearButton } from '../ClearButton'
 import { ICreateCalendar, IDate } from '../../types/index'
 
 export function Calendar({
-  dates, date, startWeekFrom, isShowHolidays, handleNextDate, 
+  dates, date, startWeekFrom, isShowWeekend, handleNextDate, 
   handlePrevDate, isDisableNext, isDisablePrev, handleSearchCalendar
 }: ICreateCalendar): JSX.Element {
   
@@ -85,10 +85,10 @@ export function Calendar({
             isDisablePrev={isDisablePrev}
             
           />
-          <Weekday startWeekFrom={startWeekFrom} showHolidays={isShowHolidays}/>
+          <Weekday startWeekFrom={startWeekFrom} showHolidays={isShowWeekend}/>
           {
             dates && 
-            <Main showHolidays={isShowHolidays}>
+            <Main showHolidays={isShowWeekend}>
               {datesOfCalendar.map((dateItem, index)=>(
                 <DateCell 
                   // eslint-disable-next-line react/no-array-index-key

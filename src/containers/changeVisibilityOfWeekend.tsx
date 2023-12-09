@@ -5,9 +5,9 @@ import { ICreateCalendar } from '../types';
 
 export const changeVisibilityOfWeekend = (Component: ComponentType<ICreateCalendar>) =>
   (props: ICreateCalendar): JSX.Element => {
-    const { isShowHolidays, dates, startWeekFrom } = props;
+    const { isShowWeekend, dates, startWeekFrom } = props;
 
-    if (!isShowHolidays) {
+    if (!isShowWeekend) {
       const datesWithoutWeekend = removeWeekdayDates(dates, startWeekFrom);
 
       return (

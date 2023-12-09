@@ -113,7 +113,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
   render(): JSX.Element{
     const { currentDate, changeDate, isDisableNext, isDisablePrev, min, max } = this.state;
 
-    const {type='month', isShowHolidays=true, startWeekFrom='Mo', isColorHolidays = true} = this.props;
+    const {type='month', isShowWeekend=true, startWeekFrom='Mo', isColorHolidays = true} = this.props;
 
     const dates = getCalendarDates(changeDate, startWeekFrom, currentDate);
     
@@ -131,7 +131,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
     return (
         <DecoratedCalendar  
           type={type} 
-          isShowHolidays={isShowHolidays} 
+          isShowWeekend={isShowWeekend} 
           isColorHolidays={isColorHolidays}
           startWeekFrom={startWeekFrom}
           date={changeDate}
