@@ -145,7 +145,7 @@ export const colorHolidays = (holidays: IHolidays[], dates: IDate[], date: Date)
     const dateIndex = holidayDates.findIndex((item)=>item.dateNumber === holidayDate.getDate());
 
     if(dateIndex !== -1){
-      holidayDates[dateIndex].type = 'holiday';
+      holidayDates[dateIndex].holiday = true;
     }
   })
 
@@ -164,6 +164,7 @@ export const disableMinDates = (dates: IDate[], minDate: Date|null): IDate[]=>{
     })
   }
 
+
   return newDates;
 }
 
@@ -180,4 +181,44 @@ export const disableMaxDates = (dates: IDate[], maxDate: Date|null): IDate[]=>{
   }
 
   return newDates;
+}
+
+export const rangeDates = (dates: IDate[], start: number, end: number): IDate[]=>{
+  let newDates = [...dates];
+  newDates = newDates.map((date)=>{
+    if(date.type === 'disabled' || date.type === 'selected'){
+      return date;
+    }
+
+    if(date.dateNumber>start && date.dateNumber < end){
+      return {...date, type:'between'}
+    }
+
+    if(date.dateNumber === end){
+      return {...date, type:'end'}
+    }
+
+    return date;
+  })
+
+  return newDates;
+}
+
+export const isSearchValid = (
+  changeDate: Date, searchDate: Date, minDate: Date| null,maxDate: Date| null
+  ): boolean => {
+  if(changeDate.getMonth() === searchDate.getMonth() && 
+  changeDate.getFullYear()===searchDate.getFullYear()){
+      return false;
+  }
+
+  if(minDate && searchDate.getTime() < minDate.getTime()){
+    return false;
+  }
+
+  if(maxDate && searchDate.getTime() > maxDate.getTime()){
+    return false;
+  }
+
+  return true;
 }

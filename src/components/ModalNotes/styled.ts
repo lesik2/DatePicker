@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components';
 
 export const Wrapper = styled.div`
  ${({ theme }) => css`
-  height: 275px;
+  height: 277px;
   width: 250px;
   display: flex;
   flex-direction: column;

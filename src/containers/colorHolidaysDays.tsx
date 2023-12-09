@@ -1,19 +1,20 @@
 import { ComponentType, JSX } from 'react';
 
 import { ICreateCalendar } from '../types';
-import {disableMaxDates, disableMinDates} from '../utils/index'
+import { useHolidays } from '../hooks/useHolidays';
+import {colorHolidays} from '../utils/index'
 
-export const colorHolidaysDays = (Component: ComponentType<ICreateCalendar>) =>
+export const colorHolidaysDays  = (Component: ComponentType<ICreateCalendar>) =>
   (props: ICreateCalendar): JSX.Element => {
-    const { dates, min, max, isDisablePrev, isDisableNext } = props;
-
-    if (isDisableNext || isDisablePrev) {
-      const disabledDate = isDisableNext?disableMaxDates(dates, max):disableMinDates(dates, min);
-
+    const { isColorHolidays, date, dates  } = props;
+    const holidays = useHolidays(date.getFullYear())
+    if (isColorHolidays) {
+      const datesWithColoredHolidays = colorHolidays(holidays,dates, date)
+      
       return (
         <Component 
           {...props}
-          dates={disabledDate}
+          dates={datesWithColoredHolidays} 
         />
       );
     }

@@ -4,10 +4,11 @@ import {Component} from 'react';
 import { changeVisibilityOfWeekend } from './changeVisibilityOfWeekend';
 import {changeTypeOfCalendar} from './changeTypeOfCalendar'
 import {colorHolidaysDays} from './colorHolidaysDays'
+import {disableLimit} from './disableLimit'
 
 import { Calendar } from '../components/Calendar';
 import { ICalendarServiceState, IServiceCalendar } from '../types';
-import {getCalendarDates} from '../utils/index';
+import {getCalendarDates, isSearchValid} from '../utils/index';
 import {REGULAR_EXPRESSIONS} from '../constants/index'
 
 
@@ -26,10 +27,9 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
     }
     this.handlePrevDate = this.handlePrevDate.bind(this);
     this.handleNextDate = this.handleNextDate.bind(this);
-
-    
+    this.handleSearchCalendar = this.handleSearchCalendar.bind(this);
   }
-
+  
   componentDidUpdate(_prevProps: Readonly<IServiceCalendar>,
     prevState: Readonly<ICalendarServiceState>): void {
     const { changeDate, min, max } = this.state;
@@ -45,12 +45,22 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
     }
   }
 
+
+
   handlePrevDate(): void {
     this.updateDate(-1);
   }
 
   handleNextDate(): void {
     this.updateDate(1);
+  }
+
+  handleSearchCalendar(searchDate: Date): void {
+    const {changeDate, min, max} = this.state;
+    if(isSearchValid(changeDate, searchDate, min, max)){
+      this.setState({ changeDate: searchDate });
+    }
+
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -92,18 +102,21 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
   }
 
   render(): JSX.Element{
-    const {currentDate, changeDate, isDisableNext, isDisablePrev, min, max} = this.state;
+    const { currentDate, changeDate, isDisableNext, isDisablePrev, min, max } = this.state;
+
     const {type='month', isShowHolidays=true, startWeekFrom='Mo', isColorHolidays = true} = this.props;
 
     const dates = getCalendarDates(changeDate, startWeekFrom, currentDate);
     
     const DecoratedCalendar = colorHolidaysDays(
-      changeTypeOfCalendar(
+        disableLimit(
+        changeTypeOfCalendar(
         changeVisibilityOfWeekend(
           Calendar
           )
         )
       )
+    )
 
     return (
         <DecoratedCalendar  
@@ -119,6 +132,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
           isDisablePrev={isDisablePrev}
           min={min}
           max={max}
+          handleSearchCalendar={this.handleSearchCalendar}
         />
     )
   }

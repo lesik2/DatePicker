@@ -1,10 +1,11 @@
-export type TypeOfDate = 'default'| 'disabled'|'start'|'selected'|'between'|'holiday';
+export type TypeOfDate = 'default'| 'disabled'|'start'|'selected'|'between'|'end';
 
 export interface IDate{
   type: TypeOfDate;
   dateNumber: number;
+  holiday?: boolean;
 }
-export type IDateComponent = IDate & {date: Date};
+export type IDateComponent = IDate & {date: Date,incrementOfClicks: (numberOfDate: number) => void};
 export type TypeOfCalendar = 'month'|'week';
 export type TypeStartWeekFrom = 'Mo'|'Su';
 export interface ICalendarServiceState{
@@ -28,6 +29,7 @@ export interface ICreateCalendar{
   isDisableNext: boolean;
   min: Date|null;
   max: Date|null;
+  handleSearchCalendar: (searchDate: Date) => void;
 }
 export interface ILimitDate{
   min?: string;
