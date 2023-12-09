@@ -10,10 +10,11 @@ import { Wrapper,CalendarWrapper } from './styled'
 import {rangeDates} from '../../utils/index'
 import { ClearButton } from '../ClearButton'
 import { ICreateCalendar, IDate } from '../../types/index'
+import { InfinityLoader } from '../InfinityLoader'
 
 export function Calendar({
   dates, date, startWeekFrom, isShowWeekend, handleNextDate, 
-  handlePrevDate, isDisableNext, isDisablePrev, handleSearchCalendar
+  handlePrevDate, isDisableNext, isDisablePrev, handleSearchCalendar,loading, isColorHolidays
 }: ICreateCalendar): JSX.Element {
   
   const year = date.getFullYear();
@@ -86,19 +87,19 @@ export function Calendar({
             
           />
           <Weekday startWeekFrom={startWeekFrom} showHolidays={isShowWeekend}/>
-          {
-            dates && 
+          {!loading && isColorHolidays ?<InfinityLoader />: 
             <Main showHolidays={isShowWeekend}>
-              {datesOfCalendar.map((dateItem, index)=>(
-                <DateCell 
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={index} 
-                  {...dateItem} date={date} 
-                  incrementOfClicks={incrementOfClicks}
-                />
-              ))}
+                {datesOfCalendar.map((dateItem, index)=>(
+                  <DateCell 
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index} 
+                    {...dateItem} date={date} 
+                    incrementOfClicks={incrementOfClicks}
+                  />
+                ))}
             </Main>
           }
+          
       </CalendarWrapper>
       {start > 0 && <ClearButton handleClear={handleClear}/>}
     </Wrapper>

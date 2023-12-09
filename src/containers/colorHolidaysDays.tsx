@@ -15,6 +15,7 @@ export const colorHolidaysDays  = (Component: ComponentType<ICreateCalendar>) =>
         <Component 
           {...props}
           dates={datesWithColoredHolidays} 
+          loading={holidays.length > 0}
         />
       );
     }

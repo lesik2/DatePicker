@@ -31,6 +31,7 @@ export interface ICreateCalendar{
   max: Date|null;
   handleSearchCalendar: (searchDate: Date) => void;
   currentDate: Date;
+  loading: boolean;
 }
 export interface ILimitDate{
   min?: string;

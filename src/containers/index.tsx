@@ -144,6 +144,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
           min={min}
           max={max}
           handleSearchCalendar={this.handleSearchCalendar}
+          loading={false}
         />
     )
   }
