@@ -10,7 +10,7 @@ export interface ITooltip{
 export function Tooltip({message, isOpen, setIsOpen}: ITooltip): JSX.Element {
   useEffect(()=>{
     if(!isOpen) return;
-    const idTimer = setTimeout(()=> setIsOpen(false), 2000)
+    const idTimer = setTimeout(()=> setIsOpen(false), 1800)
 
     // eslint-disable-next-line consistent-return
     return ()=>{

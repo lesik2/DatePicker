@@ -5,11 +5,18 @@ export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items:center;
-    margin-top: 50px;
     justify-content: center;
     font-family: ${theme.fontFamily.font};
 
 `};
+`
+export const YearWrapper = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(250px), 1fr));
+    justify-items: center;
+    align-items: start;
+    grid-row-gap: 20px;
+    width: 800px;
 `
 export const CalendarWrapper = styled.div<{$clear?: boolean}>`
  ${({ theme, $clear }) => css`

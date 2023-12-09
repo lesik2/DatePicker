@@ -36,10 +36,13 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
     const {type} = this.props;
     if (changeDate.getTime() !== prevState.changeDate.getTime() && min && max) {
       const prevMonth = new Date(min.getFullYear(), min.getMonth()+1,0);
-      const difMin = (type ==='week'?7:prevMonth.getDate()-min.getDate())* 86400000;
+
+      let difMin = (type ==='week'?7:prevMonth.getDate()-min.getDate())* 86400000;
+      difMin = type ==='year'? difMin*12:difMin;
       const resMin = min.getTime()< changeDate.getTime()-difMin;
 
-      const difMax = (type ==='week'?7:max.getDate())* 86400000;
+      let difMax = (type ==='week'?7:max.getDate())* 86400000;
+      difMax = type ==='year'? difMax*12:difMax;
       const resMax = max.getTime()>changeDate.getTime()+difMax;
       this.setState({isDisablePrev: !resMin, isDisableNext: !resMax})
     }
@@ -93,6 +96,12 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
         changeDate.getMonth(), 
         changeDate.getDate() + (7 * monthDiff)
       );
+    } else if( type ==='year'){
+      newDate = new Date(
+        changeDate.getFullYear()+monthDiff, 
+        changeDate.getMonth(), 
+        changeDate.getDate(),
+      );
     }
 
     if(newDate){
@@ -108,9 +117,10 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
 
     const dates = getCalendarDates(changeDate, startWeekFrom, currentDate);
     
-    const DecoratedCalendar = colorHolidaysDays(
-        disableLimit(
+    const DecoratedCalendar = 
         changeTypeOfCalendar(
+        disableLimit(
+        colorHolidaysDays(
         changeVisibilityOfWeekend(
           Calendar
           )
@@ -125,6 +135,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
           isColorHolidays={isColorHolidays}
           startWeekFrom={startWeekFrom}
           date={changeDate}
+          currentDate = {currentDate}
           dates={dates} 
           handlePrevDate = {this.handlePrevDate}
           handleNextDate = {this.handleNextDate} 

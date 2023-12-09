@@ -1,4 +1,4 @@
-import { IDate, IHolidays, TypeStartWeekFrom } from "../types/index";
+import { IDate, IHolidays, IYearDate, TypeStartWeekFrom } from "../types/index";
 
 
 export const indexesOfWeekends = {
@@ -94,7 +94,22 @@ export function getCalendarDates(
   return calendarDates;
 }
 
+export const getCalendarYear = (
+  currentYear: number, startWeekFrom: TypeStartWeekFrom, currentDate: Date
+): IYearDate[] => {
+  const yearDates: IYearDate[] = [];
 
+  for (let i = 0; i < 12; i += 1) {
+    const yearDate = new Date(currentYear, i, 1);
+    const dates = getCalendarDates(yearDate, startWeekFrom, currentDate);
+    yearDates.push({
+      dates,
+      date: yearDate,
+    });
+  }
+
+  return yearDates;
+};
 
 export function removeWeekdayDates(dates: IDate[],startWeekFrom: TypeStartWeekFrom ): IDate[]{
   const datesWithoutWeekend: IDate[] = [];
@@ -152,10 +167,18 @@ export const colorHolidays = (holidays: IHolidays[], dates: IDate[], date: Date)
   return holidayDates;
 }
 
-export const disableMinDates = (dates: IDate[], minDate: Date|null): IDate[]=>{
+export const disableMinDates = (dates: IDate[], minDate: Date|null, changeDate: Date): IDate[]=>{
   let  newDates = [...dates];
   if(minDate){
     newDates = newDates.map((date)=>{
+      if(changeDate.getMonth()<minDate.getMonth()){
+        return {...date, type:'disabled'}
+      }
+
+      if(changeDate.getMonth()>minDate.getMonth()){
+        return date;
+      }
+
       if(date.dateNumber<minDate.getDate()){
         return {...date, type:'disabled'}
       }
@@ -168,13 +191,23 @@ export const disableMinDates = (dates: IDate[], minDate: Date|null): IDate[]=>{
   return newDates;
 }
 
-export const disableMaxDates = (dates: IDate[], maxDate: Date|null): IDate[]=>{
+export const disableMaxDates = (dates: IDate[], maxDate: Date|null, changeDate: Date): IDate[]=>{
   let newDates = [...dates];
   if(maxDate){
     newDates = newDates.map((date)=>{
+
+      if(changeDate.getMonth()>maxDate.getMonth()){
+        return {...date, type:'disabled'}
+      }
+
+      if(changeDate.getMonth()<maxDate.getMonth()){
+        return date;
+      }
+      
       if(date.dateNumber>maxDate.getDate()){
         return {...date, type:'disabled'}
       }
+
 
       return date;
     })

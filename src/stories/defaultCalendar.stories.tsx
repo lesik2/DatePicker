@@ -14,8 +14,8 @@ export const FirstStory: Story = {
     type: 'month',
     isShowHolidays: true,
     startWeekFrom: 'Mo',
-    min: '15/11/2023',
-    max: '08/07/2024',
+    min: '15/11/2020',
+    max: '08/07/2026',
     isColorHolidays: true,
   }
 }

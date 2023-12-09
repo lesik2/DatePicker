@@ -6,7 +6,7 @@ export interface IDate{
   holiday?: boolean;
 }
 export type IDateComponent = IDate & {date: Date,incrementOfClicks: (numberOfDate: number) => void};
-export type TypeOfCalendar = 'month'|'week';
+export type TypeOfCalendar = 'month'|'week'|'year';
 export type TypeStartWeekFrom = 'Mo'|'Su';
 export interface ICalendarServiceState{
   currentDate: Date;
@@ -30,6 +30,7 @@ export interface ICreateCalendar{
   min: Date|null;
   max: Date|null;
   handleSearchCalendar: (searchDate: Date) => void;
+  currentDate: Date;
 }
 export interface ILimitDate{
   min?: string;
@@ -45,5 +46,9 @@ export interface IHolidays{
 }
 export interface INote{
   text: string;
-  id: number
+  id: number;
+}
+export interface IYearDate{
+  dates: IDate[];
+  date: Date;
 }
