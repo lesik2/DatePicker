@@ -15,6 +15,7 @@ export function Calendar({
   dates, date, startWeekFrom, isShowHolidays, handleNextDate, 
   handlePrevDate, isDisableNext, isDisablePrev, handleSearchCalendar
 }: ICreateCalendar): JSX.Element {
+  
   const year = date.getFullYear();
   const month = date.toLocaleString('en-US', { month: 'long' });
 
