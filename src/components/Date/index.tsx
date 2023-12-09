@@ -6,6 +6,7 @@ import { DateWrapper, NumberOfDate } from './styled';
 import { ModalNotes } from '../ModalNotes/index';
 import { Modal } from '../Modal/index';
 import { getNotesForDate } from '../../utils/notes';
+import { Tooltip } from '../Tooltip';
 
 
 export function DateCell({
@@ -13,7 +14,9 @@ export function DateCell({
 }: IDateComponent): JSX.Element{
   const dateLocal = new Date(date.getFullYear(), date.getMonth(),dateNumber);
   const [isOpen, setIsOpen] = useState(false);
-  const [notes, setNotes] = useState<INote[]>([])
+  const [notes, setNotes] = useState<INote[]>([]);
+  const [isOpenTip, setIsOpenTip] = useState(false);
+
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -24,6 +27,7 @@ export function DateCell({
 
   const handleClick = () => {
     incrementOfClicks(dateNumber);
+    setIsOpenTip(true);
   }
 
   useEffect(()=>{
@@ -33,13 +37,15 @@ export function DateCell({
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
-  
+
+
   return (
     <>
     <DateWrapper onClick={handleClick} onDoubleClick={handleDoubleClick} $type={type} disabled={type==='disabled'}>
       <NumberOfDate $type={type} $task={notes.length>0} $holiday={holiday??false}>
         {dateNumber}
       </NumberOfDate>
+      <Tooltip  isOpen={isOpenTip} setIsOpen={setIsOpenTip} message='double click for notes'/>
     </DateWrapper>
       {isOpen && 
         <Modal onClose={handleClose}>

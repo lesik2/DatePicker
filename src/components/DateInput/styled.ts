@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
     border: 1px solid ${theme.colors.border};
     background: ${theme.colors.secondary};
     margin-bottom: 8px;
+    position: relative;
 `};
 `
 export const IconCalendar = styled.img`

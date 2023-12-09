@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items:center;
+    margin-top: 50px;
     justify-content: center;
     font-family: ${theme.fontFamily.font};
 
