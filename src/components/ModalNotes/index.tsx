@@ -52,7 +52,12 @@ const handleInput = (event: ChangeEvent<HTMLInputElement>, id: number) => {
         {notes.length!==0?
           notes.map((note)=>(
             <NoteWrapper key={note.id}>
-              <NoteInput $size={size} value={note.text} onChange={(event)=>handleInput(event, note.id)}/>
+              <NoteInput 
+                $size={size} 
+                value={note.text} 
+                onChange={(event)=>handleInput(event, note.id)
+                }
+              />
               <RemoveBtn onClick={()=> deleteNote(note.id)}>
                 <Icon alt='remove button' src={removeIcon}/>
               </RemoveBtn>

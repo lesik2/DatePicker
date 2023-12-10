@@ -1,4 +1,4 @@
-import { IColor, IDateColor, ISize } from "../types";
+import { IColor, IDateColor, IDateSize, ISize } from "../types";
 
 export const theme = {
   colors: {
@@ -37,7 +37,7 @@ export const theme = {
     }
 
   },
-  chooseSize(size: ISize){
+  chooseSize(size: ISize): IDateSize{
     if(size === 'medium'){
       return {
         widthCalendar: '200',
