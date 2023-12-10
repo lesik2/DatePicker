@@ -5,9 +5,15 @@ export interface IDate{
   dateNumber: number;
   holiday?: boolean;
 }
-export type IDateComponent = IDate & {date: Date,incrementOfClicks: (numberOfDate: number) => void};
+export interface IDateCell{
+  date: Date;
+  incrementOfClicks: (numberOfDate: number) => void;
+  color: IColor;
+}
+export type IDateComponent = IDate & IDateCell;
 export type TypeOfCalendar = 'month'|'week'|'year';
 export type TypeStartWeekFrom = 'Mo'|'Su';
+export type IColor = 'default'|'primary'|'secondary';
 export interface ICalendarServiceState{
   currentDate: Date;
   changeDate: Date;
@@ -32,12 +38,13 @@ export interface ICreateCalendar{
   handleSearchCalendar: (searchDate: Date) => void;
   currentDate: Date;
   loading: boolean;
+  color: IColor;
 }
 export interface ILimitDate{
   min?: string;
   max?: string;
 }
-export type IServiceCalendar = Pick<Partial<ICreateCalendar>, 'type'|'isShowWeekend'|'startWeekFrom'|'isColorHolidays'> & ILimitDate;
+export type IServiceCalendar = Pick<Partial<ICreateCalendar>, 'type'|'isShowWeekend'|'startWeekFrom'|'isColorHolidays'|'color'> & ILimitDate;
 export type ICalendar = Required<ICreateCalendar>
 export interface IHolidays{
   date: string;

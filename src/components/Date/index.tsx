@@ -10,7 +10,7 @@ import { Tooltip } from '../Tooltip';
 
 
 export function DateCell({
-  type,dateNumber, date, incrementOfClicks, holiday 
+  type,dateNumber, date, incrementOfClicks, holiday,color 
 }: IDateComponent): JSX.Element{
   const dateLocal = new Date(date.getFullYear(), date.getMonth(),dateNumber);
   const [isOpen, setIsOpen] = useState(false);
@@ -41,8 +41,8 @@ export function DateCell({
 
   return (
     <>
-    <DateWrapper onClick={handleClick} onDoubleClick={handleDoubleClick} $type={type} disabled={type==='disabled'}>
-      <NumberOfDate $type={type} $task={notes.length>0} $holiday={holiday??false}>
+    <DateWrapper onClick={handleClick} onDoubleClick={handleDoubleClick} $type={type} $color={color} disabled={type==='disabled'}>
+      <NumberOfDate $color={color} $type={type} $task={notes.length>0} $holiday={holiday??false}>
         {dateNumber}
       </NumberOfDate>
       <Tooltip  isOpen={isOpenTip} setIsOpen={setIsOpenTip} message='double click for notes'/>

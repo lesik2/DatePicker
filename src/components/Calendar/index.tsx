@@ -14,7 +14,8 @@ import { InfinityLoader } from '../InfinityLoader'
 
 export function Calendar({
   dates, date, startWeekFrom, isShowWeekend, handleNextDate, 
-  handlePrevDate, isDisableNext, isDisablePrev, handleSearchCalendar,loading, isColorHolidays
+  handlePrevDate, isDisableNext, isDisablePrev, handleSearchCalendar,loading, isColorHolidays,
+  color
 }: ICreateCalendar): JSX.Element {
   
   const year = date.getFullYear();
@@ -95,6 +96,7 @@ export function Calendar({
                     key={index} 
                     {...dateItem} date={date} 
                     incrementOfClicks={incrementOfClicks}
+                    color={color}
                   />
                 ))}
             </Main>
