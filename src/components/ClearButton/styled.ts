@@ -1,13 +1,15 @@
 import styled, { css } from 'styled-components';
 
+import { ISize } from '@//types';
 
-export const ClearBtn = styled.button`
- ${({ theme }) => css`
+
+export const ClearBtn = styled.button<{$size: ISize}>`
+ ${({ theme, $size }) => css`
   border-radius: 0px 0px 8px 8px;
   border: 1px solid ${theme.colors.border};
   display: flex;
-  width: 250px;
-  padding: 10px 0px;
+  width: ${theme.chooseSize($size).widthCalendar}px;
+  padding: ${theme.chooseSize($size).paddingDateCell}px 0px;
   justify-content: center;
   align-items: center;
   background: ${theme.colors.secondary};

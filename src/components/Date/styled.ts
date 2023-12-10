@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
-import {IColor, IDate} from '@customTypes/index';
+import {IColor, IDate, ISize} from '@customTypes/index';
 
 
-export const DateWrapper = styled.button<{$type?: IDate['type'], $color: IColor }>`
-  ${({theme, $type, $color}) => css`
+export const DateWrapper = styled.button<{$type?: IDate['type'], $color: IColor, $size: ISize }>`
+  ${({theme, $type, $color, $size}) => css`
   background-color: ${() => {
     if ($type === 'selected'|| $type === 'end') {
       return theme.colors.chooseColor($color).third;
@@ -23,9 +23,9 @@ export const DateWrapper = styled.button<{$type?: IDate['type'], $color: IColor 
     border: none;
     outline: none;
     display: flex;
-    width: 32px;
-    height: 32px;
-    padding: 10px;
+    width: ${theme.chooseSize($size).widthOfDateCell}px;
+    height: ${theme.chooseSize($size).widthOfDateCell}px;
+    padding: ${theme.chooseSize($size).paddingDateCell}px;
     justify-content: center;
     align-items: center;
     border-radius: ${() => {
@@ -51,8 +51,8 @@ export const DateWrapper = styled.button<{$type?: IDate['type'], $color: IColor 
     }
   `}
 `
-export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean, $holiday?: boolean,$color: IColor }>`
-  ${({theme, $type, $task, $holiday, $color}) => css`
+export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean, $holiday?: boolean,$color: IColor, $size: ISize }>`
+  ${({theme, $type, $task, $holiday, $color, $size}) => css`
     color: ${() => {
       if($holiday){
         return theme.colors.holiday;
@@ -74,7 +74,7 @@ export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean, $h
       
     }};
     position:relative;
-    font-size: 13px;
+    font-size: ${theme.chooseSize($size).fontSizeOfDateCell}px;
     font-style: normal;
     font-weight: ${theme.fontWeight.medium};
     line-height: normal;

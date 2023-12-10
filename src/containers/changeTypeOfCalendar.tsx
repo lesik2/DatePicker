@@ -6,7 +6,7 @@ import { YearWrapper } from '../components/Calendar/styled';
 
 export const changeTypeOfCalendar = (Component: ComponentType<ICreateCalendar>) =>
   (props: ICreateCalendar): JSX.Element => {
-    const { type, dates,date, startWeekFrom, currentDate } = props;
+    const { type, dates,date, startWeekFrom, currentDate, size } = props;
 
     if (type==='week') {
       const datesWithoutWeekend = changeTypeOfCalendarToWeek(dates, date, startWeekFrom );
@@ -23,7 +23,7 @@ export const changeTypeOfCalendar = (Component: ComponentType<ICreateCalendar>) 
       const yearDates = getCalendarYear(date.getFullYear(),startWeekFrom,currentDate);
       
       return (
-        <YearWrapper>
+        <YearWrapper $size={size}>
         {
           yearDates.map((month, index)=>(
             <Component

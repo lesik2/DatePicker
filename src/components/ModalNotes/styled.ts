@@ -1,9 +1,10 @@
+import { ISize } from '@customTypes/index';
 import styled, {css} from 'styled-components';
 
-export const Wrapper = styled.div`
- ${({ theme }) => css`
-  height: 277px;
-  width: 250px;
+export const Wrapper = styled.div<{$size: ISize}>`
+ ${({ theme, $size }) => css`
+  height: ${theme.chooseSize($size).modalHeight}px;
+  width: ${theme.chooseSize($size).widthCalendar}px;
   display: flex;
   flex-direction: column;
   gap: 17px;
@@ -61,14 +62,14 @@ export const NoteWrapper = styled.div`
   gap: 10px;
   width: 250px;
 `
-export const NoteInput  = styled.input`
- ${({ theme }) => css`
+export const NoteInput  = styled.input<{$size: ISize}>`
+ ${({ theme, $size }) => css`
   color: ${theme.colors.default};
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  width: 210px;
+  width: ${theme.chooseSize($size).widthOfModalInput}px;
   height: 25px;
   outline: none;
   border:none;

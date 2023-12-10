@@ -15,7 +15,7 @@ import { InfinityLoader } from '../InfinityLoader'
 export function Calendar({
   dates, date, startWeekFrom, isShowWeekend, handleNextDate, 
   handlePrevDate, isDisableNext, isDisablePrev, handleSearchCalendar,loading, isColorHolidays,
-  color
+  color, size
 }: ICreateCalendar): JSX.Element {
   
   const year = date.getFullYear();
@@ -76,8 +76,8 @@ export function Calendar({
   
   return (
     <Wrapper>
-      <DateInput  handleSearchCalendar={handleSearchCalendar}/>
-      <CalendarWrapper $clear={start>0}>
+      <DateInput size={size} handleSearchCalendar={handleSearchCalendar}/>
+      <CalendarWrapper $size={size} $clear={start>0}>
           <Navigation
             year={year} 
             month={month} 
@@ -85,11 +85,12 @@ export function Calendar({
             handlePrevDate={handlePrevDate}
             isDisableNext={isDisableNext}
             isDisablePrev={isDisablePrev}
+            size={size}
             
           />
-          <Weekday startWeekFrom={startWeekFrom} showHolidays={isShowWeekend}/>
-          {!loading && isColorHolidays ?<InfinityLoader />: 
-            <Main showHolidays={isShowWeekend}>
+          <Weekday size={size} startWeekFrom={startWeekFrom} showHolidays={isShowWeekend}/>
+          {!loading && isColorHolidays ?<InfinityLoader color={color} />: 
+            <Main size={size}  showHolidays={isShowWeekend}>
                 {datesOfCalendar.map((dateItem, index)=>(
                   <DateCell 
                     // eslint-disable-next-line react/no-array-index-key
@@ -97,13 +98,14 @@ export function Calendar({
                     {...dateItem} date={date} 
                     incrementOfClicks={incrementOfClicks}
                     color={color}
+                    size={size}
                   />
                 ))}
             </Main>
           }
           
       </CalendarWrapper>
-      {start > 0 && <ClearButton handleClear={handleClear}/>}
+      {start > 0 && <ClearButton size={size} handleClear={handleClear}/>}
     </Wrapper>
     
   )

@@ -9,11 +9,18 @@ export interface IDateCell{
   date: Date;
   incrementOfClicks: (numberOfDate: number) => void;
   color: IColor;
+  size: ISize;
 }
 export type IDateComponent = IDate & IDateCell;
 export type TypeOfCalendar = 'month'|'week'|'year';
 export type TypeStartWeekFrom = 'Mo'|'Su';
 export type IColor = 'default'|'primary'|'secondary';
+export type ISize = 'default'|'medium';
+export interface IDateColor{
+  third: string;
+  startDate: string;
+  betweenDate: string;
+}
 export interface ICalendarServiceState{
   currentDate: Date;
   changeDate: Date;
@@ -39,12 +46,13 @@ export interface ICreateCalendar{
   currentDate: Date;
   loading: boolean;
   color: IColor;
+  size: ISize;
 }
 export interface ILimitDate{
   min?: string;
   max?: string;
 }
-export type IServiceCalendar = Pick<Partial<ICreateCalendar>, 'type'|'isShowWeekend'|'startWeekFrom'|'isColorHolidays'|'color'> & ILimitDate;
+export type IServiceCalendar = Pick<Partial<ICreateCalendar>, 'type'|'isShowWeekend'|'startWeekFrom'|'isColorHolidays'|'color'|'size'> & ILimitDate;
 export type ICalendar = Required<ICreateCalendar>
 export interface IHolidays{
   date: string;
