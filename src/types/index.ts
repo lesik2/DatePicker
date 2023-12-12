@@ -64,12 +64,13 @@ export interface ICreateCalendar{
   loading: boolean;
   color: IColor;
   size: ISize;
+  defaultRange: boolean,
 }
 export interface ILimitDate{
   min?: string;
   max?: string;
 }
-export type IServiceCalendar = Pick<Partial<ICreateCalendar>, 'type'|'isShowWeekend'|'startWeekFrom'|'isColorHolidays'|'color'|'size'> & ILimitDate;
+export type IServiceCalendar = Pick<Partial<ICreateCalendar>, 'type'|'isShowWeekend'|'startWeekFrom'|'isColorHolidays'|'color'|'size'|'defaultRange'> & ILimitDate;
 export type ICalendar = Required<ICreateCalendar>
 export interface IHolidays{
   date: string;

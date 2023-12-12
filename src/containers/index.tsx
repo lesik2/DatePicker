@@ -5,7 +5,7 @@ import { changeVisibilityOfWeekend } from './changeVisibilityOfWeekend';
 import {changeTypeOfCalendar} from './changeTypeOfCalendar'
 import {colorHolidaysDays} from './colorHolidaysDays'
 import {disableLimit} from './disableLimit'
-
+import {setDefaultRange} from './setDefaultRange'
 import { Calendar } from '../components/Calendar';
 import { ICalendarServiceState, IServiceCalendar } from '../types';
 import {getCalendarDates, isSearchValid} from '../utils/index';
@@ -113,17 +113,19 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
   render(): JSX.Element{
     const { currentDate, changeDate, isDisableNext, isDisablePrev, min, max } = this.state;
 
-    const {type='month', isShowWeekend=true, startWeekFrom='Mo', isColorHolidays = true, color='default', size='default'} = this.props;
+    const {type='month', isShowWeekend=true, startWeekFrom='Mo', isColorHolidays = true, color='default', size='default', defaultRange=true} = this.props;
 
     const dates = getCalendarDates(changeDate, startWeekFrom, currentDate);
     
     const DecoratedCalendar = 
+        setDefaultRange(
         changeTypeOfCalendar(
         disableLimit(
         colorHolidaysDays(
         changeVisibilityOfWeekend(
           Calendar
           )
+        )
         )
       )
     )
@@ -147,6 +149,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
           loading={false}
           color={color}
           size = {size}
+          defaultRange={defaultRange}
         />
     )
   }
