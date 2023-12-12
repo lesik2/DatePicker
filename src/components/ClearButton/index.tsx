@@ -1,6 +1,7 @@
 import {JSX} from 'react'
 
 import { ClearBtn } from './styled'
+
 import { ISize } from '@//types';
 
 export interface IClearButton{

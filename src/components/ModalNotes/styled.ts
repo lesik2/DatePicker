@@ -48,7 +48,7 @@ export const ListNotes = styled.div`
   flex-direction: column;
   gap: 10px;
   align-items: center;
-  height: 160px;
+  height: 155px;
   overflow-y: scroll;
   scrollbar-width: none;
   &::-webkit-scrollbar {
