@@ -4,6 +4,7 @@ import {Navigation} from '@components/Navigation/index'
 import {DateCell} from '@components/Date/index'
 import {Weekday} from '@components/Weekday/index'
 import { DateInput } from '@components/DateInput/index'
+import { clearStartDate, getStartDate, saveStartDate } from '@utils/rangePicker'
 
 import { Wrapper,CalendarWrapper } from './styled'
 
@@ -11,6 +12,7 @@ import {rangeDates} from '../../utils/index'
 import { ClearButton } from '../ClearButton'
 import { ICreateCalendar, IDate } from '../../types/index'
 import { InfinityLoader } from '../InfinityLoader'
+
 
 export function Calendar({
   dates, date, startWeekFrom, isShowWeekend, handleNextDate, 
@@ -20,27 +22,42 @@ export function Calendar({
   
   const year = date.getFullYear();
   const month = date.toLocaleString('en-US', { month: 'long' });
+  const defineAmountOfClicks=(): number => {
+    const startDate = getStartDate('start') === null?0:1;
+    const endDate = getStartDate('end') === null?0:1;
+
+    return startDate+ endDate;
+  }
 
   const [datesOfCalendar, setDatesOfCalendar] = useState<IDate[]>(dates);
-  const [amountOfClicks, setAmountOfClicks] = useState(0);
-  const [start, setStart]  = useState(-1);
-  const [end, setEnd] = useState(-1);
+  const [amountOfClicks, setAmountOfClicks] = useState(defineAmountOfClicks());
+  const [start, setStart]  = useState<Date|null>(getStartDate('start'));
+  const [end, setEnd] = useState<Date| null>(getStartDate('end'));
 
+ 
 
   const incrementOfClicks = (numberOfDate: number) => {
     if(amountOfClicks+1 === 1){
-      setStart(numberOfDate)
+      const startDate = new Date(year, date.getMonth(), numberOfDate);
+      setStart(startDate)
+      saveStartDate(startDate.toString(), 'start');
       setAmountOfClicks((prev)=>prev+1)
-    }else if(amountOfClicks+1 === 2 && numberOfDate> start){
-      setEnd(numberOfDate);
-      setAmountOfClicks((prev)=>prev+1)
+    }else if(amountOfClicks+1 === 2 && start){
+      const endDate = new Date(year, date.getMonth(), numberOfDate);
+      if(endDate.getTime()>start?.getTime()){
+        setEnd(endDate);
+        saveStartDate(endDate.toString(), 'end');
+        setAmountOfClicks((prev)=>prev+1)
+      }
+
     }
   }
 
   const handleClear = () => {
-    setStart(-1);
-    setEnd(-1);
+    setStart(null);
+    setEnd(null);
     setAmountOfClicks(0);
+    clearStartDate();
     const clearDates: IDate[] = datesOfCalendar.map((item)=>{
       if(item.type === 'start' || item.type ==='end' || item.type === 'between'){
         return {...item, type: 'default'}
@@ -53,16 +70,20 @@ export function Calendar({
   }
 
   useEffect(()=>{
-    if(start > 0 && end>0){
-      setDatesOfCalendar(rangeDates(datesOfCalendar, start,end));
+    if(start && end){
+      if(date.getTime()>start.getTime() && date.getTime()<end.getTime()){
+        setDatesOfCalendar(rangeDates(datesOfCalendar, start,end, date));
+      }
     }
-    else if(start >0){
+    else if(start){
       const startDates: IDate[] = datesOfCalendar.map((item)=>{
         if(item.type === 'disabled' || item.type === 'selected'){
           return item;
         }
 
-        if(item.dateNumber === start){
+        if(item.dateNumber === start.getDate()
+        && start.getFullYear()===year
+        && start.getMonth() === date.getMonth()){
           return {...item, type: 'start'};
         }
 
@@ -77,7 +98,7 @@ export function Calendar({
   return (
     <Wrapper>
       <DateInput size={size} handleSearchCalendar={handleSearchCalendar}/>
-      <CalendarWrapper $size={size} $clear={start>0}>
+      <CalendarWrapper $size={size} $clear={start !==null}>
           <Navigation
             year={year} 
             month={month} 
@@ -105,7 +126,7 @@ export function Calendar({
           }
           
       </CalendarWrapper>
-      {start > 0 && <ClearButton size={size} handleClear={handleClear}/>}
+      {start && <ClearButton size={size} handleClear={handleClear}/>}
     </Wrapper>
     
   )

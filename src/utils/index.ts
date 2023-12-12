@@ -216,21 +216,39 @@ export const disableMaxDates = (dates: IDate[], maxDate: Date|null, changeDate: 
   return newDates;
 }
 
-export const rangeDates = (dates: IDate[], start: number, end: number): IDate[]=>{
+export const rangeDates = (dates: IDate[], start: Date, end: Date, currentDate: Date): IDate[]=>{
   let newDates = [...dates];
   newDates = newDates.map((date)=>{
     if(date.type === 'disabled' || date.type === 'selected'){
       return date;
     }
 
-    if(date.dateNumber>start && date.dateNumber < end){
-      return {...date, type:'between'}
+    if(date.dateNumber === start.getDate()&& isCurrentDate(currentDate, start)){
+      return {...date, type: 'start'};
     }
 
-    if(date.dateNumber === end){
+    if(date.dateNumber === end.getDate()&& isCurrentDate(currentDate, end)){
       return {...date, type:'end'}
     }
 
+    if(!isCurrentDate(currentDate, start)&& !isCurrentDate(currentDate, end)){
+      return {...date, type:'between'}
+    }
+
+    if(isCurrentDate(currentDate, start)
+    && !isCurrentDate(currentDate, end) && date.dateNumber>start.getDate()){
+        return {...date, type:'between'};
+    }
+
+    if(!isCurrentDate(currentDate, start)
+    && isCurrentDate(currentDate, end)&& date.dateNumber<end.getDate()){
+        return {...date, type:'between'};
+    }
+
+    if(date.dateNumber>start.getDate()&&date.dateNumber<end.getDate()){
+      return {...date, type:'between'};
+    }
+ 
     return date;
   })
 
