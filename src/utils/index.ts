@@ -134,7 +134,7 @@ export const changeTypeOfCalendarToWeek = (
   const dayOfWeek = date.getDay();
   const week: IDate[] = [];
 
-  const firstDayOfWeek = new Date(date.getFullYear(), date.getMonth(), numberOfDate - dayOfWeek);
+  const firstDayOfWeek = new Date(date.getFullYear(), date.getMonth(), numberOfDate - dayOfWeek+1);
   if (startWeekFrom === 'Su') {
     firstDayOfWeek.setDate(firstDayOfWeek.getDate()-1)
   } 
@@ -278,6 +278,7 @@ export const rangeDates = (dates: IDate[], start: Date, end: Date, currentDate: 
     }
 
     if(date.dateNumber === end.getDate()&& isCurrentDate(currentDate, end)){
+
       return {...date, type:'end'}
     }
 
@@ -302,7 +303,9 @@ export const rangeDates = (dates: IDate[], start: Date, end: Date, currentDate: 
     return date;
   })
 
+  
   return newDates;
+  
 }
 
 export const isSearchValid = (

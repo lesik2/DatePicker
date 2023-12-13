@@ -6,6 +6,7 @@ import {changeTypeOfCalendar} from './changeTypeOfCalendar'
 import {colorHolidaysDays} from './colorHolidaysDays'
 import {disableLimit} from './disableLimit'
 import {setDefaultRange} from './setDefaultRange'
+
 import { Calendar } from '../components/Calendar';
 import { ICalendarServiceState, IServiceCalendar } from '../types';
 import {getCalendarDates, isSearchValid} from '../utils/index';
@@ -117,7 +118,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
 
     const dates = getCalendarDates(changeDate, startWeekFrom, currentDate);
     
-    const DecoratedCalendar = 
+    const DecoratedCalendar =
         setDefaultRange(
         changeTypeOfCalendar(
         disableLimit(
@@ -127,7 +128,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
           )
         )
         )
-      )
+        )
     )
 
     return (

@@ -44,7 +44,7 @@ export function Calendar({
       setAmountOfClicks((prev)=>prev+1)
     }else if(amountOfClicks+1 === 2 && start){
       const endDate = new Date(year, date.getMonth(), numberOfDate);
-      if(endDate.getTime()>start?.getTime()){
+      if(endDate.getDate()>start.getDate()){
         setEnd(endDate);
         saveStartDate(endDate.toString(), 'end');
         setAmountOfClicks((prev)=>prev+1)
@@ -71,7 +71,8 @@ export function Calendar({
 
   useEffect(()=>{
     if(start && end){
-      if(date.getTime()>start.getTime() && date.getTime()<end.getTime()){
+      if(date.getTime()+date.getDate()*86400000>start.getTime() 
+      && date.getTime()-date.getDate()*86400000<end.getTime()){
         setDatesOfCalendar(rangeDates(datesOfCalendar, start,end, date));
       }
     }
