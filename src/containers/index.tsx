@@ -119,8 +119,8 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
     const dates = getCalendarDates(changeDate, startWeekFrom, currentDate);
     
     const DecoratedCalendar =
-        setDefaultRange(
         changeTypeOfCalendar(
+        setDefaultRange(
         disableLimit(
         colorHolidaysDays(
         changeVisibilityOfWeekend(

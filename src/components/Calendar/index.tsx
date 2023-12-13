@@ -71,7 +71,8 @@ export function Calendar({
 
   useEffect(()=>{
     if(start && end){
-      if(date.getTime()+date.getDate()*86400000>start.getTime() 
+      const currentDate = new Date(date.getFullYear(), date.getMonth()+1,0);
+      if(date.getTime()+ (currentDate.getDate()-date.getDate())*86400000>start.getTime() 
       && date.getTime()-date.getDate()*86400000<end.getTime()){
         setDatesOfCalendar(rangeDates(datesOfCalendar, start,end, date));
       }
