@@ -18,7 +18,7 @@ module.exports = {
     "tsconfigRootDir": __dirname,
     "sourceType": "module"
   },
-  "ignorePatterns": ['.eslintrc.js','rollup.config.js','stories','vite.config.js','storybook-static'],
+  "ignorePatterns": ['.eslintrc.js','rollup.config.js','stories','vite.config.js','storybook-static','jest.config.js'],
   "rules": {
     "react/jsx-key": "error",
     "react/react-in-jsx-scope": 0,
