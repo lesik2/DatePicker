@@ -4,6 +4,8 @@ import prev from '@assets/icons/prev.svg';
 
 import { Icon, NavButton, Wrapper, Title } from './styled'
 
+import { ISize } from '@//types';
+
 export interface INavigation{
   month: string;
   year: number;
@@ -11,9 +13,10 @@ export interface INavigation{
   handlePrevDate?: () => void;
   isDisablePrev: boolean;
   isDisableNext: boolean;
+  size: ISize;
 }
 export const Navigation  = memo(({
-  year, month, handleNextDate, handlePrevDate,isDisablePrev, isDisableNext
+  year, month, handleNextDate, handlePrevDate,isDisablePrev, isDisableNext, size
 }: INavigation): JSX.Element => {
   const handleClickPrev = ()=>{
     if(handlePrevDate){
@@ -29,11 +32,11 @@ export const Navigation  = memo(({
   }
 
   return (
-    <Wrapper>
+    <Wrapper $size={size}>
       <NavButton disabled={isDisablePrev} $isDisabled={isDisablePrev} onClick={handleClickPrev}>
         <Icon $isDisabled={isDisablePrev}  alt='previous month button' src={prev}/>
       </NavButton>
-      <Title>
+      <Title $size={size}>
         {month} {year}
       </Title>
       <NavButton disabled={isDisableNext} $isDisabled={isDisableNext} onClick={handleClickNext}>

@@ -5,6 +5,7 @@ import { changeVisibilityOfWeekend } from './changeVisibilityOfWeekend';
 import {changeTypeOfCalendar} from './changeTypeOfCalendar'
 import {colorHolidaysDays} from './colorHolidaysDays'
 import {disableLimit} from './disableLimit'
+import {setDefaultRange} from './setDefaultRange'
 
 import { Calendar } from '../components/Calendar';
 import { ICalendarServiceState, IServiceCalendar } from '../types';
@@ -36,10 +37,13 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
     const {type} = this.props;
     if (changeDate.getTime() !== prevState.changeDate.getTime() && min && max) {
       const prevMonth = new Date(min.getFullYear(), min.getMonth()+1,0);
-      const difMin = (type ==='week'?7:prevMonth.getDate()-min.getDate())* 86400000;
+
+      let difMin = (type ==='week'?7:prevMonth.getDate()-min.getDate())* 86400000;
+      difMin = type ==='year'? difMin*12:difMin;
       const resMin = min.getTime()< changeDate.getTime()-difMin;
 
-      const difMax = (type ==='week'?7:max.getDate())* 86400000;
+      let difMax = (type ==='week'?7:max.getDate())* 86400000;
+      difMax = type ==='year'? difMax*12:difMax;
       const resMax = max.getTime()>changeDate.getTime()+difMax;
       this.setState({isDisablePrev: !resMin, isDisableNext: !resMax})
     }
@@ -93,6 +97,12 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
         changeDate.getMonth(), 
         changeDate.getDate() + (7 * monthDiff)
       );
+    } else if( type ==='year'){
+      newDate = new Date(
+        changeDate.getFullYear()+monthDiff, 
+        changeDate.getMonth(), 
+        changeDate.getDate(),
+      );
     }
 
     if(newDate){
@@ -104,27 +114,31 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
   render(): JSX.Element{
     const { currentDate, changeDate, isDisableNext, isDisablePrev, min, max } = this.state;
 
-    const {type='month', isShowHolidays=true, startWeekFrom='Mo', isColorHolidays = true} = this.props;
+    const {type='month', isShowWeekend=true, startWeekFrom='Mo', isColorHolidays = true, color='default', size='default', defaultRange=true} = this.props;
 
     const dates = getCalendarDates(changeDate, startWeekFrom, currentDate);
     
-    const DecoratedCalendar = colorHolidaysDays(
-        disableLimit(
+    const DecoratedCalendar =
         changeTypeOfCalendar(
+        setDefaultRange(
+        disableLimit(
+        colorHolidaysDays(
         changeVisibilityOfWeekend(
           Calendar
           )
         )
-      )
+        )
+        )
     )
 
     return (
         <DecoratedCalendar  
           type={type} 
-          isShowHolidays={isShowHolidays} 
+          isShowWeekend={isShowWeekend} 
           isColorHolidays={isColorHolidays}
           startWeekFrom={startWeekFrom}
           date={changeDate}
+          currentDate = {currentDate}
           dates={dates} 
           handlePrevDate = {this.handlePrevDate}
           handleNextDate = {this.handleNextDate} 
@@ -133,6 +147,10 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
           min={min}
           max={max}
           handleSearchCalendar={this.handleSearchCalendar}
+          loading={false}
+          color={color}
+          size = {size}
+          defaultRange={defaultRange}
         />
     )
   }

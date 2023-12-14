@@ -1,20 +1,20 @@
 import styled, { css } from 'styled-components';
-import {IDate} from '@customTypes/index';
+import {IColor, IDate, ISize} from '@customTypes/index';
 
 
-export const DateWrapper = styled.button<{$type?: IDate['type'] }>`
-  ${({theme, $type}) => css`
+export const DateWrapper = styled.button<{$type?: IDate['type'], $color: IColor, $size: ISize }>`
+  ${({theme, $type, $color, $size}) => css`
   background-color: ${() => {
     if ($type === 'selected'|| $type === 'end') {
-      return theme.colors.third;
+      return theme.colors.chooseColor($color).third;
     }
 
     if ($type === 'start') {
-      return theme.colors.startDate;
+      return theme.colors.chooseColor($color).startDate;
     }
 
     if ($type === 'between') {
-      return theme.colors.betweenDate;
+      return theme.colors.chooseColor($color).betweenDate;
     }
 
       return theme.colors.secondary;
@@ -23,9 +23,9 @@ export const DateWrapper = styled.button<{$type?: IDate['type'] }>`
     border: none;
     outline: none;
     display: flex;
-    width: 32px;
-    height: 32px;
-    padding: 10px;
+    width: ${theme.chooseSize($size).widthOfDateCell}px;
+    height: ${theme.chooseSize($size).widthOfDateCell}px;
+    padding: ${theme.chooseSize($size).paddingDateCell}px;
     justify-content: center;
     align-items: center;
     border-radius: ${() => {
@@ -51,8 +51,8 @@ export const DateWrapper = styled.button<{$type?: IDate['type'] }>`
     }
   `}
 `
-export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean, $holiday?: boolean }>`
-  ${({theme, $type, $task, $holiday}) => css`
+export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean, $holiday?: boolean,$color: IColor, $size: ISize }>`
+  ${({theme, $type, $task, $holiday, $color, $size}) => css`
     color: ${() => {
       if($holiday){
         return theme.colors.holiday;
@@ -63,7 +63,7 @@ export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean, $h
       }
 
       if ($type === 'between') {
-        return theme.colors.third;
+        return theme.colors.chooseColor($color).third;
       }
 
       if($type === 'disabled' ){
@@ -74,7 +74,7 @@ export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean, $h
       
     }};
     position:relative;
-    font-size: 13px;
+    font-size: ${theme.chooseSize($size).fontSizeOfDateCell}px;
     font-style: normal;
     font-weight: ${theme.fontWeight.medium};
     line-height: normal;
@@ -87,7 +87,7 @@ export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean, $h
       top: -5px;
       right: -7px;
       border-radius: 50%;
-      background-color: ${$type==='selected'|| $type ==='start'||$type==='end'?theme.colors.secondary: theme.colors.third}
+      background-color: ${$type==='selected'|| $type ==='start'||$type==='end'?theme.colors.secondary: theme.colors.chooseColor($color).third}
     }
   `}
 `

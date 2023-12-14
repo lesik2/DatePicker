@@ -5,10 +5,11 @@ import {disableMaxDates, disableMinDates} from '../utils/index'
 
 export const disableLimit = (Component: ComponentType<ICreateCalendar>) =>
   (props: ICreateCalendar): JSX.Element => {
-    const { dates, min, max, isDisablePrev, isDisableNext } = props;
+    const { dates, min, max, isDisablePrev, isDisableNext, date } = props;
 
     if (isDisableNext || isDisablePrev) {
-      const disabledDate = isDisableNext?disableMaxDates(dates, max):disableMinDates(dates, min);
+      const disabledDate = isDisableNext?
+      disableMaxDates(dates, max, date):disableMinDates(dates, min, date);
 
       return (
         <Component 

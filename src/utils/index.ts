@@ -1,4 +1,6 @@
-import { IDate, IHolidays, TypeStartWeekFrom } from "../types/index";
+import { saveStartDate } from "./rangePicker";
+
+import { IDate, IHolidays, IYearDate, TypeStartWeekFrom } from "../types/index";
 
 
 export const indexesOfWeekends = {
@@ -94,7 +96,22 @@ export function getCalendarDates(
   return calendarDates;
 }
 
+export const getCalendarYear = (
+  currentYear: number, startWeekFrom: TypeStartWeekFrom, currentDate: Date
+): IYearDate[] => {
+  const yearDates: IYearDate[] = [];
 
+  for (let i = 0; i < 12; i += 1) {
+    const yearDate = new Date(currentYear, i, 1);
+    const dates = getCalendarDates(yearDate, startWeekFrom, currentDate);
+    yearDates.push({
+      dates,
+      date: yearDate,
+    });
+  }
+
+  return yearDates;
+};
 
 export function removeWeekdayDates(dates: IDate[],startWeekFrom: TypeStartWeekFrom ): IDate[]{
   const datesWithoutWeekend: IDate[] = [];
@@ -117,7 +134,7 @@ export const changeTypeOfCalendarToWeek = (
   const dayOfWeek = date.getDay();
   const week: IDate[] = [];
 
-  const firstDayOfWeek = new Date(date.getFullYear(), date.getMonth(), numberOfDate - dayOfWeek);
+  const firstDayOfWeek = new Date(date.getFullYear(), date.getMonth(), numberOfDate - dayOfWeek+1);
   if (startWeekFrom === 'Su') {
     firstDayOfWeek.setDate(firstDayOfWeek.getDate()-1)
   } 
@@ -152,10 +169,18 @@ export const colorHolidays = (holidays: IHolidays[], dates: IDate[], date: Date)
   return holidayDates;
 }
 
-export const disableMinDates = (dates: IDate[], minDate: Date|null): IDate[]=>{
+export const disableMinDates = (dates: IDate[], minDate: Date|null, changeDate: Date): IDate[]=>{
   let  newDates = [...dates];
   if(minDate){
     newDates = newDates.map((date)=>{
+      if(changeDate.getMonth()<minDate.getMonth()){
+        return {...date, type:'disabled'}
+      }
+
+      if(changeDate.getMonth()>minDate.getMonth()){
+        return date;
+      }
+
       if(date.dateNumber<minDate.getDate()){
         return {...date, type:'disabled'}
       }
@@ -168,13 +193,23 @@ export const disableMinDates = (dates: IDate[], minDate: Date|null): IDate[]=>{
   return newDates;
 }
 
-export const disableMaxDates = (dates: IDate[], maxDate: Date|null): IDate[]=>{
+export const disableMaxDates = (dates: IDate[], maxDate: Date|null, changeDate: Date): IDate[]=>{
   let newDates = [...dates];
   if(maxDate){
     newDates = newDates.map((date)=>{
+
+      if(changeDate.getMonth()>maxDate.getMonth()){
+        return {...date, type:'disabled'}
+      }
+
+      if(changeDate.getMonth()<maxDate.getMonth()){
+        return date;
+      }
+      
       if(date.dateNumber>maxDate.getDate()){
         return {...date, type:'disabled'}
       }
+
 
       return date;
     })
@@ -183,25 +218,94 @@ export const disableMaxDates = (dates: IDate[], maxDate: Date|null): IDate[]=>{
   return newDates;
 }
 
-export const rangeDates = (dates: IDate[], start: number, end: number): IDate[]=>{
+export const setRange = (week: IDate[], currentDate: Date): IDate[]=>{
+  const newWeek = [...week];
+
+  const startDate = new Date(
+    currentDate.getFullYear(),currentDate.getMonth(),newWeek[0].dateNumber
+    );
+
+  const endDate = new Date(
+    currentDate.getFullYear(),currentDate.getMonth(),newWeek[newWeek.length-1].dateNumber
+    );
+
+  for(let i=0;i<newWeek.length-1;i+=1){
+    if(newWeek[i].type!=='selected' && newWeek[i].type !=='disabled'){
+      if(i===0){
+        newWeek[i].type = 'start';
+      }
+      else if(i===newWeek.length-1){
+        newWeek[i].type = 'end';
+      }
+      else{
+        newWeek[i].type = 'between'
+      }
+
+    }
+  }
+
+  saveStartDate(startDate.toString(),'start');
+  saveStartDate(endDate.toString(),'end');
+
+  return newWeek
+}
+
+export const defineDefaultRangePicker = (dates: IDate[], currentDate: Date): IDate[] =>{
+  const newDates = [];
+  for(let i=0;i<dates.length;i+=7){
+    const week = dates.slice(i,i+7);
+    if(week.some((day)=>day.dateNumber === currentDate.getDate())){
+      newDates.push(...setRange(week, currentDate));
+    }else{
+      newDates.push(...week);
+    }
+  }
+
+  return newDates;
+}
+
+
+
+export const rangeDates = (dates: IDate[], start: Date, end: Date, currentDate: Date): IDate[]=>{
   let newDates = [...dates];
   newDates = newDates.map((date)=>{
     if(date.type === 'disabled' || date.type === 'selected'){
       return date;
     }
 
-    if(date.dateNumber>start && date.dateNumber < end){
-      return {...date, type:'between'}
+    if(date.dateNumber === start.getDate()&& isCurrentDate(currentDate, start)){
+      return {...date, type: 'start'};
     }
 
-    if(date.dateNumber === end){
+    if(date.dateNumber === end.getDate()&& isCurrentDate(currentDate, end)){
+
       return {...date, type:'end'}
     }
 
+    if(!isCurrentDate(currentDate, start)&& !isCurrentDate(currentDate, end)){
+      return {...date, type:'between'}
+    }
+
+    if(isCurrentDate(currentDate, start)
+    && !isCurrentDate(currentDate, end) && date.dateNumber>start.getDate()){
+        return {...date, type:'between'};
+    }
+
+    if(!isCurrentDate(currentDate, start)
+    && isCurrentDate(currentDate, end)&& date.dateNumber<end.getDate()){
+        return {...date, type:'between'};
+    }
+
+    if(date.dateNumber>start.getDate()&&date.dateNumber<end.getDate()){
+      return {...date, type:'between'};
+    }
+ 
     return date;
   })
 
+  
   return newDates;
+  
 }
 
 export const isSearchValid = (

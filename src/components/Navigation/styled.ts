@@ -1,11 +1,15 @@
 import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.div`
+import { ISize } from '@//types';
+
+export const Wrapper = styled.div<{$size: ISize}>`
+  ${({ theme, $size }) => css`
   display: flex;
-  width: 230px;
+  width: ${theme.chooseSize($size).contentCalendar}px;
   padding: 5px 0px;
   justify-content: space-between;
   align-items: center;
+`};
 `
 export const NavButton = styled.button<{$isDisabled?: boolean}>`
   ${({ theme, $isDisabled }) => css`
@@ -29,10 +33,10 @@ ${({ $isDisabled }) => css`
 `};
 
 `
-export const Title  = styled.h1`
-${({ theme }) => css`
+export const Title  = styled.h1<{$size: ISize}>`
+${({ theme, $size }) => css`
   color: ${theme.colors.default};
-  font-size: 14px;
+  font-size: ${theme.chooseSize($size).fontSizeOfWeekday}px;
   font-style: normal;
   font-weight: ${theme.fontWeight.bold};
   line-height: normal;

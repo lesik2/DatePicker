@@ -12,10 +12,12 @@ type Story = StoryObj<typeof CalendarService>;
 export const FirstStory: Story = {
   args:{
     type: 'month',
-    isShowHolidays: true,
+    isShowWeekend: true,
     startWeekFrom: 'Mo',
-    min: '15/11/2023',
-    max: '08/07/2024',
+    min: '15/11/2020',
+    max: '08/07/2026',
     isColorHolidays: true,
+    color: 'default',
+    defaultRange: true,
   }
 }

@@ -1,5 +1,5 @@
 import {JSX, Dispatch, ChangeEvent, useEffect } from 'react'
-import { INote } from '@customTypes/index';
+import { INote, ISize } from '@customTypes/index';
 
 import { AddBtn, EmptyMessage, Icon, ListNotes, NoteInput, NoteWrapper, RemoveBtn, Title, Wrapper } from './styled'
 
@@ -11,8 +11,9 @@ export interface IModalNotes{
   notes: INote[];
   setNotes: Dispatch<React.SetStateAction<INote[]>>;
   date: Date;
+  size: ISize;
 }
-export  function ModalNotes ({notes, setNotes, date}: IModalNotes): JSX.Element {
+export  function ModalNotes ({notes, setNotes, date, size}: IModalNotes): JSX.Element {
   const addNote = () => {
     const nextNotes = [...notes, {text: '',id: notes.length>0? notes[notes.length-1].id+1:1}];
     setNotes(nextNotes)
@@ -43,7 +44,7 @@ const handleInput = (event: ChangeEvent<HTMLInputElement>, id: number) => {
 }
 
   return (
-    <Wrapper>
+    <Wrapper $size={size}>
       <Title>
         Notes
       </Title>
@@ -51,7 +52,12 @@ const handleInput = (event: ChangeEvent<HTMLInputElement>, id: number) => {
         {notes.length!==0?
           notes.map((note)=>(
             <NoteWrapper key={note.id}>
-              <NoteInput value={note.text} onChange={(event)=>handleInput(event, note.id)}/>
+              <NoteInput 
+                $size={size} 
+                value={note.text} 
+                onChange={(event)=>handleInput(event, note.id)
+                }
+              />
               <RemoveBtn onClick={()=> deleteNote(note.id)}>
                 <Icon alt='remove button' src={removeIcon}/>
               </RemoveBtn>
