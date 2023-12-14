@@ -41,7 +41,15 @@ export function DateCell({
 
   return (
     <>
-    <DateWrapper onClick={handleClick} onDoubleClick={handleDoubleClick} $size={size} $type={type} $color={color} disabled={type==='disabled'}>
+    <DateWrapper 
+      data-testid="date-cell"
+      onClick={handleClick} 
+      onDoubleClick={handleDoubleClick} 
+      $size={size} 
+      $type={type} 
+      $color={color} 
+      disabled={type==='disabled'}
+      >
       <NumberOfDate 
         $color={color} 
         $type={type} 

@@ -20,6 +20,7 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "lib": ["DOM", "ESNext"],
+    "types": ["jest"],
     "jsx": "react-jsx",
     "noEmit": true,
     "isolatedModules": true,
@@ -48,7 +49,7 @@
     }
   },
 
-  "exclude": ["node_modules", "dist", "build", ".vscode","src/**/*.test.tsx","src/**/*.stories.tsx"],
+  "exclude": ["node_modules", "dist", "build", ".vscode","src/**/*.stories.tsx"],
 
   "include": ["typings/*.d.ts", "**/*.ts", "**/*.tsx"]
 }

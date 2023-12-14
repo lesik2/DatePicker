@@ -16,7 +16,6 @@ module.exports = {
           '<rootDir>/src/tests/mocks/fileMock.ts',
     '^.+\\.(css|less|scss|sass)$': '<rootDir>/src/tests/mocks/styleMock.ts',
     '(assets|models|services)': '<rootDir>/src/tests/mocks/fileMock.ts',
-    'chartjs-adapter-luxon': '<rootDir>/src/tests/mocks/fileMock.ts',
   },
   setupFilesAfterEnv: ['./src/tests/setupTests.ts'],
 
