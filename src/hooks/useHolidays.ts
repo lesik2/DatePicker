@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
-
-import { IHolidays } from '../types';
+import { IHolidays } from '@customTypes/models';
 
 export const CountryCode = 'BY';
 
@@ -10,8 +9,8 @@ export function useHolidays(year: number): IHolidays[]{
     try{
       fetch(`https://public-holiday.p.rapidapi.com/${year}/${CountryCode}`,{
       headers: {
-        'X-RapidAPI-Key': '11c57626b2msh278514962164ed1p109c86jsnb5d797c50751',
-        'X-RapidAPI-Host': 'public-holiday.p.rapidapi.com'
+        'X-RapidAPI-Key': 'KEY_HOLIDAYS',
+        'X-RapidAPI-Host': 'HOST_HOLIDAYS',
       },
     })
     .then((response: Response)=>response.json())

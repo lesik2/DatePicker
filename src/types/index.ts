@@ -80,3 +80,8 @@ export interface IClearButton{
   handleClear: () => void;
   size: ISize;
 }
+export interface IMain{
+  children: JSX.Element|JSX.Element[];
+  showHolidays: boolean;
+  size: ISize;
+}

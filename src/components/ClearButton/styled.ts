@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-
 import { ISize } from '@customTypes/models';
 
 
