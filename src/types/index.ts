@@ -64,3 +64,8 @@ export interface INavigation{
   isDisableNext: boolean;
   size: ISize;
 }
+export interface IWeekday{
+  startWeekFrom: TypeStartWeekFrom;
+  showHolidays: boolean;
+  size: ISize;
+}

@@ -6,7 +6,7 @@ import {CONSTANTS} from '@constants/index'
 
 import {  render, screen, waitFor } from '../test.utils';
 
-describe('Navigation component', () => {
+describe('Date component', () => {
   let mockIncrementOfClicks: jest.Mock;
   let Props: IDateComponent;
   beforeEach(()=>{
