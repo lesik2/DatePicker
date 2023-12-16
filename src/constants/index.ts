@@ -11,3 +11,9 @@ export const CONSTANTS = {
   TOOLTIP_FOR_DATE_CELL:'double click for notes',
   CLEAR_BUTTON: 'Clear',
 } as const;
+export const LOCAL_STORAGE_KEYS={
+  HOLIDAY:'holiday',
+  DATE_START: 'start',
+  DATE_END: 'end',
+}
+export const CountryCode = 'BY';

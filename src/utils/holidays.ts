@@ -1,8 +1,9 @@
+import {LOCAL_STORAGE_KEYS} from '@constants/index'
+
 import { IHolidays } from "../types/models";
 
-export const Holiday = 'holiday';
 export function getHolidays():  IHolidays[] | null {
-  const storedHolidays = localStorage.getItem(Holiday);
+  const storedHolidays = localStorage.getItem(LOCAL_STORAGE_KEYS.HOLIDAY);
   if (storedHolidays!==null) {
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -16,5 +17,5 @@ export function getHolidays():  IHolidays[] | null {
 }
 
 export function saveHolidays(holidays: IHolidays[]): void {
-  localStorage.setItem(Holiday, JSON.stringify(holidays));
+  localStorage.setItem(LOCAL_STORAGE_KEYS.HOLIDAY, JSON.stringify(holidays));
 }

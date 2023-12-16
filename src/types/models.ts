@@ -1,4 +1,3 @@
-
 export type TypeOfDate = 'default'| 'disabled'|'start'|'selected'|'between'|'end';
 export type TypeOfCalendar = 'month'|'week'|'year';
 export type TypeStartWeekFrom = 'Mo'|'Su';
@@ -20,3 +19,4 @@ export interface IHolidays{
   name: string;
   countryCode: string;
 }
+export type StartOrEnd = 'end'|'start';

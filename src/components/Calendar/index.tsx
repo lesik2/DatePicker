@@ -4,8 +4,8 @@ import {Navigation} from '@components/Navigation/index'
 import {DateCell} from '@components/Date/index'
 import {Weekday} from '@components/Weekday/index'
 import { DateInput } from '@components/DateInput/index'
-import { clearStartDate, getStartDate, saveStartDate } from '@utils/rangePicker'
-import { ICreateCalendar} from '@customTypes/index'
+import { clearRangeDate, getRangeDate, saveRangeDate } from '@utils/rangePicker'
+import { ICreateCalendar} from '@customTypes/calendar'
 import {rangeDates} from '@utils/index'
 import { IDate } from '@customTypes/models'
 
@@ -25,16 +25,16 @@ export function Calendar({
   const year = date.getFullYear();
   const month = date.toLocaleString('en-US', { month: 'long' });
   const defineAmountOfClicks=(): number => {
-    const startDate = getStartDate('start') === null?0:1;
-    const endDate = getStartDate('end') === null?0:1;
+    const startDate = getRangeDate('start') === null?0:1;
+    const endDate = getRangeDate('end') === null?0:1;
 
     return startDate+ endDate;
   }
 
   const [datesOfCalendar, setDatesOfCalendar] = useState<IDate[]>(dates);
   const [amountOfClicks, setAmountOfClicks] = useState(defineAmountOfClicks());
-  const [start, setStart]  = useState<Date|null>(getStartDate('start'));
-  const [end, setEnd] = useState<Date| null>(getStartDate('end'));
+  const [start, setStart]  = useState<Date|null>(getRangeDate('start'));
+  const [end, setEnd] = useState<Date| null>(getRangeDate('end'));
 
  
 
@@ -42,13 +42,13 @@ export function Calendar({
     if(amountOfClicks+1 === 1){
       const startDate = new Date(year, date.getMonth(), numberOfDate);
       setStart(startDate)
-      saveStartDate(startDate.toString(), 'start');
+      saveRangeDate(startDate.toString(), 'start');
       setAmountOfClicks((prev)=>prev+1)
     }else if(amountOfClicks+1 === 2 && start){
       const endDate = new Date(year, date.getMonth(), numberOfDate);
       if(endDate.getDate()>start.getDate()){
         setEnd(endDate);
-        saveStartDate(endDate.toString(), 'end');
+        saveRangeDate(endDate.toString(), 'end');
         setAmountOfClicks((prev)=>prev+1)
       }
 
@@ -59,7 +59,7 @@ export function Calendar({
     setStart(null);
     setEnd(null);
     setAmountOfClicks(0);
-    clearStartDate();
+    clearRangeDate();
     const clearDates: IDate[] = datesOfCalendar.map((item)=>{
       if(item.type === 'start' || item.type ==='end' || item.type === 'between'){
         return {...item, type: 'default'}

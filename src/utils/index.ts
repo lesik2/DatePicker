@@ -1,7 +1,7 @@
 import { IDate, IHolidays, TypeStartWeekFrom } from "@customTypes/models";
 import { IYearDate } from "@customTypes/index";
 
-import { saveStartDate } from "./rangePicker";
+import { saveRangeDate } from "./rangePicker";
 
 
 
@@ -248,8 +248,8 @@ export const setRange = (week: IDate[], currentDate: Date): IDate[]=>{
     }
   }
 
-  saveStartDate(startDate.toString(),'start');
-  saveStartDate(endDate.toString(),'end');
+  saveRangeDate(startDate.toString(),'start');
+  saveRangeDate(endDate.toString(),'end');
 
   return newWeek
 }

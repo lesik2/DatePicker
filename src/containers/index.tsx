@@ -1,5 +1,5 @@
 import {Component} from 'react';
-
+import { ICalendarServiceState, IServiceCalendar } from '@customTypes/calendar';
 
 import { changeVisibilityOfWeekend } from './changeVisibilityOfWeekend';
 import {changeTypeOfCalendar} from './changeTypeOfCalendar'
@@ -8,7 +8,6 @@ import {disableLimit} from './disableLimit'
 import {setDefaultRange} from './setDefaultRange'
 
 import { Calendar } from '../components/Calendar';
-import { ICalendarServiceState, IServiceCalendar } from '../types';
 import {getCalendarDates, isSearchValid} from '../utils/index';
 import {REGULAR_EXPRESSIONS} from '../constants/index'
 
@@ -125,11 +124,11 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
         colorHolidaysDays(
         changeVisibilityOfWeekend(
           Calendar
-          )
         )
         )
         )
-    )
+        )
+        )
 
     return (
         <DecoratedCalendar  

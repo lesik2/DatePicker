@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 import { IHolidays } from '@customTypes/models';
 import { saveHolidays, getHolidays } from '@utils/holidays';
+import { CountryCode } from '@constants/index';
 
-export const CountryCode = 'BY';
 export function useHolidays(year: number): IHolidays[]{
   const [holidays, setHolidays] = useState<IHolidays[]>([]);
   const fetchHolidays = () => {
