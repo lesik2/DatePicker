@@ -1,6 +1,10 @@
+import { IDate, IHolidays, TypeStartWeekFrom } from "@customTypes/models";
+import { IYearDate } from "@customTypes/index";
+
 import { saveStartDate } from "./rangePicker";
 
-import { IDate, IHolidays, IYearDate, TypeStartWeekFrom } from "../types/index";
+
+
 
 
 export const indexesOfWeekends = {

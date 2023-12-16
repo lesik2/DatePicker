@@ -1,5 +1,3 @@
-
-
 export const DATE_START = 'start';
 export const DATE_END = 'end';
 export type StartOrEnd = 'end'|'start';

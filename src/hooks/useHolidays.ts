@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 import { IHolidays } from '@customTypes/models';
+import { saveHolidays, getHolidays } from '@utils/holidays';
 
 export const CountryCode = 'BY';
-
 export function useHolidays(year: number): IHolidays[]{
   const [holidays, setHolidays] = useState<IHolidays[]>([]);
   const fetchHolidays = () => {
@@ -15,6 +15,7 @@ export function useHolidays(year: number): IHolidays[]{
     })
     .then((response: Response)=>response.json())
     .then((data: IHolidays[])=>{
+      saveHolidays(data);
       setHolidays(data);
     })
     .catch((error: Error)=> console.error(error.message))
@@ -27,7 +28,17 @@ export function useHolidays(year: number): IHolidays[]{
   }
 
   useEffect(()=>{
-    fetchHolidays();
+    const holidaysFromStorage = getHolidays();
+    if(holidaysFromStorage){
+      const validHoliday = new Date(holidaysFromStorage[0].date).getFullYear() === new Date().getFullYear();
+      if(!validHoliday){
+        fetchHolidays();
+      }else{
+        setHolidays(holidaysFromStorage);
+      }
+    }else{
+      fetchHolidays();
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
