@@ -1,25 +1,14 @@
-import {JSX, Dispatch, useEffect} from 'react'
+import {JSX} from 'react'
+import {ITooltip} from '@customTypes/index'
 
 import { Wrapper, Text } from './styled';
+import { useShowTooltip } from './hooks/useShowTooltip';
 
-export interface ITooltip{
-  message: string;
-  isOpen: boolean;
-  setIsOpen: Dispatch<React.SetStateAction<boolean>>
-}
 export function Tooltip({message, isOpen, setIsOpen}: ITooltip): JSX.Element {
-  useEffect(()=>{
-    if(!isOpen) return;
-    const idTimer = setTimeout(()=> setIsOpen(false), 1800)
-
-    // eslint-disable-next-line consistent-return
-    return ()=>{
-      clearTimeout(idTimer);
-    }
-  },[isOpen, setIsOpen])
+  useShowTooltip(isOpen, setIsOpen);
 
   return (
-    <Wrapper $isOpen={isOpen}>
+    <Wrapper data-testid='tooltip' $isOpen={isOpen}>
       <Text>
         {message}
       </Text>

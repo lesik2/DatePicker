@@ -1,11 +1,12 @@
 import {JSX, useState, useEffect} from 'react'
-import { IDateComponent, INote } from '@customTypes/index';
+import { IDateComponent } from '@customTypes/index';
+import { INote } from '@customTypes/models';
+import { getNotesForDate } from '@utils/notes';
 
 import { DateWrapper, NumberOfDate } from './styled';
 
 import { ModalNotes } from '../ModalNotes/index';
 import { Modal } from '../Modal/index';
-import { getNotesForDate } from '../../utils/notes';
 import { Tooltip } from '../Tooltip';
 
 

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import {IColor, IDate, ISize} from '@customTypes/index';
+import {IColor, IDate, ISize} from '@customTypes/models';
 
 
 export const DateWrapper = styled.button<{$type?: IDate['type'], $color: IColor, $size: ISize }>`

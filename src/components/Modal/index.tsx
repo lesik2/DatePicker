@@ -1,5 +1,6 @@
 import closeIcon from '@assets/icons/closeModal.svg';
-import {ReactElement, JSX} from 'react';
+import {JSX} from 'react';
+import { IModal } from '@customTypes/modal';
 
 import {
   Close, Content,
@@ -7,19 +8,13 @@ import {
   Wrapper,
 } from './styled';
 
-// import { Portal } from '../Portal';
 
-
-export interface IModal {
-  onClose: () => void;
-  children: ReactElement;
-}
 export function Modal({ onClose, children }: IModal): JSX.Element {
   return (
-      <Wrapper>
+      <Wrapper data-testid='modal'>
         <Content>
           {children}
-          <Close data-cy="cross-close" onClick={onClose}>
+          <Close data-testid="modal-close" onClick={onClose}>
             <Image className="close-img" src={closeIcon} alt="close modal window" />
           </Close>
         </Content>

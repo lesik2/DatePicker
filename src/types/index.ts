@@ -1,10 +1,7 @@
-export type TypeOfDate = 'default'| 'disabled'|'start'|'selected'|'between'|'end';
+import { Dispatch } from "react";
 
-export interface IDate{
-  type: TypeOfDate;
-  dateNumber: number;
-  holiday?: boolean;
-}
+import { IColor, IDate, ISize, TypeOfCalendar, TypeStartWeekFrom } from "./models";
+
 export interface IDateCell{
   date: Date;
   incrementOfClicks: (numberOfDate: number) => void;
@@ -12,32 +9,8 @@ export interface IDateCell{
   size: ISize;
 }
 export type IDateComponent = IDate & IDateCell;
-export type TypeOfCalendar = 'month'|'week'|'year';
-export type TypeStartWeekFrom = 'Mo'|'Su';
-export type IColor = 'default'|'primary'|'secondary';
-export type ISize = 'default'|'medium';
-export interface IDateColor{
-  third: string;
-  startDate: string;
-  betweenDate: string;
-}
-export interface IDateSize{
-  widthCalendar:  string;
-  contentCalendar:  string;
-  columnWithWeekend:  string;
-  columnWithoutWeekend:  string;
-  widthOfDateCell:  string;
-  paddingDateCell:  string;
-  fontSizeOfDateCell:  string;
-  fontSizeOfWeekday:  string;
-  heightOfDateInput:  string;
-  widthOfDateInput:  string;
-  iconsWidth:  string;
-  paddingDateInput:  string;
-  widthYear: string;
-  modalHeight: string;
-  widthOfModalInput: string;
-}
+
+
 export interface ICalendarServiceState{
   currentDate: Date;
   changeDate: Date;
@@ -72,17 +45,22 @@ export interface ILimitDate{
 }
 export type IServiceCalendar = Pick<Partial<ICreateCalendar>, 'type'|'isShowWeekend'|'startWeekFrom'|'isColorHolidays'|'color'|'size'|'defaultRange'> & ILimitDate;
 export type ICalendar = Required<ICreateCalendar>
-export interface IHolidays{
-  date: string;
-  localName: string;
-  name: string;
-  countryCode: string;
-}
-export interface INote{
-  text: string;
-  id: number;
-}
+
 export interface IYearDate{
   dates: IDate[];
   date: Date;
+}
+export interface ITooltip{
+  message: string;
+  isOpen: boolean;
+  setIsOpen: Dispatch<React.SetStateAction<boolean>>
+}
+export interface INavigation{
+  month: string;
+  year: number;
+  handleNextDate?: () => void;
+  handlePrevDate?: () => void;
+  isDisablePrev: boolean;
+  isDisableNext: boolean;
+  size: ISize;
 }

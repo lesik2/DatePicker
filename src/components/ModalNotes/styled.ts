@@ -1,4 +1,4 @@
-import { ISize } from '@customTypes/index';
+import { ISize } from '@customTypes/models';
 import styled, {css} from 'styled-components';
 
 export const Wrapper = styled.div<{$size: ISize}>`

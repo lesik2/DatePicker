@@ -1,4 +1,4 @@
-import { INote } from "../types";
+import { INote } from "@customTypes/models";
 
 export function getNotesForDate(date: string): INote[] | null {
   const storedNotes = localStorage.getItem(date);

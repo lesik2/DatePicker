@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
-
-import { ISize } from '@//types';
+import { ISize } from '@customTypes/models';
 
 export const Wrapper = styled.div<{$size: ISize}>`
   ${({ theme, $size }) => css`

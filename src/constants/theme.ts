@@ -1,4 +1,5 @@
-import { IColor, IDateColor, IDateSize, ISize } from "../types";
+import { IColor, ISize } from "@customTypes/models";
+import { IDateColor, IDateSize } from '@customTypes/style'
 
 export const theme = {
   colors: {

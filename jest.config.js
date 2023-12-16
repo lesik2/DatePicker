@@ -12,6 +12,7 @@ module.exports = {
     '@model/(.*)$': '<rootDir>/src/model/$1',
     '@pages/(.*)$': '<rootDir>/src/pages/$1',
     '@containers/(.*)$': '<rootDir>/src/containers/$1',
+    '@customTypes/(.*)$': '<rootDir>/src/types/$1',
     '^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
           '<rootDir>/src/tests/mocks/fileMock.ts',
     '^.+\\.(css|less|scss|sass)$': '<rootDir>/src/tests/mocks/styleMock.ts',

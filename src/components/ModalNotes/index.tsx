@@ -1,28 +1,19 @@
-import {JSX, Dispatch, ChangeEvent, useEffect } from 'react'
-import { INote, ISize } from '@customTypes/index';
+import {JSX, ChangeEvent} from 'react';
+import {IModalNotes} from '@customTypes/modal'
+import removeIcon from '@assets/icons/removeIcon.svg';
+import addIcon from '@assets/icons/clear.svg';
+import {CONSTANTS} from '@constants/index'
 
 import { AddBtn, EmptyMessage, Icon, ListNotes, NoteInput, NoteWrapper, RemoveBtn, Title, Wrapper } from './styled'
+import { useSaveNote } from './hooks/useSaveNote';
 
-import removeIcon from '../../assets/icons/removeIcon.svg';
-import addIcon from '../../assets/icons/clear.svg';
-import { saveNotesForDate } from '../../utils/notes';
-
-export interface IModalNotes{
-  notes: INote[];
-  setNotes: Dispatch<React.SetStateAction<INote[]>>;
-  date: Date;
-  size: ISize;
-}
 export  function ModalNotes ({notes, setNotes, date, size}: IModalNotes): JSX.Element {
   const addNote = () => {
     const nextNotes = [...notes, {text: '',id: notes.length>0? notes[notes.length-1].id+1:1}];
     setNotes(nextNotes)
   }
 
-  useEffect(()=>{
-    saveNotesForDate(date.toLocaleDateString(), notes);
-  }, [notes, date])
-  
+  useSaveNote(notes, date);
   const deleteNote = (id: number) => {
     const nextNotes = notes.filter((note)=>note.id!==id);
     setNotes(nextNotes);
@@ -46,15 +37,16 @@ const handleInput = (event: ChangeEvent<HTMLInputElement>, id: number) => {
   return (
     <Wrapper $size={size}>
       <Title>
-        Notes
+        {CONSTANTS.NOTES_TITLE}
       </Title>
-      <ListNotes>
+      <ListNotes data-testid="modal-notes">
         {notes.length!==0?
           notes.map((note)=>(
             <NoteWrapper key={note.id}>
               <NoteInput 
                 $size={size} 
-                value={note.text} 
+                value={note.text}
+                data-testid = 'input-note' 
                 onChange={(event)=>handleInput(event, note.id)
                 }
               />
@@ -63,10 +55,10 @@ const handleInput = (event: ChangeEvent<HTMLInputElement>, id: number) => {
               </RemoveBtn>
             </NoteWrapper>
           )):
-          <EmptyMessage>You don`t have any notes yet</EmptyMessage>
+          <EmptyMessage>{CONSTANTS.EMPTY_NOTES}</EmptyMessage>
         }
       </ListNotes>
-      <AddBtn onClick={addNote}>
+      <AddBtn data-testid="add-note" onClick={addNote}>
         <Icon alt='add button' src={addIcon}/>
       </AddBtn>
     </Wrapper>
