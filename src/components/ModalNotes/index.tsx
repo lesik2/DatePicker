@@ -50,7 +50,7 @@ const handleInput = (event: ChangeEvent<HTMLInputElement>, id: number) => {
                 onChange={(event)=>handleInput(event, note.id)
                 }
               />
-              <RemoveBtn onClick={()=> deleteNote(note.id)}>
+              <RemoveBtn data-testid="delete-note" onClick={()=> deleteNote(note.id)}>
                 <Icon alt='remove button' src={removeIcon}/>
               </RemoveBtn>
             </NoteWrapper>

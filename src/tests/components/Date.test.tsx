@@ -77,7 +77,7 @@ describe('Navigation component', () => {
     const emptyMessage = screen.getByText(CONSTANTS.EMPTY_NOTES);
     expect(emptyMessage).toBeInTheDocument();
   });
-  test('after clicking on  button should add note', async ()=>{
+  test('after clicking on button should add note', async ()=>{
     render(<DateCell {...Props} />);
     await userEvent.dblClick(screen.getByTestId('date-cell'));
     const modalNotes = screen.getByTestId('modal-notes');
@@ -98,4 +98,36 @@ describe('Navigation component', () => {
       expect(note.value).toBe('buy milk');
     }
   });
+  test('after clicking on button should delete note', async ()=>{
+    render(<DateCell {...Props} />);
+    await userEvent.dblClick(screen.getByTestId('date-cell'));
+    const modalNotes = screen.getByTestId('modal-notes');
+    const emptyMessage = screen.getByText(CONSTANTS.EMPTY_NOTES);
+    const addNote = screen.getByTestId('add-note');
+    await userEvent.click(addNote);
+    const deleteNote = screen.getByTestId('delete-note');
+    expect(modalNotes.children).toHaveLength(1);
+    expect(emptyMessage).not.toBeInTheDocument();
+    await userEvent.click(deleteNote);
+    const empty = screen.queryByText(CONSTANTS.EMPTY_NOTES);
+    expect(empty).toBeInTheDocument();
+    expect(screen.getByTestId('modal-notes').children.length).toBe(1);
+  })
+  test('should save the same notes after closing modal', async()=>{
+    render(<DateCell {...Props} />);
+    await userEvent.dblClick(screen.getByTestId('date-cell'));
+    const closeModal = screen.getByTestId('modal-close')
+    const addNote = screen.getByTestId('add-note');
+    await userEvent.click(addNote);
+    const note: HTMLInputElement| null  = screen.queryByTestId('input-note');
+    if(note){
+      await userEvent.type(note, 'buy milk');
+      expect(note.value).toBe('buy milk');
+    }
+
+    await userEvent.click(closeModal);
+    await userEvent.dblClick(screen.getByTestId('date-cell'));
+    const saveNote: HTMLInputElement = screen.getByTestId('input-note');
+    expect(saveNote.value).toBe('buy milk');
+  })
 });
