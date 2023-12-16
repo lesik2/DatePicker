@@ -9,4 +9,5 @@ export const CONSTANTS = {
   PLACEHOLDER_INPUT:'Choose Date',
   TOOLTIP_FORMAT_DATE:'Format day/month/year',
   TOOLTIP_FOR_DATE_CELL:'double click for notes',
+  CLEAR_BUTTON: 'Clear',
 } as const;

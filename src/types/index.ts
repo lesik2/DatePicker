@@ -76,3 +76,7 @@ export interface IDateInput{
   handleSearchCalendar: (searchDate: Date) => void;
   size: ISize;
 }
+export interface IClearButton{
+  handleClear: () => void;
+  size: ISize;
+}

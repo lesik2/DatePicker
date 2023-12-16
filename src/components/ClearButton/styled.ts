@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { ISize } from '@//types';
+import { ISize } from '@customTypes/models';
 
 
 export const ClearBtn = styled.button<{$size: ISize}>`

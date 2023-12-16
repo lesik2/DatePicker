@@ -53,6 +53,4 @@ describe('DateInput component', () => {
     expect(mockHandleSearchCalendar).not.toHaveBeenCalled();
   })
 
-  
-
 });
