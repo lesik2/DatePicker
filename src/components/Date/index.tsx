@@ -2,13 +2,13 @@ import {JSX, useState, useEffect} from 'react'
 import { IDateComponent } from '@customTypes/index';
 import { INote } from '@customTypes/models';
 import { getNotesForDate } from '@utils/notes';
+import {CONSTANTS} from '@constants/index'
 
 import { DateWrapper, NumberOfDate } from './styled';
 
 import { ModalNotes } from '../ModalNotes/index';
 import { Modal } from '../Modal/index';
 import { Tooltip } from '../Tooltip';
-
 
 export function DateCell({
   type,dateNumber, date, incrementOfClicks, holiday,color,size 
@@ -60,7 +60,11 @@ export function DateCell({
       >
         {dateNumber}
       </NumberOfDate>
-      <Tooltip  isOpen={isOpenTip} setIsOpen={setIsOpenTip} message='double click for notes'/>
+      <Tooltip  
+        isOpen={isOpenTip} 
+        setIsOpen={setIsOpenTip} 
+        message={CONSTANTS.TOOLTIP_FOR_DATE_CELL
+      }/>
     </DateWrapper>
       {isOpen && 
         <Modal onClose={handleClose}>

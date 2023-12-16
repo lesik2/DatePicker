@@ -6,4 +6,7 @@ export const REGULAR_EXPRESSIONS={
 export const CONSTANTS = {
   EMPTY_NOTES:'You don`t have any notes yet',
   NOTES_TITLE: 'Notes',
+  PLACEHOLDER_INPUT:'Choose Date',
+  TOOLTIP_FORMAT_DATE:'Format day/month/year',
+  TOOLTIP_FOR_DATE_CELL:'double click for notes',
 } as const;

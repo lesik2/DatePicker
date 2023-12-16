@@ -5,13 +5,15 @@ import {DateCell} from '@components/Date/index'
 import {Weekday} from '@components/Weekday/index'
 import { DateInput } from '@components/DateInput/index'
 import { clearStartDate, getStartDate, saveStartDate } from '@utils/rangePicker'
+import { ICreateCalendar} from '@customTypes/index'
+import {rangeDates} from '@utils/index'
+import { IDate } from '@customTypes/models'
 
 import { Wrapper,CalendarWrapper } from './styled'
 
-import {rangeDates} from '../../utils/index'
 import { ClearButton } from '../ClearButton'
-import { ICreateCalendar, IDate } from '../../types/index'
 import { InfinityLoader } from '../InfinityLoader'
+
 
 
 export function Calendar({

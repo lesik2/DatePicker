@@ -1,5 +1,5 @@
 import {JSX} from 'react'
-import { ISize } from '@customTypes/index';
+import { ISize } from '@customTypes/models';
 
 import { Wrapper } from './styled'
 

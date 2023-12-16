@@ -69,3 +69,10 @@ export interface IWeekday{
   showHolidays: boolean;
   size: ISize;
 }
+export interface IInfinityLoader{
+  color: IColor;
+}
+export interface IDateInput{
+  handleSearchCalendar: (searchDate: Date) => void;
+  size: ISize;
+}
