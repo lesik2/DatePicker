@@ -10,9 +10,9 @@ import eslint from '@rollup/plugin-eslint';
 import alias from '@rollup/plugin-alias';
 import styles from "rollup-plugin-styles";
 import image from '@rollup/plugin-image';
-import dotenv from "rollup-plugin-dotenv";
 import replace from '@rollup/plugin-replace';
 const packageJson = require('./package.json');
+import 'dotenv/config'
 
 export default [
     {
@@ -64,7 +64,6 @@ export default [
             eslint(),
             styles(),
             image(),
-            dotenv(),
             replace({
               preventAssignment: true,
               KEY_HOLIDAYS: process.env.KEY_HOLIDAYS,
