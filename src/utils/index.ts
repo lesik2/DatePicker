@@ -1,9 +1,13 @@
 import { IDate } from "@customTypes/models";
 
-
 export function isCurrentDate(currentDate: Date, changeDate: Date): boolean{
   return currentDate.getMonth() === changeDate.getMonth() && 
   currentDate.getFullYear() === changeDate.getFullYear()
+}
+
+export function isSetRangePicker(changeDate: Date, start: Date, end: Date): boolean{
+  return changeDate.getTime()>start.getTime() && changeDate.getTime()<end.getTime();
+
 }
 
 export const isSearchValid = (
@@ -24,33 +28,34 @@ export const isSearchValid = (
   return true;
 }
 
-export const rangeDates = (dates: IDate[], start: Date, end: Date, currentDate: Date): IDate[]=>{
+export const rangeDates = (dates: IDate[], start: Date, end: Date, changeDate: Date): IDate[]=>{
   let newDates = [...dates];
   newDates = newDates.map((date)=>{
     if(date.type === 'disabled' || date.type === 'selected'){
       return date;
     }
 
-    if(date.dateNumber === start.getDate()&& isCurrentDate(currentDate, start)){
+    if(date.dateNumber === start.getDate()&& isCurrentDate(changeDate, start)){
       return {...date, type: 'start'};
     }
 
-    if(date.dateNumber === end.getDate()&& isCurrentDate(currentDate, end)){
+    if(date.dateNumber === end.getDate()&& isCurrentDate(changeDate, end)){
 
       return {...date, type:'end'}
     }
 
-    if(!isCurrentDate(currentDate, start)&& !isCurrentDate(currentDate, end)){
+    if(!isCurrentDate(changeDate, start)&& !isCurrentDate(changeDate, end) && 
+    isSetRangePicker(changeDate, start, end)){
       return {...date, type:'between'}
     }
 
-    if(isCurrentDate(currentDate, start)
-    && !isCurrentDate(currentDate, end) && date.dateNumber>start.getDate()){
+    if(isCurrentDate(changeDate, start)
+    && !isCurrentDate(changeDate, end) && date.dateNumber>start.getDate()){
         return {...date, type:'between'};
     }
 
-    if(!isCurrentDate(currentDate, start)
-    && isCurrentDate(currentDate, end)&& date.dateNumber<end.getDate()){
+    if(!isCurrentDate(changeDate, start)
+    && isCurrentDate(changeDate, end)&& date.dateNumber<end.getDate()){
         return {...date, type:'between'};
     }
 

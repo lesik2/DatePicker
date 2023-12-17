@@ -29,7 +29,7 @@ export function useHolidays(year: number): IHolidays[]{
 
   useEffect(()=>{
     const holidaysFromStorage = getHolidaysFromStorage();
-    if(holidaysFromStorage){
+    if(holidaysFromStorage && holidaysFromStorage.length>0){
       const validHoliday = new Date(holidaysFromStorage[0].date).getFullYear() === new Date().getFullYear();
       if(!validHoliday){
         fetchHolidays();

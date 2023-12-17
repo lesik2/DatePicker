@@ -24,3 +24,10 @@ export function clearRangeDateFromStorage(): void{
   localStorage.removeItem(LOCAL_STORAGE_KEYS.DATE_START);
   localStorage.removeItem(LOCAL_STORAGE_KEYS.DATE_END);
 }
+
+export const defineAmountOfClicks=(): number => {
+  const startDate = getRangeDateFromStorage('start') === null?0:1;
+  const endDate = getRangeDateFromStorage('end') === null?0:1;
+
+  return startDate+ endDate;
+}

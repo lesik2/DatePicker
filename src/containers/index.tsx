@@ -3,6 +3,7 @@ import { ICalendarServiceState, IServiceCalendar } from '@customTypes/calendar';
 import  {isSearchValid} from '@utils/index';
 import { Calendar } from '@components/Calendar';
 import {REGULAR_EXPRESSIONS, DATE_CONSTANTS} from '@constants/index'
+import { ErrorBoundary } from '@components/ErrorBoundary';
 
 import { changeVisibilityOfWeekend } from './changeVisibilityOfWeekend';
 import {changeTypeOfCalendar} from './changeTypeOfCalendar'
@@ -153,6 +154,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
         )
 
     return (
+      <ErrorBoundary>
         <DecoratedCalendar
           type={type} 
           isShowWeekend={isShowWeekend} 
@@ -173,6 +175,8 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
           size = {size}
           defaultRange={defaultRange}
         />
+      </ErrorBoundary>
+        
     )
   }
 

@@ -4,7 +4,7 @@ import {Navigation} from '@components/Navigation/index'
 import {DateCell} from '@components/Date/index'
 import {Weekday} from '@components/Weekday/index'
 import { DateInput } from '@components/DateInput/index'
-import { clearRangeDateFromStorage, getRangeDateFromStorage, saveRangeDateToStorage } from '@utils/rangePicker'
+import { clearRangeDateFromStorage, defineAmountOfClicks, getRangeDateFromStorage, saveRangeDateToStorage } from '@utils/rangePicker'
 import { ICreateCalendar} from '@customTypes/calendar'
 import { IDate } from '@customTypes/models'
 
@@ -24,12 +24,6 @@ export function Calendar({
   
   const year = changeDate.getFullYear();
   const month = changeDate.toLocaleString('en-US', { month: 'long' });
-  const defineAmountOfClicks=(): number => {
-    const startDate = getRangeDateFromStorage('start') === null?0:1;
-    const endDate = getRangeDateFromStorage('end') === null?0:1;
-
-    return startDate+ endDate;
-  }
 
   const [datesOfCalendar, setDatesOfCalendar] = useState<IDate[]>(dates);
   const [amountOfClicks, setAmountOfClicks] = useState(defineAmountOfClicks());
@@ -46,7 +40,7 @@ export function Calendar({
       setAmountOfClicks((prev)=>prev+1)
     }else if(amountOfClicks+1 === 2 && start){
       const endDate = new Date(year, changeDate.getMonth(), numberOfDate);
-      if(endDate.getDate()>start.getDate()){
+      if(endDate.getTime()>start.getTime()){
         setEnd(endDate);
         saveRangeDateToStorage(endDate.toString(), 'end');
         setAmountOfClicks((prev)=>prev+1)
