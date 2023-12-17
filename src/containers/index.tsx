@@ -4,6 +4,8 @@ import  {isSearchValid} from '@utils/index';
 import { Calendar } from '@components/Calendar';
 import {REGULAR_EXPRESSIONS, DATE_CONSTANTS} from '@constants/index'
 import { ErrorBoundary } from '@components/ErrorBoundary';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '@constants/theme';
 
 import { changeVisibilityOfWeekend } from './changeVisibilityOfWeekend';
 import {changeTypeOfCalendar} from './changeTypeOfCalendar'
@@ -11,6 +13,8 @@ import {colorHolidaysDays} from './colorHolidaysDays'
 import {disableLimit} from './disableLimit'
 import {setDefaultRange} from './setDefaultRange'
 import { getCalendarDates } from './helpers/defaultCalendar';
+
+import GlobalStyle from '../globalStyles';
 
 export class CalendarService extends Component<IServiceCalendar,ICalendarServiceState>{
   constructor(props: IServiceCalendar){
@@ -155,26 +159,30 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
 
     return (
       <ErrorBoundary>
-        <DecoratedCalendar
-          type={type} 
-          isShowWeekend={isShowWeekend} 
-          isColorHolidays={isColorHolidays}
-          startWeekFrom={startWeekFrom}
-          changeDate={changeDate}
-          currentDate = {currentDate}
-          dates={dates} 
-          handlePrevDate = {this.handlePrevDate}
-          handleNextDate = {this.handleNextDate} 
-          isDisableNext={isDisableNext}
-          isDisablePrev={isDisablePrev}
-          min={min}
-          max={max}
-          handleSearchCalendar={this.handleSearchCalendar}
-          loading={isColorHolidays}
-          color={color}
-          size = {size}
-          defaultRange={defaultRange}
-        />
+        <ThemeProvider theme={theme}>
+          <DecoratedCalendar
+            type={type} 
+            isShowWeekend={isShowWeekend} 
+            isColorHolidays={isColorHolidays}
+            startWeekFrom={startWeekFrom}
+            changeDate={changeDate}
+            currentDate = {currentDate}
+            dates={dates} 
+            handlePrevDate = {this.handlePrevDate}
+            handleNextDate = {this.handleNextDate} 
+            isDisableNext={isDisableNext}
+            isDisablePrev={isDisablePrev}
+            min={min}
+            max={max}
+            handleSearchCalendar={this.handleSearchCalendar}
+            loading={isColorHolidays}
+            color={color}
+            size = {size}
+            defaultRange={defaultRange}
+          />
+          <GlobalStyle />
+        </ThemeProvider>
+        
       </ErrorBoundary>
         
     )
