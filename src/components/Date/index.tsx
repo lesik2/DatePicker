@@ -1,7 +1,7 @@
 import {JSX, useState, useEffect} from 'react'
 import { IDateComponent } from '@customTypes/index';
 import { INote } from '@customTypes/models';
-import { getNotesForDate } from '@utils/notes';
+import { getNotesForDateFromStorage } from '@utils/notes';
 import {CONSTANTS} from '@constants/index'
 
 import { DateWrapper, NumberOfDate } from './styled';
@@ -32,7 +32,7 @@ export function DateCell({
   }
 
   useEffect(()=>{
-    const notesFromStorage = getNotesForDate(dateLocal.toLocaleDateString());
+    const notesFromStorage = getNotesForDateFromStorage(dateLocal.toLocaleDateString());
     if(notesFromStorage){
       setNotes(notesFromStorage)
     }

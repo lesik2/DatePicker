@@ -22,4 +22,4 @@ export const DATE_CONSTANTS = {
   MILLISECONDS_IN_DAY: 86400000,
   MONTH_IN_YEAR: 12,
   LAST_INDEX_OF_WEEK: 6,
-}
+} as const;
