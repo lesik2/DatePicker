@@ -6,7 +6,7 @@ import { Wrapper } from './styled'
 
 export function Main({children, showHolidays, size}: IMain): JSX.Element {
   return (
-    <Wrapper $showHolidays = {showHolidays} $size={size}>
+    <Wrapper data-testid='main' $showHolidays = {showHolidays} $size={size}>
       {children}
     </Wrapper>
   )

@@ -74,7 +74,7 @@ export function Calendar({
  
   
   return (
-    <Wrapper>
+    <Wrapper data-testid='calendar'>
       <DateInput size={size} handleSearchCalendar={handleSearchCalendar}/>
       <CalendarWrapper $size={size} $clear={start !==null}>
           <Navigation

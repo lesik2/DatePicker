@@ -11,11 +11,7 @@ import {disableLimit} from './disableLimit'
 import {setDefaultRange} from './setDefaultRange'
 import { getCalendarDates } from './helpers/defaultCalendar';
 
-
-
-
 export class CalendarService extends Component<IServiceCalendar,ICalendarServiceState>{
-
   constructor(props: IServiceCalendar){
     super(props);
     this.state = {
@@ -157,7 +153,7 @@ export class CalendarService extends Component<IServiceCalendar,ICalendarService
         )
 
     return (
-        <DecoratedCalendar  
+        <DecoratedCalendar
           type={type} 
           isShowWeekend={isShowWeekend} 
           isColorHolidays={isColorHolidays}

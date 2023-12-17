@@ -24,7 +24,7 @@ export const changeTypeOfCalendar = (Component: ComponentType<ICreateCalendar>) 
       const yearDates = changeTypeOfCalendarToYear(changeDate.getFullYear(),startWeekFrom,currentDate);
       
       return (
-        <YearWrapper $size={size}>
+        <YearWrapper data-testid='calendar-year' $size={size}>
         {
           yearDates.map((month, index)=>(
             <Component
