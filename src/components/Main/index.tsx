@@ -1,16 +1,12 @@
 import {JSX} from 'react'
-import { ISize } from '@customTypes/index';
+import { IMain } from '@customTypes/index';
 
 import { Wrapper } from './styled'
 
-export interface IMain{
-  children: JSX.Element|JSX.Element[];
-  showHolidays: boolean;
-  size: ISize;
-}
+
 export function Main({children, showHolidays, size}: IMain): JSX.Element {
   return (
-    <Wrapper $showHolidays = {showHolidays} $size={size}>
+    <Wrapper data-testid='main' $showHolidays = {showHolidays} $size={size}>
       {children}
     </Wrapper>
   )

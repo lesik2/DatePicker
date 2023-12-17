@@ -10,7 +10,9 @@ import eslint from '@rollup/plugin-eslint';
 import alias from '@rollup/plugin-alias';
 import styles from "rollup-plugin-styles";
 import image from '@rollup/plugin-image';
+import replace from '@rollup/plugin-replace';
 const packageJson = require('./package.json');
+import 'dotenv/config'
 
 export default [
     {
@@ -38,6 +40,7 @@ export default [
                 { find: /^@assets\/(.*)/, replacement: 'src/assets/$1' },
                 { find: /^@hooks\/(.*)/, replacement: 'src/hooks/$1' },
                 { find: /^@utils\/(.*)/, replacement: 'src/utils/$1' },
+                { find: /^@containers\/(.*)/, replacement: 'src/containers/$1' },
               ]
             }),
             external(),
@@ -60,7 +63,12 @@ export default [
             babel({ babelHelpers: 'bundled' }),
             eslint(),
             styles(),
-            image(),  
+            image(),
+            replace({
+              preventAssignment: true,
+              KEY_HOLIDAYS: process.env.KEY_HOLIDAYS,
+              HOST_HOLIDAYS: process.env.HOST_HOLIDAYS,
+            })
         ],
         external: ["react", "react-dom", "styled-components"],
     },

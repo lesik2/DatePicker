@@ -1,10 +1,7 @@
-export type TypeOfDate = 'default'| 'disabled'|'start'|'selected'|'between'|'end';
+import { Dispatch } from "react";
 
-export interface IDate{
-  type: TypeOfDate;
-  dateNumber: number;
-  holiday?: boolean;
-}
+import { IColor, IDate, ISize, TypeStartWeekFrom } from "./models";
+
 export interface IDateCell{
   date: Date;
   incrementOfClicks: (numberOfDate: number) => void;
@@ -12,77 +9,40 @@ export interface IDateCell{
   size: ISize;
 }
 export type IDateComponent = IDate & IDateCell;
-export type TypeOfCalendar = 'month'|'week'|'year';
-export type TypeStartWeekFrom = 'Mo'|'Su';
-export type IColor = 'default'|'primary'|'secondary';
-export type ISize = 'default'|'medium';
-export interface IDateColor{
-  third: string;
-  startDate: string;
-  betweenDate: string;
+
+
+export interface ITooltip{
+  message: string;
+  isOpen: boolean;
+  setIsOpen: Dispatch<React.SetStateAction<boolean>>
 }
-export interface IDateSize{
-  widthCalendar:  string;
-  contentCalendar:  string;
-  columnWithWeekend:  string;
-  columnWithoutWeekend:  string;
-  widthOfDateCell:  string;
-  paddingDateCell:  string;
-  fontSizeOfDateCell:  string;
-  fontSizeOfWeekday:  string;
-  heightOfDateInput:  string;
-  widthOfDateInput:  string;
-  iconsWidth:  string;
-  paddingDateInput:  string;
-  widthYear: string;
-  modalHeight: string;
-  widthOfModalInput: string;
-}
-export interface ICalendarServiceState{
-  currentDate: Date;
-  changeDate: Date;
-  min: Date|null;
-  max: Date|null;
+export interface INavigation{
+  month: string;
+  year: number;
+  handleNextDate?: () => void;
+  handlePrevDate?: () => void;
   isDisablePrev: boolean;
   isDisableNext: boolean;
-}
-export interface ICreateCalendar{
-  type: TypeOfCalendar;
-  isShowWeekend: boolean;
-  isColorHolidays: boolean;
-  startWeekFrom: TypeStartWeekFrom;
-  dates: IDate[];
-  date: Date;
-  handlePrevDate: () => void,
-  handleNextDate: () => void,
-  isDisablePrev: boolean;
-  isDisableNext: boolean;
-  min: Date|null;
-  max: Date|null;
-  handleSearchCalendar: (searchDate: Date) => void;
-  currentDate: Date;
-  loading: boolean;
-  color: IColor;
   size: ISize;
-  defaultRange: boolean,
 }
-export interface ILimitDate{
-  min?: string;
-  max?: string;
+export interface IWeekday{
+  startWeekFrom: TypeStartWeekFrom;
+  showHolidays: boolean;
+  size: ISize;
 }
-export type IServiceCalendar = Pick<Partial<ICreateCalendar>, 'type'|'isShowWeekend'|'startWeekFrom'|'isColorHolidays'|'color'|'size'|'defaultRange'> & ILimitDate;
-export type ICalendar = Required<ICreateCalendar>
-export interface IHolidays{
-  date: string;
-  localName: string;
-  name: string;
-  countryCode: string;
+export interface IInfinityLoader{
+  color: IColor;
 }
-export interface INote{
-  text: string;
-  id: number;
+export interface IDateInput{
+  handleSearchCalendar: (searchDate: Date) => void;
+  size: ISize;
 }
-export interface IYearDate{
-  dates: IDate[];
-  date: Date;
+export interface IClearButton{
+  handleClear: () => void;
+  size: ISize;
+}
+export interface IMain{
+  children: JSX.Element|JSX.Element[];
+  showHolidays: boolean;
+  size: ISize;
 }

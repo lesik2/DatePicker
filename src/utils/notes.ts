@@ -1,6 +1,6 @@
-import { INote } from "../types";
+import { INote } from "@customTypes/models";
 
-export function getNotesForDate(date: string): INote[] | null {
+export function getNotesForDateFromStorage(date: string): INote[] | null {
   const storedNotes = localStorage.getItem(date);
   if (storedNotes!==null) {
     try {
@@ -14,6 +14,6 @@ export function getNotesForDate(date: string): INote[] | null {
   return null;
 }
 
-export function saveNotesForDate(date: string, notes: INote[]): void {
+export function saveNotesForDateToStorage(date: string, notes: INote[]): void {
   localStorage.setItem(date, JSON.stringify(notes));
 }

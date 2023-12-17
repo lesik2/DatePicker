@@ -1,6 +1,5 @@
 import styled, { keyframes, css } from 'styled-components';
-
-import { IColor } from '@//types';
+import { IColor } from '@customTypes/models';
 
 const spin = keyframes`
   100%{

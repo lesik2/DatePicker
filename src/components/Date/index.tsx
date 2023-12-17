@@ -1,13 +1,14 @@
 import {JSX, useState, useEffect} from 'react'
-import { IDateComponent, INote } from '@customTypes/index';
+import { IDateComponent } from '@customTypes/index';
+import { INote } from '@customTypes/models';
+import { getNotesForDateFromStorage } from '@utils/notes';
+import {CONSTANTS} from '@constants/index'
 
 import { DateWrapper, NumberOfDate } from './styled';
 
 import { ModalNotes } from '../ModalNotes/index';
 import { Modal } from '../Modal/index';
-import { getNotesForDate } from '../../utils/notes';
 import { Tooltip } from '../Tooltip';
-
 
 export function DateCell({
   type,dateNumber, date, incrementOfClicks, holiday,color,size 
@@ -31,7 +32,7 @@ export function DateCell({
   }
 
   useEffect(()=>{
-    const notesFromStorage = getNotesForDate(dateLocal.toLocaleDateString());
+    const notesFromStorage = getNotesForDateFromStorage(dateLocal.toLocaleDateString());
     if(notesFromStorage){
       setNotes(notesFromStorage)
     }
@@ -41,7 +42,15 @@ export function DateCell({
 
   return (
     <>
-    <DateWrapper onClick={handleClick} onDoubleClick={handleDoubleClick} $size={size} $type={type} $color={color} disabled={type==='disabled'}>
+    <DateWrapper 
+      data-testid="date-cell"
+      onClick={handleClick} 
+      onDoubleClick={handleDoubleClick} 
+      $size={size} 
+      $type={type} 
+      $color={color} 
+      disabled={type==='disabled'}
+      >
       <NumberOfDate 
         $color={color} 
         $type={type} 
@@ -51,7 +60,11 @@ export function DateCell({
       >
         {dateNumber}
       </NumberOfDate>
-      <Tooltip  isOpen={isOpenTip} setIsOpen={setIsOpenTip} message='double click for notes'/>
+      <Tooltip  
+        isOpen={isOpenTip} 
+        setIsOpen={setIsOpenTip} 
+        message={CONSTANTS.TOOLTIP_FOR_DATE_CELL
+      }/>
     </DateWrapper>
       {isOpen && 
         <Modal onClose={handleClose}>
