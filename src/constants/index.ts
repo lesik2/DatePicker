@@ -15,5 +15,11 @@ export const LOCAL_STORAGE_KEYS={
   HOLIDAY:'holiday',
   DATE_START: 'start',
   DATE_END: 'end',
-}
+} as const
 export const CountryCode = 'BY';
+export const DATE_CONSTANTS = {
+  DAYS_IN_WEEK: 7,
+  MILLISECONDS_IN_DAY: 86400000,
+  MONTH_IN_YEAR: 12,
+  LAST_INDEX_OF_WEEK: 6,
+}

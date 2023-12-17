@@ -1,14 +1,14 @@
 import { ComponentType, JSX } from 'react';
-import { removeWeekdayDates } from '@utils/index';
+import { ICreateCalendar } from '@customTypes/calendar';
 
-import { ICreateCalendar } from '../types';
+import { removeWeekdayDays } from './helpers/removeWeekdayDays';
 
 export const changeVisibilityOfWeekend = (Component: ComponentType<ICreateCalendar>) =>
   (props: ICreateCalendar): JSX.Element => {
     const { isShowWeekend, dates, startWeekFrom } = props;
 
     if (!isShowWeekend) {
-      const datesWithoutWeekend = removeWeekdayDates(dates, startWeekFrom);
+      const datesWithoutWeekend = removeWeekdayDays(dates, startWeekFrom);
 
       return (
         <Component 

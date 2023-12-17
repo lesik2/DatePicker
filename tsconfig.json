@@ -13,6 +13,7 @@
       "@customTypes/*": ["src/types/*"],
       "@utils/*": ["src/utils/*"],
       "@app/*": ["src/app/*"],
+      "@containers/*": ["src/containers/*"],
       "@pages/*": ["src/pages/*"],
     },
 

@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import { IHolidays } from '@customTypes/models';
-import { saveHolidays, getHolidays } from '@utils/holidays';
+import { saveHolidaysToStorage, getHolidaysFromStorage } from '@utils/holidays';
 import { CountryCode } from '@constants/index';
 
 export function useHolidays(year: number): IHolidays[]{
@@ -15,7 +15,7 @@ export function useHolidays(year: number): IHolidays[]{
     })
     .then((response: Response)=>response.json())
     .then((data: IHolidays[])=>{
-      saveHolidays(data);
+      saveHolidaysToStorage(data);
       setHolidays(data);
     })
     .catch((error: Error)=> console.error(error.message))
@@ -28,7 +28,7 @@ export function useHolidays(year: number): IHolidays[]{
   }
 
   useEffect(()=>{
-    const holidaysFromStorage = getHolidays();
+    const holidaysFromStorage = getHolidaysFromStorage();
     if(holidaysFromStorage){
       const validHoliday = new Date(holidaysFromStorage[0].date).getFullYear() === new Date().getFullYear();
       if(!validHoliday){

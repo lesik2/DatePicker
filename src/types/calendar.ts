@@ -6,7 +6,7 @@ export interface ICreateCalendar{
   isColorHolidays: boolean;
   startWeekFrom: TypeStartWeekFrom;
   dates: IDate[];
-  date: Date;
+  changeDate: Date;
   handlePrevDate: () => void,
   handleNextDate: () => void,
   isDisablePrev: boolean;

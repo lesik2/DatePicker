@@ -2,7 +2,7 @@ import {LOCAL_STORAGE_KEYS} from '@constants/index'
 import { StartOrEnd } from '@customTypes/models';
 
 
-export function getRangeDate(startOrEnd: StartOrEnd): Date| null {
+export function getRangeDateFromStorage(startOrEnd: StartOrEnd): Date| null {
   const date = localStorage.getItem(startOrEnd);
 
   if (date!==null) {
@@ -16,11 +16,11 @@ export function getRangeDate(startOrEnd: StartOrEnd): Date| null {
   return null;
 }
 
-export function saveRangeDate(date: string,startOrEnd: StartOrEnd): void {
+export function saveRangeDateToStorage(date: string,startOrEnd: StartOrEnd): void {
   localStorage.setItem(startOrEnd, date);
 }
 
-export function clearRangeDate(): void{
+export function clearRangeDateFromStorage(): void{
   localStorage.removeItem(LOCAL_STORAGE_KEYS.DATE_START);
   localStorage.removeItem(LOCAL_STORAGE_KEYS.DATE_END);
 }

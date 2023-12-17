@@ -40,6 +40,7 @@ export default [
                 { find: /^@assets\/(.*)/, replacement: 'src/assets/$1' },
                 { find: /^@hooks\/(.*)/, replacement: 'src/hooks/$1' },
                 { find: /^@utils\/(.*)/, replacement: 'src/utils/$1' },
+                { find: /^@containers\/(.*)/, replacement: 'src/containers/$1' },
               ]
             }),
             external(),

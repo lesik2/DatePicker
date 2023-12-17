@@ -1,15 +1,15 @@
 import { ComponentType, JSX } from 'react';
-import {defineDefaultRangePicker} from '@utils/index'
+import { ICreateCalendar } from '@customTypes/calendar';
+import { getRangeDateFromStorage } from '@utils/rangePicker';
 
-import { ICreateCalendar } from '../types';
-import { getStartDate } from '../utils/rangePicker';
+import {defineDefaultRangePicker} from './helpers/defineDefaultRangePicker'
 
 export const setDefaultRange = (Component: ComponentType<ICreateCalendar>) =>
   (props: ICreateCalendar): JSX.Element => {
-    const { dates, defaultRange, date} = props;
+    const { dates, defaultRange, changeDate, currentDate} = props;
 
-    if (defaultRange && getStartDate('start')===null) {
-      const defaultRangeDates= defineDefaultRangePicker(dates, date);
+    if (defaultRange && getRangeDateFromStorage('start')===null && changeDate.getTime()===currentDate.getTime()) {
+      const defaultRangeDates= defineDefaultRangePicker(dates, currentDate);
 
       return (
         <Component 

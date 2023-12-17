@@ -20,3 +20,7 @@ export interface IHolidays{
   countryCode: string;
 }
 export type StartOrEnd = 'end'|'start';
+export interface IYearDate{
+  dates: IDate[];
+  date: Date;
+}

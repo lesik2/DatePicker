@@ -1,15 +1,16 @@
 import { ComponentType, JSX } from 'react';
-import { changeTypeOfCalendarToWeek, getCalendarYear} from '@utils/index';
+import { ICreateCalendar } from '@customTypes/calendar';
 
-import { ICreateCalendar } from '../types';
+import { changeTypeOfCalendarToWeek, changeTypeOfCalendarToYear} from './helpers/changeType';
+
 import { YearWrapper } from '../components/Calendar/styled';
 
 export const changeTypeOfCalendar = (Component: ComponentType<ICreateCalendar>) =>
   (props: ICreateCalendar): JSX.Element => {
-    const { type, dates,date, startWeekFrom, currentDate, size } = props;
+    const { type, dates,changeDate, startWeekFrom, currentDate, size } = props;
 
     if (type==='week') {
-      const datesWithoutWeekend = changeTypeOfCalendarToWeek(dates, date, startWeekFrom );
+      const datesWithoutWeekend = changeTypeOfCalendarToWeek(dates, changeDate, startWeekFrom );
 
       return (
         <Component 
@@ -20,7 +21,7 @@ export const changeTypeOfCalendar = (Component: ComponentType<ICreateCalendar>) 
     }
 
     if(type === 'year'){
-      const yearDates = getCalendarYear(date.getFullYear(),startWeekFrom,currentDate);
+      const yearDates = changeTypeOfCalendarToYear(changeDate.getFullYear(),startWeekFrom,currentDate);
       
       return (
         <YearWrapper $size={size}>
@@ -31,7 +32,7 @@ export const changeTypeOfCalendar = (Component: ComponentType<ICreateCalendar>) 
               key={index}
               {...props}
               dates={month.dates}
-              date={month.date} 
+              changeDate={month.date} 
             />
           ))
         }

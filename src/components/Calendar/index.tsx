@@ -1,15 +1,15 @@
-import {JSX, useState, useEffect} from 'react'
+import {JSX, useState} from 'react'
 import {Main} from '@components/Main/index'
 import {Navigation} from '@components/Navigation/index'
 import {DateCell} from '@components/Date/index'
 import {Weekday} from '@components/Weekday/index'
 import { DateInput } from '@components/DateInput/index'
-import { clearRangeDate, getRangeDate, saveRangeDate } from '@utils/rangePicker'
+import { clearRangeDateFromStorage, getRangeDateFromStorage, saveRangeDateToStorage } from '@utils/rangePicker'
 import { ICreateCalendar} from '@customTypes/calendar'
-import {rangeDates} from '@utils/index'
 import { IDate } from '@customTypes/models'
 
 import { Wrapper,CalendarWrapper } from './styled'
+import { useRangeDate } from './hooks/useRangeDate'
 
 import { ClearButton } from '../ClearButton'
 import { InfinityLoader } from '../InfinityLoader'
@@ -17,38 +17,38 @@ import { InfinityLoader } from '../InfinityLoader'
 
 
 export function Calendar({
-  dates, date, startWeekFrom, isShowWeekend, handleNextDate, 
+  dates, changeDate, startWeekFrom, isShowWeekend, handleNextDate, 
   handlePrevDate, isDisableNext, isDisablePrev, handleSearchCalendar,loading, isColorHolidays,
   color, size
 }: ICreateCalendar): JSX.Element {
   
-  const year = date.getFullYear();
-  const month = date.toLocaleString('en-US', { month: 'long' });
+  const year = changeDate.getFullYear();
+  const month = changeDate.toLocaleString('en-US', { month: 'long' });
   const defineAmountOfClicks=(): number => {
-    const startDate = getRangeDate('start') === null?0:1;
-    const endDate = getRangeDate('end') === null?0:1;
+    const startDate = getRangeDateFromStorage('start') === null?0:1;
+    const endDate = getRangeDateFromStorage('end') === null?0:1;
 
     return startDate+ endDate;
   }
 
   const [datesOfCalendar, setDatesOfCalendar] = useState<IDate[]>(dates);
   const [amountOfClicks, setAmountOfClicks] = useState(defineAmountOfClicks());
-  const [start, setStart]  = useState<Date|null>(getRangeDate('start'));
-  const [end, setEnd] = useState<Date| null>(getRangeDate('end'));
+  const [start, setStart]  = useState<Date|null>(getRangeDateFromStorage('start'));
+  const [end, setEnd] = useState<Date| null>(getRangeDateFromStorage('end'));
 
- 
+  useRangeDate(start, end,changeDate,datesOfCalendar,setDatesOfCalendar);
 
   const incrementOfClicks = (numberOfDate: number) => {
     if(amountOfClicks+1 === 1){
-      const startDate = new Date(year, date.getMonth(), numberOfDate);
+      const startDate = new Date(year, changeDate.getMonth(), numberOfDate);
       setStart(startDate)
-      saveRangeDate(startDate.toString(), 'start');
+      saveRangeDateToStorage(startDate.toString(), 'start');
       setAmountOfClicks((prev)=>prev+1)
     }else if(amountOfClicks+1 === 2 && start){
-      const endDate = new Date(year, date.getMonth(), numberOfDate);
+      const endDate = new Date(year, changeDate.getMonth(), numberOfDate);
       if(endDate.getDate()>start.getDate()){
         setEnd(endDate);
-        saveRangeDate(endDate.toString(), 'end');
+        saveRangeDateToStorage(endDate.toString(), 'end');
         setAmountOfClicks((prev)=>prev+1)
       }
 
@@ -59,7 +59,7 @@ export function Calendar({
     setStart(null);
     setEnd(null);
     setAmountOfClicks(0);
-    clearRangeDate();
+    clearRangeDateFromStorage();
     const clearDates: IDate[] = datesOfCalendar.map((item)=>{
       if(item.type === 'start' || item.type ==='end' || item.type === 'between'){
         return {...item, type: 'default'}
@@ -71,33 +71,7 @@ export function Calendar({
     setDatesOfCalendar(clearDates)
   }
 
-  useEffect(()=>{
-    if(start && end){
-      const currentDate = new Date(date.getFullYear(), date.getMonth()+1,0);
-      if(date.getTime()+ (currentDate.getDate()-date.getDate())*86400000>start.getTime() 
-      && date.getTime()-date.getDate()*86400000<end.getTime()){
-        setDatesOfCalendar(rangeDates(datesOfCalendar, start,end, date));
-      }
-    }
-    else if(start){
-      const startDates: IDate[] = datesOfCalendar.map((item)=>{
-        if(item.type === 'disabled' || item.type === 'selected'){
-          return item;
-        }
-
-        if(item.dateNumber === start.getDate()
-        && start.getFullYear()===year
-        && start.getMonth() === date.getMonth()){
-          return {...item, type: 'start'};
-        }
-
-        return item;
-      })
-
-      setDatesOfCalendar(startDates);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [start, end])
+ 
   
   return (
     <Wrapper>
@@ -114,13 +88,13 @@ export function Calendar({
             
           />
           <Weekday size={size} startWeekFrom={startWeekFrom} showHolidays={isShowWeekend}/>
-          {!loading && isColorHolidays ?<InfinityLoader color={color} />: 
+          {loading && isColorHolidays ?<InfinityLoader color={color} />: 
             <Main size={size}  showHolidays={isShowWeekend}>
                 {datesOfCalendar.map((dateItem, index)=>(
                   <DateCell 
                     // eslint-disable-next-line react/no-array-index-key
                     key={index} 
-                    {...dateItem} date={date} 
+                    {...dateItem} date={changeDate} 
                     incrementOfClicks={incrementOfClicks}
                     color={color}
                     size={size}

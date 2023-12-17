@@ -2,7 +2,7 @@ import {LOCAL_STORAGE_KEYS} from '@constants/index'
 
 import { IHolidays } from "../types/models";
 
-export function getHolidays():  IHolidays[] | null {
+export function getHolidaysFromStorage():  IHolidays[] | null {
   const storedHolidays = localStorage.getItem(LOCAL_STORAGE_KEYS.HOLIDAY);
   if (storedHolidays!==null) {
     try {
@@ -16,6 +16,6 @@ export function getHolidays():  IHolidays[] | null {
   return null;
 }
 
-export function saveHolidays(holidays: IHolidays[]): void {
+export function saveHolidaysToStorage(holidays: IHolidays[]): void {
   localStorage.setItem(LOCAL_STORAGE_KEYS.HOLIDAY, JSON.stringify(holidays));
 }

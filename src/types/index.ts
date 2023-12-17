@@ -10,10 +10,7 @@ export interface IDateCell{
 }
 export type IDateComponent = IDate & IDateCell;
 
-export interface IYearDate{
-  dates: IDate[];
-  date: Date;
-}
+
 export interface ITooltip{
   message: string;
   isOpen: boolean;

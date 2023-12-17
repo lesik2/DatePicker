@@ -17,7 +17,7 @@ export const DateWrapper = styled.button<{$type?: IDate['type'], $color: IColor,
       return theme.colors.chooseColor($color).betweenDate;
     }
 
-      return theme.colors.secondary;
+    return theme.colors.secondary;
     
   }};
     border: none;
@@ -41,7 +41,7 @@ export const DateWrapper = styled.button<{$type?: IDate['type'], $color: IColor,
         return '0px'
       }
 
-        return '8px';
+      return '8px';
       
     }};
     transition: background-color 0.2s;
@@ -70,7 +70,7 @@ export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean, $h
         return theme.colors.disabled;
       }
       
-        return theme.colors.primary;
+      return theme.colors.primary;
       
     }};
     position:relative;
@@ -85,7 +85,7 @@ export const NumberOfDate = styled.p<{$type?: IDate['type'], $task?: boolean, $h
       width: 5px;
       height: 5px;
       top: -5px;
-      right: -7px;
+      right: -5px;
       border-radius: 50%;
       background-color: ${$type==='selected'|| $type ==='start'||$type==='end'?theme.colors.secondary: theme.colors.chooseColor($color).third}
     }
