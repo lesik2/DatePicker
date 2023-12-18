@@ -57,6 +57,46 @@ describe('Calendar component', () => {
     render(<CalendarService {...Props} />)
     expect(screen.getByTestId('main').children.length).toBeGreaterThan(28);
   });
+  test('should change date after typing in input with valid format(day/month/year)', async()=>{
+    render(<CalendarService {...Props} />)
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.toLocaleString('en-US', { month: 'long' });
+    const title = screen.queryByText(`${month} ${year}`);
+    expect(title).toBeInTheDocument();
+    await userEvent.type(screen.getByRole('textbox'), '01/01/2024');
+    expect(screen.queryByText('January 2024'));
+  })
+  test('should  not change date after typing in input invalid format(day/month/year)', async()=>{
+    render(<CalendarService {...Props} />)
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.toLocaleString('en-US', { month: 'long' });
+    const title = screen.queryByText(`${month} ${year}`);
+    expect(title).toBeInTheDocument();
+    await userEvent.type(screen.getByRole('textbox'), '01/13/2024');
+    expect(title).toBeInTheDocument();
+  })
+  test('should  not change date after typing in input date larger than max', async()=>{
+    render(<CalendarService {...Props} />)
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.toLocaleString('en-US', { month: 'long' });
+    const title = screen.queryByText(`${month} ${year}`);
+    expect(title).toBeInTheDocument();
+    await userEvent.type(screen.getByRole('textbox'), '15/07/2030');
+    expect(title).toBeInTheDocument();
+  })
+  test('should  not change date after typing in input date less than min', async()=>{
+    render(<CalendarService {...Props} />)
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.toLocaleString('en-US', { month: 'long' });
+    const title = screen.queryByText(`${month} ${year}`);
+    expect(title).toBeInTheDocument();
+    await userEvent.type(screen.getByRole('textbox'), '15/07/1999');
+    expect(title).toBeInTheDocument();
+  })
   test('after clicking on navigation buttons should move 7 days if type=week', async ()=>{
     Props={...Props, type: 'week'}
     render(<CalendarService {...Props} />)
