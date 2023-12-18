@@ -17,6 +17,7 @@ module.exports = {
           '<rootDir>/src/tests/mocks/fileMock.ts',
     '^.+\\.(css|less|scss|sass)$': '<rootDir>/src/tests/mocks/styleMock.ts',
     '(assets|models|services)': '<rootDir>/src/tests/mocks/fileMock.ts',
+    '@fontsource/open-sans': '<rootDir>/src/tests/mocks/fileMock.ts',
   },
   setupFilesAfterEnv: ['./src/tests/setupTests.ts'],
 

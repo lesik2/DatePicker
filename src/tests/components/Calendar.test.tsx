@@ -57,6 +57,21 @@ describe('Calendar component', () => {
     render(<CalendarService {...Props} />)
     expect(screen.getByTestId('main').children.length).toBeGreaterThan(28);
   });
+  test('after clicking on navigation buttons should move 7 days if type=week', async ()=>{
+    Props={...Props, type: 'week'}
+    render(<CalendarService {...Props} />)
+    const currentDate = new Date();
+    expect(screen.getByText(currentDate.getDate())).toBeInTheDocument();
+    await userEvent.click(screen.getByTestId('next-btn'));
+    currentDate.setDate(currentDate.getDate()+7);
+    expect(screen.getByText(currentDate.getDate())).toBeInTheDocument();
+    await userEvent.click(screen.getByTestId('prev-btn'));
+    currentDate.setDate(currentDate.getDate()-7);
+    expect(screen.getByText(currentDate.getDate())).toBeInTheDocument();
+    await userEvent.click(screen.getByTestId('prev-btn'));
+    currentDate.setDate(currentDate.getDate()-7);
+    expect(screen.getByText(currentDate.getDate())).toBeInTheDocument();
+  })
   test('after clicking on navigation buttons should change month(year)', async ()=>{
     render(<CalendarService {...Props} />)
 

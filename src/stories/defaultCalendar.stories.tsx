@@ -18,6 +18,7 @@ export const FirstStory: Story = {
     max: '22/02/2024',
     isColorHolidays: true,
     color: 'default',
+    size: 'default',
     defaultRange: true,
   }
 }
