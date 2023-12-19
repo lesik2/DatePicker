@@ -25,12 +25,12 @@ export function Calendar({
   const year = changeDate.getFullYear();
   const month = changeDate.toLocaleString('en-US', { month: 'long' });
 
-  const [datesOfCalendar, setDatesOfCalendar] = useState<IDate[]>(dates);
+  
   const [amountOfClicks, setAmountOfClicks] = useState(defineAmountOfClicks());
   const [start, setStart]  = useState<Date|null>(getRangeDateFromStorage('start'));
   const [end, setEnd] = useState<Date| null>(getRangeDateFromStorage('end'));
 
-  useRangeDate(start, end,changeDate,datesOfCalendar,setDatesOfCalendar);
+ const [datesOfCalendar,setDatesOfCalendar] =  useRangeDate(start, end,changeDate, dates);
 
   const incrementOfClicks = (numberOfDate: number) => {
     if(amountOfClicks+1 === 1){

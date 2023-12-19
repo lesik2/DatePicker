@@ -11,7 +11,6 @@ export function getNotesForDateFromStorage(date: string): INote[] | null {
       console.error('Error parsing notes from local storage:', error);
     }
   
-
   return null;
 }
 

@@ -5,7 +5,7 @@ import { CountryCode } from '@constants/index';
 
 export function useHolidays(year: number): IHolidays[]{
   const [holidays, setHolidays] = useState<IHolidays[]>([]);
- 
+
 
   useEffect(()=>{
     const fetchHolidays = () => {
@@ -29,18 +29,17 @@ export function useHolidays(year: number): IHolidays[]{
         }
       }
     }
-    
+
     const holidaysFromStorage = getHolidaysFromStorage();
-    if(holidaysFromStorage && holidaysFromStorage.length>0){
-      const validHoliday = new Date(holidaysFromStorage[0].date).getFullYear() === new Date().getFullYear();
+    const validHoliday = holidaysFromStorage.length>0?
+    new Date(holidaysFromStorage[0].date).getFullYear() === new Date().getFullYear():false;
+
       if(!validHoliday){
         fetchHolidays();
       }else{
         setHolidays(holidaysFromStorage);
       }
-    }else{
-      fetchHolidays();
-    }
+    
   },[year])
 
   return holidays;

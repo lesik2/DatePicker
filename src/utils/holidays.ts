@@ -2,8 +2,7 @@ import {LOCAL_STORAGE_KEYS} from '@constants/index'
 
 import { IHolidays } from "../types/models";
 
-export function getHolidaysFromStorage():  IHolidays[] | null {
-  
+export function getHolidaysFromStorage():  IHolidays[] {
     try {
       const storedHolidays = localStorage.getItem(LOCAL_STORAGE_KEYS.HOLIDAY);
       if (storedHolidays!==null){
@@ -12,8 +11,8 @@ export function getHolidaysFromStorage():  IHolidays[] | null {
     } catch (error) {
       console.error('Error parsing notes from local storage:', error);
     }
-    
-  return null;
+
+  return [];
 }
 
 export function saveHolidaysToStorage(holidays: IHolidays[]): void {
