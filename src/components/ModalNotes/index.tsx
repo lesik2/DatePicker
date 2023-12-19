@@ -8,7 +8,7 @@ import { AddBtn, EmptyMessage, Icon, ListNotes, NoteInput, NoteWrapper, RemoveBt
 import { useSaveNote } from './hooks/useSaveNote';
 
 export  function ModalNotes ({notes, setNotes, date, size}: IModalNotes) {
-  const addNote = () => {
+  const handleAddNote = () => {
     const nextNotes = [...notes, {text: '',id: notes.length>0? notes[notes.length-1].id+1:1}];
     setNotes(nextNotes)
   }
@@ -58,7 +58,7 @@ const handleInput = (event: ChangeEvent<HTMLInputElement>, id: number) => {
           <EmptyMessage>{CONSTANTS.EMPTY_NOTES}</EmptyMessage>
         }
       </ListNotes>
-      <AddBtn data-testid="add-note" onClick={addNote}>
+      <AddBtn data-testid="add-note" onClick={handleAddNote}>
         <Icon alt='add button' src={addIcon}/>
       </AddBtn>
     </Wrapper>
