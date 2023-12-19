@@ -35,4 +35,4 @@
  - **defaultRange**: Specifies whether to use the default date range. Possible values: true, false.
 
 ### Deploy
-  https://date-picker-nine-gamma.vercel.app/
+  https://date-picker-52i3.vercel.app/?path=/story/stories-defaultcalendar--first-story
