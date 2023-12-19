@@ -3,15 +3,16 @@ import { StartOrEnd } from '@customTypes/models';
 
 
 export function getRangeDateFromStorage(startOrEnd: StartOrEnd): Date| null {
-  const date = localStorage.getItem(startOrEnd);
-
-  if (date!==null) {
     try {
+      const date = localStorage.getItem(startOrEnd);
+
+      if (date!==null){
         return  new Date(date);
+      }
     } catch (error) {
       console.error('Error start date from local storage:', error);
     }
-  }
+  
   
   return null;
 }
