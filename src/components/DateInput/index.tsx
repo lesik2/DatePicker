@@ -34,7 +34,7 @@ export const DateInput = memo(({handleSearchCalendar, size}: IDateInput): JSX.El
 
   return (
     <Wrapper data-testid="date-input" $size={size}>
-      <IconCalendar alt ='icon for calendar' src={calendarIcon} $size={size}/>
+      <IconCalendar alt ='calendar' src={calendarIcon} $size={size}/>
       <Input 
         $size={size} 
         onFocus={handleFocus} 

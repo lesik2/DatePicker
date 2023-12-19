@@ -41,7 +41,6 @@ module.exports = {
     "@typescript-eslint/no-non-null-asserted-nullish-coalescing": "error",
     "@typescript-eslint/prefer-includes": "warn",
     "@typescript-eslint/no-unsafe-return": "error",
-    "@typescript-eslint/explicit-module-boundary-types": "warn",
     "@typescript-eslint/no-unsafe-call": "error",
     "@typescript-eslint/no-unnecessary-type-assertion": "error",
     "@typescript-eslint/no-unused-vars": [
@@ -120,6 +119,7 @@ module.exports = {
     "implicit-arrow-linebreak": 0,
     "no-console": ["error", { "allow": ["error", "info"] }],
     "no-alert": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    '@typescript-eslint/explicit-module-boundary-types': ['off'],
   }
 }

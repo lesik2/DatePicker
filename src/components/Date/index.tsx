@@ -1,4 +1,4 @@
-import {JSX, useState, useEffect, useMemo} from 'react'
+import { useState, useEffect, useMemo} from 'react'
 import { IDateComponent } from '@customTypes/index';
 import { INote } from '@customTypes/models';
 import { getNotesForDateFromStorage } from '@utils/notes';
@@ -12,7 +12,7 @@ import { Tooltip } from '../Tooltip';
 
 export function DateCell({
   type,dateNumber, date, incrementOfClicks, holiday,color,size 
-}: IDateComponent): JSX.Element{
+}: IDateComponent){
   const dateLocal = useMemo(()=>new Date(date.getFullYear(), date.getMonth(),dateNumber),[date, dateNumber]);
   const [isOpen, setIsOpen] = useState(false);
   const [notes, setNotes] = useState<INote[]>([]);
