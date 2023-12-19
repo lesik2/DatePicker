@@ -28,7 +28,6 @@
   "dependencies": {
     "@fontsource/open-sans": "^5.0.17",
     "@storybook/cli": "^7.6.1",
-    "dotenv": "^16.3.1",
     "styled-components": "^6.1.1"
   },
   "devDependencies": {
@@ -105,7 +104,8 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.3.2",
     "vite": "^4.5.0",
-    "vite-tsconfig-paths": "^4.2.1"
+    "vite-tsconfig-paths": "^4.2.1",
+    "dotenv": "^16.3.1"
   },
   "peerDependencies": {
     "react": "^18.2.0",

@@ -30,7 +30,7 @@ export function Calendar({
   const [start, setStart]  = useState<Date|null>(getRangeDateFromStorage('start'));
   const [end, setEnd] = useState<Date| null>(getRangeDateFromStorage('end'));
 
- const [datesOfCalendar,setDatesOfCalendar] =  useRangeDate(start, end,changeDate, dates);
+  const [datesOfCalendar,setDatesOfCalendar] =  useRangeDate(start, end,changeDate, dates);
 
   const incrementOfClicks = (numberOfDate: number) => {
     if(amountOfClicks+1 === 1){
