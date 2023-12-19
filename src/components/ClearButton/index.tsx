@@ -1,10 +1,10 @@
-import {JSX, memo} from 'react'
+import { memo} from 'react'
 import { IClearButton } from '@customTypes/index';
 import {CONSTANTS} from '@constants/index'
 
 import { ClearBtn } from './styled'
 
-export const ClearButton =  memo(({handleClear, size}: IClearButton): JSX.Element =>{
+export const ClearButton =  memo(({handleClear, size}: IClearButton) =>{
   const handleClick = () => {
     handleClear();
   }

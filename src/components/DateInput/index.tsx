@@ -1,4 +1,4 @@
-import {JSX, useState, ChangeEvent, memo } from 'react';
+import {useState, ChangeEvent, memo } from 'react';
 import calendarIcon from '@assets/icons/calendarIcon.svg';
 import clear from '@assets/icons/clear.svg';
 import { REGULAR_EXPRESSIONS ,CONSTANTS} from '@constants/index';
@@ -9,7 +9,7 @@ import { ClearBtn, IconCalendar, IconClear, Input, Wrapper } from './styled';
 import { Tooltip } from '../Tooltip';
 
 
-export const DateInput = memo(({handleSearchCalendar, size}: IDateInput): JSX.Element => {
+export const DateInput = memo(({handleSearchCalendar, size}: IDateInput) => {
   const [dateInput, setDateInput] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const handleClick = ()=>{

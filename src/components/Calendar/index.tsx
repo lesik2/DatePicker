@@ -1,4 +1,4 @@
-import {JSX, useState} from 'react'
+import {useState} from 'react'
 import {Main} from '@components/Main/index'
 import {Navigation} from '@components/Navigation/index'
 import {DateCell} from '@components/Date/index'
@@ -20,7 +20,7 @@ export function Calendar({
   dates, changeDate, startWeekFrom, isShowWeekend, handleNextDate, 
   handlePrevDate, isDisableNext, isDisablePrev, handleSearchCalendar,loading, isColorHolidays,
   color, size
-}: ICreateCalendar): JSX.Element {
+}: ICreateCalendar) {
   
   const year = changeDate.getFullYear();
   const month = changeDate.toLocaleString('en-US', { month: 'long' });

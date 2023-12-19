@@ -1,5 +1,4 @@
 import closeIcon from '@assets/icons/closeModal.svg';
-import {JSX} from 'react';
 import { IModal } from '@customTypes/modal';
 
 import {
@@ -9,7 +8,7 @@ import {
 } from './styled';
 
 
-export function Modal({ onClose, children }: IModal): JSX.Element {
+export function Modal({ onClose, children }: IModal) {
   return (
       <Wrapper data-testid='modal'>
         <Content>

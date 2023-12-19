@@ -1,4 +1,4 @@
-import {JSX, ChangeEvent} from 'react';
+import { ChangeEvent} from 'react';
 import {IModalNotes} from '@customTypes/modal'
 import removeIcon from '@assets/icons/removeIcon.svg';
 import addIcon from '@assets/icons/clear.svg';
@@ -7,7 +7,7 @@ import {CONSTANTS} from '@constants/index'
 import { AddBtn, EmptyMessage, Icon, ListNotes, NoteInput, NoteWrapper, RemoveBtn, Title, Wrapper } from './styled'
 import { useSaveNote } from './hooks/useSaveNote';
 
-export  function ModalNotes ({notes, setNotes, date, size}: IModalNotes): JSX.Element {
+export  function ModalNotes ({notes, setNotes, date, size}: IModalNotes) {
   const addNote = () => {
     const nextNotes = [...notes, {text: '',id: notes.length>0? notes[notes.length-1].id+1:1}];
     setNotes(nextNotes)
