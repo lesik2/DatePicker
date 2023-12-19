@@ -8,7 +8,7 @@ export const colorHolidaysDays  = (Component: ComponentType<ICreateCalendar>) =>
   (props: ICreateCalendar): JSX.Element => {
     const { isColorHolidays, changeDate, dates  } = props;
     const holidays = useHolidays(changeDate.getFullYear())
-    if (isColorHolidays) {
+    if (isColorHolidays && holidays.length>0) {
       const datesWithColoredHolidays = colorHolidays(holidays,dates, changeDate)
       
       return (
